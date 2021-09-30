@@ -1,34 +1,188 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
-owner: Partners
+title: Installing and Configuring Cloud Service Broker for GCP (Beta)
+owner: Cloud Service Broker
 ---
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+This topic describes how to install and configure <%= vars.product_full %> (<%= vars.product_short %>).
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+## <a id="prereq"></a> Prerequisites for Installing <%= vars.product_short %>
 
-To install the YOUR-PRODUCT-NAME file on the Ops Manager Installation Dashboard, do the following:
+Before you install <%= vars.product_short %>, you must have:
 
-1. Download the product file from Pivotal Network.
+* **A Small MySQL Database:**
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
+    This database is used as the _state database_.
+    The broker requires this database to store its state.
 
-1. Under **Import a Product**, click **+** next to the version number of YOUR-PRODUCT-NAME.
-This adds the tile to your staging area.
+* **GCP Account Credentials:**
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+    Any services provisioned by CSB must be provisioned by the same GCP account
+    that the foundation is running in.
+    To do this, the broker needs the following credentials to manage resources within that account:
 
-1. **This portion of the procedure should tell the users how to configure the newly added tile by
-walking them through the sections. Which fields should they fill out? What are the different
-checkboxes? Include relevant screenshots here.**
+    - Service Account JSON
+
+## <a id="install"></a> Install <%= vars.product_short %>
+
+To install the <%= vars.product_short %> using <%= vars.ops_manager %> Installation Dashboard:
+
+1. Download the product file from
+[<%= vars.product_network %>](https://network.pivotal.io/products/cloud-service-broker-gcp/).
+GCP services are provided in the `gcp` release, demarcated as `VERSION-GCP`, for example,
+`v1.0.0-gcp`.
+
+1. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click **Import a Product** to
+upload the product file.
+
+1. Under **Import a Product**, click **+** next to the version number of <%= vars.product_short %>
+in the left sidebar. This adds the tile to your staging area.
+
+1. Click the newly added **Cloud Service Broker for gcp** tile.
+
+
+## <a id="config-gcp"></a> Configure the <%= vars.product_short %>
+
+The following procedures describe configuring the panes on the <%= vars.product_short %> tile.
+
+
+### <a id="config-azs"></a> Configure AZs and Networks
+
+This section describes how to choose an AZ to run the service broker for <%= vars.product_short %>.
+It also describes how to select networks for <%= vars.product_short %>.
+
+To configure AZs and networks:
+
+1. Click **Assign AZs and Networks**.
+
+1. Configure the fields as follows:
+
+    | Field | Instructions |
+    |-------|----------------|
+    | Place singleton jobs in | Select the AZ in which the broker VM for <%= vars.product_short %> runs. The broker runs as a singleton job. |
+    | Balance other jobs in | Select the AZs in which other jobs can run. |
+    | Network | Select a subnet for the <%= vars.product_short %> broker. This is typically the same subnet that includes the component VMs for <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>). |
 
 1. Click **Save**.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install YOUR-PRODUCT-NAME tile.
 
-**If needed, include additional configuration information below. For example, maybe there are
-configuration options not required for installation but which could be useful for certain users. Typical topics include:**
-1. **Self-service**--Do you have recommendations on how to configure/design plans in the tile so that users can choose the best options for themselves?
-1. **High availability**--How do you configure/deploy X Service tile to be highly available?
+### <a id="config-creds"></a> Configure GCP Credentials
+
+This section describes how to configure the GCP credentials that <%= vars.product_short %> requires to
+manage service instances.
+
+To configure GCP credentials:
+
+1. Click **GCP Config**.
+
+1. Configure the fields as follows:
+
+    | Field | Instructions |
+    |-------|--------------|
+    | Root Service Account JSON | Enter JSON service account |
+    | GCP project | Enter project name |
+    | Authorized Network ID | Enter the Region where your VPC is located |
+    | Region | Enter the default GCP Region for service instances |
+
+1. Click **Save**.
+
+### <a id="state-db"></a>Configure a State Database
+
+This section describes how to associate <%= vars.product_short %> with a MySQL database,
+the _state database_.
+
+#### About Encrypting the State Database
+
+In production environments, VMware recommends that you enable encryption.
+This encrypts certain sensitive information in the state database, such as IaaS credentials.
+The encryption password that you enter on the Service Broker Config pane is used to generate an encryption key.
+
+<p class="note">
+<strong>Note:</strong>
+Applying changes takes longer than normal when you first enable encryption and when you change the
+encryption password.
+</p>
+
+#### Prerequisite
+
+You must have a small MySQL database to use as the state database.
+
+#### Procedure: Configure a State Database
+
+To configure <%= vars.product_short %> with a database:
+
+1. Click **Service Broker Config**.
+
+    <%= image_tag("images/service-broker-config-pane.png", :alt => "Fields for configuring the service broker.
+  See the following steps for detailed descriptions of the configurable fields.", :width => "400") %>
+
+1. Configure the fields as follows:
+
+    | Field | Instructions |
+    |-------|--------------|
+    | **Database host** | Enter the host name of the prerequisite state database.|
+    | **Database username** and **Database password** | Enter the credentials for the state database.|
+    | **TLS Enforcement** | Select the type of TLS enforcement you want. If you select **Custom**, enter your CA certificate, client certificate, and key. |
+    | **Enable encryption of the Cloud Service Broker database**| If you want the sensitive data to be encrypted, select this checkbox and the **Add** button. If you do not want to encrypt the date, leave the checkbox unselected and do not fill in the Database Encryption Passwords fields.|
+    | **Label**| Enter a unique password label. You cannot change this label after you save.|
+    | **Password**| Enter a secure password that is at least 20 characters long. You cannot change this password after you save.|
+    | **Primary**| Select this checkbox if this is the password that you want to use to encrypt the data. You must mark one and only one password as primary.|
+
+1. Enter the credentials for the state database.
+
+3. Click **Save**.
+
+3. Return to the <%= vars.ops_manager %> Installation Dashboard.
+
+3. Click **Review Pending Changes**.
+
+3. Click **Apply changes** to install the <%= vars.product_short %> tile.
+
+## <a id="rotate-password"></a>Rotate the Encryption Password on the State Database
+
+If you have already set an encryption password and want to change it, follow the instructions below:
+
+To rotate the password on the state database:
+
+1. Click **Service Broker Config**.
+
+2. Clear the **Primary** checkbox.
+
+3. Click **Add**.
+
+4. Enter a new **Label** and **Password** for the new password, and select  **Primary**.
+
+    You cannot change the label or password after you save.
+
+1. Click **Save**.
+
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply changes** to install the <%= vars.product_short %> tile.
+
+1. (Recommended) After the apply changes process completes, delete the non-primary label and password pair and apply changes again. 
+
+## <a id="remove-encryption"></a> Remove Encryption from the State Database
+
+If the data in the state database was previously encrypted and you want to disable encryption, follow the instructions below.
+
+To remove encryption from the state database:
+
+1. Click **Service Broker Config**.
+
+2. Clear the **Enable encryption of the Cloud Service Broker database** checkbox.
+
+4. Clear the **Primary** checkbox, but do not change the Label or Password fields.
+
+1. Click **Save**.
+
+1. Return to the <%= vars.ops_manager %> Installation Dashboard.
+
+1. Click **Review Pending Changes**.
+
+1. Click **Apply changes** to install the <%= vars.product_short %> tile.
+
+1. (Recommended) After the apply changes process completes, delete all label and password pairs and apply changes again. 
