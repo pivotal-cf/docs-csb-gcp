@@ -10,7 +10,7 @@ It details the plans, configuration parameters, and binding credentials.
 
 ## <a id="plans"></a> Plans
 
-The table below lists the plans for Azure Storage Account:
+The table below lists the plans for Google Storage Bucket:
 
 | Plan | Description |
 |------|-------------|
@@ -21,17 +21,17 @@ The table below lists the plans for Azure Storage Account:
 ## <a id="plans-config"></a> Plan Configuration Parameters
 
 When configuring <%= vars.product_short %> you can add additional plans.
-For how to configure plans, see <a href="../installing-with-google.html#services">Configure Services with Cloud Service Broker for Azure</a>.
+For how to configure plans, see <a href="../installing-with-google.html#services">Configure Services with Cloud Service Broker for Google</a>.
 
 The following table lists parameters which can only be configured for additional plans:
 
-| Parameter Name       | Values                          | Default   |
-|----------------------|---------------------------------|-----------|
-| `name`*              | The plan name.                  | _n/a_     |
-| `id`*                | A unique GUID.                  | _n/a_     |
-| `description`*       | Description of the new plan.    | _n/a_     |
-| `display_name`       | Name to use when displaying plan in marketplace.    | _n/a_     |
-| `acl`                | Storage bucket ACL (see https://cloud.google.com/storage/docs/access-control/lists#predefined-acl).    | _n/a_     |
+| Parameter Name       | Values                         | Default   |
+|----------------------|--------------------------------|-----------|
+| `name`*              | The plan name                  | _n/a_     |
+| `id`*                | A unique GUID                  | _n/a_     |
+| `description`*       | Description of the new plan    | _n/a_     |
+| `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
+| `acl`                | Storage bucket ACL (see https://cloud.google.com/storage/docs/access-control/lists#predefined-acl)    | _n/a_     |
 
 <sup>*</sup> Required
 
@@ -73,7 +73,7 @@ provisioning a csb-google-storage-bucket service:
     <td><code>name</code></td>
     <td>string</td>
     <td>
-      Name of bucket.
+      Name of the bucket to be created.
     </td>
     <td><code>csb-INSTANCE-ID</code></td>
     <td>provision and update</td>
@@ -94,7 +94,7 @@ provisioning a csb-google-storage-bucket service:
     <td>
       The region of the bucket instance.
     </td>
-    <td><code>STANDARD</code> </td>
+    <td><code>us-central1</code> </td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -104,6 +104,15 @@ provisioning a csb-google-storage-bucket service:
       The GCP credentials.
     </td>
     <td>The value the operator entered for <strong>Credentials</strong> in <%= vars.ops_manager %>.</td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>project</code></td>
+    <td>string</td>
+    <td>
+      The GCP project to use.
+    </td>
+    <td>The value the operator entered for <strong>Project</strong> in <%= vars.ops_manager %>.</td>
     <td>provision and update</td>
   </tr>
 </table>
@@ -159,7 +168,7 @@ bidning to a csb-google-storage-bucket service:
 
 ## <a id="binding-creds"></a> Binding Credentials
 
-The format for binding credentials for Azure Storage Account is as follows:
+The format for binding credentials for Google Storage Bucket is as follows:
 
 ```json
 {
