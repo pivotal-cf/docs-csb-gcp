@@ -1,0 +1,183 @@
+---
+title: Google Postgresql Reference
+owner: Cloud Service Broker
+---
+
+<strong><%= modified_date %></strong>
+
+This topic provides reference information about the Google Postgresql service (csb-google-postgres).
+It details the plans, configuration parameters, and binding credentials.
+
+## <a id="plans"></a> Plans
+
+The table below lists the plans for Google PostgreSQL:
+
+| Plan | Description |
+|------|-------------|
+| small | PostgreSQL v11, shared CPU, minumum 0.6GB ram, 10GB storage |
+| medium | PostgreSQL v11, shared CPU, minumum 1.7GB ram, 20GB storage  |
+| large | PostgreSQL v11, minumum 8 cores, minumum 8GB ram, 50GB storage  |
+
+
+## <a id="plans-config"></a> Plan Configuration Parameters
+
+When configuring <%= vars.product_short %> you can add additional plans.
+For how to configure plans, see <a href="../installing-with-google.html#services">Configure Services with Cloud Service Broker for Google</a>.
+
+The following table lists parameters which can only be configured for additional plans:
+
+| Parameter Name       | Values                         | Default   |
+|----------------------|--------------------------------|-----------|
+| `name`*              | The plan name                  | _n/a_     |
+| `id`*                | A unique GUID                  | _n/a_     |
+| `description`*       | Description of the new plan    | _n/a_     |
+| `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
+
+<sup>*</sup> Required
+
+You can also add any of the configuration parameters listed in the [parameters](#parameters) section to your plan.
+
+To create plans with specific size and versions we recommend setting `cores`, `storage_gb` and
+`postgres_version` properties.
+
+<p class="note">
+  <strong>Note:</strong> If you set a parameter at plan level, developers cannot
+  change the value when creating or updating service instances.
+</p>
+
+## <a id="parameters"></a> Configuration Parameters
+
+You can provision a service by running:
+
+```bash
+cf create-service csb-google-postgres PLAN-NAME SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
+```
+
+You can update the configuration parameters for a service instance by running:
+
+```bash
+cf update-service SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
+```
+
+The table below lists the parameters that you can configure, using the `-c` flag, when
+provisioning a csb-google-postgres service:
+
+<table>
+  <thead>
+    <tr>
+      <th width="20%">Parameter Name</th>
+      <th width="10%">Type</th>
+      <th width="40%">Description</th>
+      <th width="20%">Default</th>
+      <th width="10%">Operation</th>
+    </tr>
+  </thead>
+  <tr>
+    <td><code>cores</code></td>
+    <td>string</td>
+    <td>
+      (Required - unless defined in plan) Minimum number of cores for service instance. 1&ndash;64, multiples of 2 
+    </td>
+    <td><code>2</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>postgres_version</code></td>
+    <td>string</td>
+    <td>
+      (Required - unless defined in plan) The version for the postgres instance.
+    </td>
+    <td><code>POSTGRES_11</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>storage_gb</code></td>
+    <td>string</td>
+    <td>
+      (Required - unless defined in plan) Size of storage volume for service instance. 10-4096 GB.
+    </td>
+    <td><code>10</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>instance_name</code></td>
+    <td>string</td>
+    <td>Name for the PostgreSQL instance.</td>
+    <td><code>csb-postgres-INSTANCE-ID</code></td>
+    <td>provision</td>
+  </tr>
+  <tr>
+    <td><code>db_name</code></td>
+    <td>string</td>
+    <td> Name for the database.</td>
+    <td><code>csb-db</code></td>
+    <td>provision</td>
+  </tr>
+  <tr>
+    <td><code>region</code></td>
+    <td>string</td>
+    <td>
+      The region of the PostgreSQL instance.
+    </td>
+    <td><code>us-central1</code> </td>
+    <td>provision</td>
+  </tr>
+  <tr>
+    <td><code>authorized_network</code></td>
+    <td>string</td>
+    <td>
+      The name of the Google Compute Engine network to which the instance is connected.
+    </td>
+    <td><code>default</code> </td>
+    <td>provision</td>
+  </tr>  
+  <tr>
+    <td><code>authorized_network_id</code></td>
+    <td>string</td>
+    <td>
+      The id of the Google Compute Engine network to which the instance is connected.
+    </td>
+    <td><code>""</code> </td>
+    <td>provision</td>
+  </tr>  <tr>
+    <td><code>credentials</code></td>
+    <td>string</td>
+    <td>
+      The GCP credentials.
+    </td>
+    <td>The value the operator entered for <strong>Credentials</strong> in <%= vars.ops_manager %>.</td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>project</code></td>
+    <td>string</td>
+    <td>
+      The GCP project to use.
+    </td>
+    <td>The value the operator entered for <strong>Project</strong> in <%= vars.ops_manager %>.</td>
+    <td>provision and update</td>
+  </tr>
+</table>
+
+## <a id="binding-creds"></a> Binding Credentials
+
+You can bind a service by running:
+
+```bash
+cf bind-service APP_NAME SERVICE_INSTANCE --binding-name BINDING_NAME
+```
+
+The format for binding credentials for Google PostgreSQL is as follows:
+
+```json
+{
+    "name" : "DATABASE-NAME",
+    "hostname" : "DATABASE-SERVER-HOST",
+    "port" : "DATABASE-SERVER-PORT",
+    "username" : "AUTHENTICATION-USERNAME",
+    "password" : "AUTHENTICATION-PASSWORD",
+    "use_tls" : false,
+    "uri" : "DATABASE-CONNECTION-URI",
+    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URI"
+}
+```
