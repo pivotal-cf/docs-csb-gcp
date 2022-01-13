@@ -1,0 +1,198 @@
+---
+title: Google Spanner Reference
+owner: Cloud Service Broker
+---
+
+<strong><%= modified_date %></strong>
+
+This topic provides reference information about the Google Spanner service (csb-google-spanner).
+It details the plans, configuration parameters, and binding credentials.
+
+## <a id="plans"></a> Plans
+
+The table below lists the plans for Google Spanner:
+
+| Plan | Description |
+|------|-------------|
+| small | Single Node Spanner with 10 GB storage |
+| medium | 2 Nodes Spanner with 20 GB storage  |
+| large | 3 Nodes and Multi Region Spanner with 100 GB storage  |
+
+
+## <a id="plans-config"></a> Plan Configuration Parameters
+
+When configuring <%= vars.product_short %> you can add additional plans.
+For how to configure plans, see <a href="../installing-with-google.html#services">Configure Services with Cloud Service Broker for Google</a>.
+
+The following table lists parameters which can only be configured for additional plans:
+
+| Parameter Name       | Values                         | Default   |
+|----------------------|--------------------------------|-----------|
+| `name`*              | The plan name                  | _n/a_     |
+| `id`*                | A unique GUID                  | _n/a_     |
+| `description`*       | Description of the new plan    | _n/a_     |
+| `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
+| `num_nodes`*                | Minimum number of cores for service instance. 1-64    | 1     |
+| `storage_gb`*                | Size of storage volume for service instance. 10-4096    | 10     |
+
+<sup>*</sup> Required
+
+You can also add any of the configuration parameters listed in the [parameters](#parameters) section to your plan.
+
+<p class="note">
+  <strong>Note:</strong> If you set a parameter at plan level, developers cannot
+  change the value when creating or updating service instances.
+</p>
+
+## <a id="parameters"></a> Configuration Parameters
+
+You can provision a service by running:
+
+```bash
+cf create-service csb-google-spanner PLAN-NAME SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
+```
+
+You can update the configuration parameters for a service instance by running:
+
+```bash
+cf update-service SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
+```
+
+The table below lists the parameters that you can configure, using the `-c` flag, when
+provisioning a csb-google-spanner service:
+
+<table>
+  <thead>
+    <tr>
+      <th width="20%">Parameter Name</th>
+      <th width="10%">Type</th>
+      <th width="40%">Description</th>
+      <th width="20%">Default</th>
+      <th width="10%">Operation</th>
+    </tr>
+  </thead>
+  <tr>
+    <td><code>instance_name</code></td>
+    <td>string</td>
+    <td>
+      Name for your spanner instance to be created.
+    </td>
+    <td><code>csb-spanner-INSTANCE-ID</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>db_name</code></td>
+    <td>string</td>
+    <td>
+      Name of the database to be created
+    </td>
+    <td><code>csb-spanner</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>config</code></td>
+    <td>string</td>
+    <td>
+      The name of the instance's configuration (similar but not quite the same as a region)
+      which defines the geographic placement and replication of your databases in this instance.
+    </td>
+    <td><code>us-central1</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>ddl</code></td>
+    <td>string</td>
+    <td>
+      An optional list of DDL statements to run inside the newly created database.
+    </td>
+    <td><code>[]</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>region</code></td>
+    <td>string</td>
+    <td>
+      The region of the spanner instance.
+    </td>
+    <td><code>us-central1</code> </td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>credentials</code></td>
+    <td>string</td>
+    <td>
+      The GCP credentials.
+    </td>
+    <td>The value the operator entered for <strong>Credentials</strong> in <%= vars.ops_manager %>.</td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>project</code></td>
+    <td>string</td>
+    <td>
+      The GCP project to use.
+    </td>
+    <td>The value the operator entered for <strong>Project</strong> in <%= vars.ops_manager %>.</td>
+    <td>provision and update</td>
+  </tr>
+</table>
+
+## <a id="binding-params"></a> Binding Parameters
+
+You can bind a service by running:
+
+```bash
+cf bind-service APP_NAME SERVICE_INSTANCE --binding-name BINDING_NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
+```
+
+The table below lists the parameters that you can configure, using the `-c` flag, when
+binding to a csb-google-spanner service:
+
+<table>
+  <thead>
+    <tr>
+      <th width="20%">Parameter Name</th>
+      <th width="10%">Type</th>
+      <th width="40%">Description</th>
+      <th width="20%">Default</th>
+    </tr>
+  </thead>
+  <tr>
+    <td><code>role</code></td>
+    <td>string</td>
+    <td>
+      The role for the account. See: https://cloud.google.com/iam/docs/understanding-roles
+      for more details. Note: The default enumeration may be overridden by your
+      operator.
+    </td>
+    <td><code>roles/editor</code></td>
+  </tr>
+  <tr>
+    <td><code>credentials</code></td>
+    <td>string</td>
+    <td>
+      The GCP credentials.
+    </td>
+    <td>The value the operator entered for <strong>Credentials</strong> in <%= vars.ops_manager %>.</td>
+  </tr>
+</table>
+
+## <a id="binding-creds"></a> Binding Credentials
+
+The format for binding credentials for Google Spanner is as follows:
+
+```json
+{
+    "db_name" : "DATABASE-NAME",
+    "instance" : "INSTANCE-NAME",
+    "Credentials" : "SERVICE-ACCOUNT-CREDENTIALS",
+    "Email" : "SERVICE-ACCOUNT-EMAIL",
+    "Name" : "SERVICE-ACCOUNT-NAME",
+    "PrivateKeyData" : "SERVICE-ACCOUNT-PRIVATE-KEY",
+    "ProjectId" : "GCP-PROJECT-ID",
+    "UniqueId" : "SERVICE-ACCOUNT-UNIQUE-ID",
+    "policy_etag": "IAM-POLICY-ETAG",
+    "binding_etag": "IAM-BINDING-ETAG",
+    "member_etag": "IAM-MEMBER-ETAG"
+}
+```
