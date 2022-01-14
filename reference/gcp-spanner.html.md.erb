@@ -14,9 +14,9 @@ The table below lists the plans for Google Spanner:
 
 | Plan | Description |
 |------|-------------|
-| small | Single Node Spanner with 10 GB storage |
-| medium | 2 Nodes Spanner with 20 GB storage  |
-| large | 3 Nodes and Multi Region Spanner with 100 GB storage  |
+| small | Single Node Spanner with 10&nbsp;GB storage |
+| medium | 2 Nodes Spanner with 20&nbsp;GB storage  |
+| large | 3 Nodes and Multi Region Spanner with 100&nbsp;GB storage  |
 
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
@@ -32,8 +32,8 @@ The following table lists parameters which can only be configured for additional
 | `id`*                | A unique GUID                  | _n/a_     |
 | `description`*       | Description of the new plan    | _n/a_     |
 | `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
-| `num_nodes`*                | Minimum number of cores for service instance. 1-64    | 1     |
-| `storage_gb`*                | Size of storage volume for service instance. 10-4096    | 10     |
+| `num_nodes`*                | Minimum number of cores for service instance, 1&ndash;64    | 1     |
+| `storage_gb`*                | Size of storage volume for service instance, 10&ndash;4096    | 10     |
 
 <sup>*</sup> Required
 
@@ -75,7 +75,7 @@ provisioning a csb-google-spanner service:
     <td><code>instance_name</code></td>
     <td>string</td>
     <td>
-      Name for your spanner instance to be created.
+      The name of the spanner instance to create.
     </td>
     <td><code>csb-spanner-INSTANCE-ID</code></td>
     <td>provision and update</td>
@@ -84,7 +84,7 @@ provisioning a csb-google-spanner service:
     <td><code>db_name</code></td>
     <td>string</td>
     <td>
-      Name of the database to be created
+      The name of the database to create.
     </td>
     <td><code>csb-spanner</code></td>
     <td>provision and update</td>
@@ -93,8 +93,9 @@ provisioning a csb-google-spanner service:
     <td><code>config</code></td>
     <td>string</td>
     <td>
-      The name of the instance's configuration (similar but not quite the same as a region)
-      which defines the geographic placement and replication of your databases in this instance.
+      The name of the instance's configuration that defines the geographic placement
+      and replication of your databases in this instance.
+      Similar to, but not quite the same as a region.
     </td>
     <td><code>us-central1</code></td>
     <td>provision and update</td>
@@ -142,7 +143,7 @@ provisioning a csb-google-spanner service:
 You can bind a service by running:
 
 ```bash
-cf bind-service APP_NAME SERVICE_INSTANCE --binding-name BINDING_NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
+cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
 ```
 
 The table below lists the parameters that you can configure, using the `-c` flag, when
@@ -161,9 +162,9 @@ binding to a csb-google-spanner service:
     <td><code>role</code></td>
     <td>string</td>
     <td>
-      The role for the account. See: https://cloud.google.com/iam/docs/understanding-roles
-      for more details. Note: The default enumeration may be overridden by your
-      operator.
+      The role for the account. For more information, see the
+      <a href="https://cloud.google.com/iam/docs/understanding-roles">Google documentation</a>.
+      Your operator can override the default enumeration.
     </td>
     <td><code>roles/editor</code></td>
   </tr>
