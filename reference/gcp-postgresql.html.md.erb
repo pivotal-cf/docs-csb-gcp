@@ -14,9 +14,9 @@ The table below lists the plans for Google PostgreSQL:
 
 | Plan | Description |
 |------|-------------|
-| small | PostgreSQL v11, shared CPU, minumum 0.6GB ram, 10GB storage |
-| medium | PostgreSQL v11, shared CPU, minumum 1.7GB ram, 20GB storage  |
-| large | PostgreSQL v11, minumum 8 cores, minumum 8GB ram, 50GB storage  |
+| small | PostgreSQL v11, shared CPU, minimum 0.6GB RAM, 10&nbsp;GB storage |
+| medium | PostgreSQL v11, shared CPU, minimum 1.7GB RAM, 20&nbsp;GB storage  |
+| large | PostgreSQL v11, minumum 8 cores, minumum 8GB RAM, 50&nbsp;GB storage  |
 
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
@@ -76,7 +76,7 @@ provisioning a csb-google-postgres service:
     <td><code>cores</code></td>
     <td>string</td>
     <td>
-      (Required - unless defined in plan) Minimum number of cores for service instance. 1&ndash;64, multiples of 2 
+      (Required unless defined in plan) Minimum number of cores for service instance, 1&ndash;64, multiples of 2.
     </td>
     <td><code>2</code></td>
     <td>provision and update</td>
@@ -85,7 +85,7 @@ provisioning a csb-google-postgres service:
     <td><code>postgres_version</code></td>
     <td>string</td>
     <td>
-      (Required - unless defined in plan) The version for the postgres instance.
+      (Required unless defined in plan) The version for the Postgres instance.
     </td>
     <td><code>POSTGRES_11</code></td>
     <td>provision and update</td>
@@ -94,7 +94,7 @@ provisioning a csb-google-postgres service:
     <td><code>storage_gb</code></td>
     <td>string</td>
     <td>
-      (Required - unless defined in plan) Size of storage volume for service instance. 10-4096 GB.
+      (Required unless defined in plan) Size of storage volume for service instance. 10&ndash;4096&nbsp;GB.
     </td>
     <td><code>10</code></td>
     <td>provision and update</td>
@@ -109,7 +109,7 @@ provisioning a csb-google-postgres service:
   <tr>
     <td><code>db_name</code></td>
     <td>string</td>
-    <td> Name for the database.</td>
+    <td>Name for the database.</td>
     <td><code>csb-db</code></td>
     <td>provision</td>
   </tr>
@@ -130,7 +130,7 @@ provisioning a csb-google-postgres service:
     </td>
     <td><code>default</code> </td>
     <td>provision</td>
-  </tr>  
+  </tr>
   <tr>
     <td><code>authorized_network_id</code></td>
     <td>string</td>
@@ -165,7 +165,7 @@ provisioning a csb-google-postgres service:
 You can bind a service by running:
 
 ```bash
-cf bind-service APP_NAME SERVICE_INSTANCE --binding-name BINDING_NAME
+cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
 ```
 
 The format for binding credentials for Google PostgreSQL is as follows:
