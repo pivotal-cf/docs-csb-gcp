@@ -31,7 +31,7 @@ The following table lists parameters which can only be configured for additional
 | `id`*                | A unique GUID                  | _n/a_     |
 | `description`*       | Description of the new plan    | _n/a_     |
 | `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
-| `service_tier`*                | The service tier of the instance. Can be BASIC or STANDARD_HA)    | _n/a_     |
+| `service_tier`*                | The service tier of the instance - BASIC or STANDARD_HA    | _n/a_     |
 
 <sup>*</sup> Required
 
@@ -73,7 +73,7 @@ provisioning a csb-google-redis service:
     <td><code>display_name</code></td>
     <td>string</td>
     <td>
-      The display name of the redis instance.
+      The display name of the Redis instance.
     </td>
     <td><code>INSTANCE-ID</code></td>
     <td>provision and update</td>
@@ -82,7 +82,7 @@ provisioning a csb-google-redis service:
     <td><code>memory_size_gb</code></td>
     <td>number</td>
     <td>
-      The size of the instance in gigabytes. 1&ndash;300.
+      The size of the instance in gigabytes, 1&ndash;300.
     </td>
     <td><code>4</code></td>
     <td>provision and update</td>
@@ -100,7 +100,7 @@ provisioning a csb-google-redis service:
     <td><code>region</code></td>
     <td>string</td>
     <td>
-      The region of the redis instance.
+      The region of the Redis instance.
     </td>
     <td><code>us-central1</code> </td>
     <td>provision and update</td>
@@ -118,7 +118,7 @@ provisioning a csb-google-redis service:
     <td><code>authorized_network_id</code></td>
     <td>string</td>
     <td>
-      The id of the Google Compute Engine network to which the instance is connected.
+      The ID of the Google Compute Engine network to which the instance is connected.
     </td>
     <td><code>""</code> </td>
     <td>provision</td>
@@ -127,9 +127,9 @@ provisioning a csb-google-redis service:
     <td><code>reserved_ip_range</code></td>
     <td>string</td>
     <td>
-      The range of ip addresses reserved for this instance.
+      The range of IP addresses reserved for this instance.
     </td>
-    <td></td>
+    <td><em>n/a</em></td>
     <td>provision</td>
   </tr>
   <tr>
@@ -157,7 +157,7 @@ provisioning a csb-google-redis service:
 You can bind a service by running:
 
 ```bash
-cf bind-service APP_NAME SERVICE_INSTANCE --binding-name BINDING_NAME
+cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
 ```
 
 The format for binding credentials for Google Redis is as follows:
