@@ -14,9 +14,9 @@ The table below lists the plans for Google MySql:
 
 | Plan | Description |
 |------|-------------|
-| small | MySQL v5.7, minumum 2 cores, minumum 4GB ram, 10GB storage |
-| medium | MySQL v5.7, minumum 4 cores, minumum 8GB ram, 10GB storage  |
-| large | MySQL v5.7, minumum 8 cores, minumum 16GB ram, 20GB storage  |
+| small | MySQL v5.7, minimum 2 cores, minimum 4&nbsp;GB RAM, 10&nbsp;GB storage |
+| medium | MySQL v5.7, minumum 4 cores, minumum 8&nbsp;GB RAM, 10&nbsp;GB storage  |
+| large | MySQL v5.7, minumum 8 cores, minumum 16&nbsp;GB RAM, 20&nbsp;GB storage  |
 
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
@@ -76,7 +76,7 @@ provisioning a csb-google-mysql service:
     <td><code>cores</code></td>
     <td>string</td>
     <td>
-      (Required - unless defined in plan) Minimum number of cores for service instance. 1&ndash;64, multiples of 2 
+      (Required unless defined in plan) Minimum number of cores for service instance, 1&ndash;64, multiples of 2.
     </td>
     <td><code>2</code></td>
     <td>provision and update</td>
@@ -85,7 +85,7 @@ provisioning a csb-google-mysql service:
     <td><code>storage_gb</code></td>
     <td>string</td>
     <td>
-      (Required - unless defined in plan) Size of storage volume for service instance. 10-4096 GB.
+      (Required unless defined in plan) Size of storage volume for service instance, 10&ndash;4096&nbsp;GB.
     </td>
     <td><code>10</code></td>
     <td>provision and update</td>
@@ -100,7 +100,7 @@ provisioning a csb-google-mysql service:
   <tr>
     <td><code>db_name</code></td>
     <td>string</td>
-    <td> Name for the database.</td>
+    <td>Name for the database.</td>
     <td><code>csb-db</code></td>
     <td>provision</td>
   </tr>
@@ -121,16 +121,17 @@ provisioning a csb-google-mysql service:
     </td>
     <td><code>default</code> </td>
     <td>provision</td>
-  </tr>  
+  </tr>
   <tr>
     <td><code>authorized_network_id</code></td>
     <td>string</td>
     <td>
-      The id of the Google Compute Engine network to which the instance is connected.
+      The ID of the Google Compute Engine network to which the instance is connected.
     </td>
     <td><code>""</code> </td>
     <td>provision</td>
-  </tr>  <tr>
+  </tr>
+  <tr>
     <td><code>credentials</code></td>
     <td>string</td>
     <td>
@@ -146,7 +147,7 @@ provisioning a csb-google-mysql service:
 You can bind a service by running:
 
 ```bash
-cf bind-service APP_NAME SERVICE_INSTANCE --binding-name BINDING_NAME
+cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
 ```
 
 The format for binding credentials for Google MySql is as follows:
