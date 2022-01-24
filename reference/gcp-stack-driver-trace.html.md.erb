@@ -1,0 +1,72 @@
+---
+title: Google Stack Driver Trace Reference
+owner: Cloud Service Broker
+---
+
+<strong><%= modified_date %></strong>
+
+This topic provides reference information about the Google Stack Driver Trace service
+(`csb-google-stackdriver-trace`).
+It details the plans, configuration parameters, and binding credentials.
+
+## <a id="plans"></a> Plans
+
+The table below lists the plans for Google Stack Driver Trace:
+
+| Plan | Description |
+|------|-------------|
+| default | Default plan |
+
+
+## <a id="plans-config"></a> Plan Configuration Parameters
+
+When configuring <%= vars.product_short %> you can add additional plans.
+<%# For how to configure plans, see
+[Configure Services with Cloud Service Broker for Google](../installing-with-google.html#services) %>.
+<%# This page does not exist yet. %>
+
+The following table lists parameters that can only be configured for additional plans:
+
+| Parameter Name       | Values                         | Default   |
+|----------------------|--------------------------------|-----------|
+| `name`*              | The plan name                  | _n/a_     |
+| `id`*                | A unique GUID                  | _n/a_     |
+| `description`*       | Description of the new plan    | _n/a_     |
+| `display_name`       | Name to use when displaying plan in Marketplace    | _n/a_     |
+
+<sup>*</sup> Required
+
+
+## <a id="parameters"></a> Configuration Parameters
+
+To configure parameters:
+
+1. Provision a service by running:
+
+    ```bash
+    cf create-service csb-google-stackdriver-trace PLAN-NAME SERVICE-INSTANCE-NAME
+    ```
+
+
+## <a id="binding-creds"></a> Apply Binding Credentials
+
+To apply binding credentials:
+
+1. Use the format below for binding credentials for Google Stack Driver Trace:
+
+    ```json
+    {
+      "Email" : "SERVICE-ACCOUNT-EMAIL",
+      "Name" : "SERVICE-ACCOUNT-NAME",
+      "PrivateKeyData" : "SERVICE-ACCOUNT-PRIVATE-KEY",
+      "Credentials" : "SERVICE-ACCOUNT-CREDENTIALS",
+      "ProjectId" : "GCP-PROJECT-ID",
+      "UniqueId" : "SERVICE-ACCOUNT-UNIQUE-ID"
+    }
+    ```
+
+1. Bind a service by running:
+
+    ```bash
+    cf bind-service APP-NAME SERVICE-INSTANCE-NAME --binding-name BINDING-NAME
+    ```
