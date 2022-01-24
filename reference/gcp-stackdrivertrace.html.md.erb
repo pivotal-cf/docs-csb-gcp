@@ -1,0 +1,63 @@
+---
+title: Google Stack Driver Trace Reference
+owner: Cloud Service Broker
+---
+
+<strong><%= modified_date %></strong>
+
+This topic provides reference information about the Google Stack Driver Trace service (csb-google-stackdriver-trace).
+It details the plans, configuration parameters, and binding credentials.
+
+## <a id="plans"></a> Plans
+
+The table below lists the plans for Google Stack Driver Trace:
+
+| Plan | Description |
+|------|-------------|
+| default | Default plan |
+
+
+## <a id="plans-config"></a> Plan Configuration Parameters
+
+When configuring <%= vars.product_short %> you can add additional plans.
+For how to configure plans, see <a href="../installing-with-google.html#services">Configure Services with Cloud Service Broker for Google</a>.
+
+The following table lists parameters which can only be configured for additional plans:
+
+| Parameter Name       | Values                         | Default   |
+|----------------------|--------------------------------|-----------|
+| `name`*              | The plan name                  | _n/a_     |
+| `id`*                | A unique GUID                  | _n/a_     |
+| `description`*       | Description of the new plan    | _n/a_     |
+| `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
+
+<sup>*</sup> Required
+
+## <a id="parameters"></a> Configuration Parameters
+
+You can provision a service by running:
+
+```bash
+cf create-service csb-google-stackdriver-trace PLAN-NAME SERVICE-INSTANCE-NAME
+```
+
+## <a id="binding-creds"></a> Binding Credentials
+
+You can bind a service by running:
+
+```bash
+cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
+```
+
+The format for binding credentials for Google Stack Driver Trace is as follows:
+
+```json
+{
+  "Email" : "SERVICE-ACCOUNT-EMAIL",
+  "Name" : "SERVICE-ACCOUNT-NAME",
+  "PrivateKeyData" : "SERVICE-ACCOUNT-PRIVATE-KEY",
+  "Credentials" : "SERVICE-ACCOUNT-CREDENTIALS",
+  "ProjectId" : "GCP-PROJECT-ID",
+  "UniqueId" : "SERVICE-ACCOUNT-UNIQUE-ID"
+}
+```
