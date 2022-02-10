@@ -10,14 +10,9 @@ It details the plans, configuration parameters, and binding credentials.
 
 ## <a id="plans"></a> Plans
 
-The table below lists the plans for Google PostgreSQL:
-
-| Plan | Description |
-|------|-------------|
-| small | PostgreSQL v11, shared CPU, minimum 0.6GB RAM, 10&nbsp;GB storage |
-| medium | PostgreSQL v11, shared CPU, minimum 1.7GB RAM, 20&nbsp;GB storage  |
-| large | PostgreSQL v11, minumum 8 cores, minumum 8GB RAM, 50&nbsp;GB storage  |
-
+A default plan will be made available when installing the tile. This plan is for reference only, and
+is not intended for production use.
+It is recommended that you remove this default plan and create plans which fit your requirements.
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
 
@@ -26,7 +21,7 @@ When configuring <%= vars.product_short %> you can add additional plans.
 [Configure Services with Cloud Service Broker for Google](../installing-with-google.html#services)%>.
 <%# This page does not exist yet. %>
 
-The following table lists parameters which can only be configured for additional plans:
+The following table lists parameters which can be configured at a plan level:
 
 | Parameter Name       | Values                         | Default   |
 |----------------------|--------------------------------|-----------|
