@@ -45,34 +45,29 @@ The following table lists parameters that can only be configured for additional 
 
 ## <a id="parameters"></a> Configuration Parameters
 
-To configure parameters:
+To configure parameters, you can provision a service by running:
 
-1. Provision a service by running:
+```bash
+cf create-service csb-google-stackdriver-trace PLAN-NAME SERVICE-INSTANCE-NAME
+```
 
-    ```bash
-    cf create-service csb-google-stackdriver-trace PLAN-NAME SERVICE-INSTANCE-NAME
-    ```
+## <a id="binding-creds"></a> Binding Credentials
 
+You can bind a service by running:
 
-## <a id="binding-creds"></a> Apply Binding Credentials
+```bash
+cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
+```
 
-To apply binding credentials:
+The format for binding credentials for Google Stackdriver Trace:
 
-1. Use the format below for binding credentials for Google Stackdriver Trace:
-
-    ```json
-    {
-      "Email" : "SERVICE-ACCOUNT-EMAIL",
-      "Name" : "SERVICE-ACCOUNT-NAME",
-      "PrivateKeyData" : "SERVICE-ACCOUNT-PRIVATE-KEY",
-      "Credentials" : "SERVICE-ACCOUNT-CREDENTIALS",
-      "ProjectId" : "GCP-PROJECT-ID",
-      "UniqueId" : "SERVICE-ACCOUNT-UNIQUE-ID"
-    }
-    ```
-
-1. Bind a service by running:
-
-    ```bash
-    cf bind-service APP-NAME SERVICE-INSTANCE-NAME --binding-name BINDING-NAME
-    ```
+```json
+{
+  "Email" : "SERVICE-ACCOUNT-EMAIL",
+  "Name" : "SERVICE-ACCOUNT-NAME",
+  "PrivateKeyData" : "SERVICE-ACCOUNT-PRIVATE-KEY",
+  "Credentials" : "SERVICE-ACCOUNT-CREDENTIALS",
+  "ProjectId" : "GCP-PROJECT-ID",
+  "UniqueId" : "SERVICE-ACCOUNT-UNIQUE-ID"
+}
+```
