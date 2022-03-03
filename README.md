@@ -2,6 +2,16 @@
 
 This repo contains the Cloud Service Broker for GCP documentation.
 
+In this README: 
+
+- [Branches in this Content Repo](#branches-in-this-content-repo)
+- [Releasing a New Minor Version](#releasing-a-new-minor-version)
+- [Partials](#partials)
+- [Contributing to Documentation](#contributing-to-documentation)
+- [Publishing Docs](#publishing-docs)
+- [Troubleshooting Markdown](#troubleshooting-markdown)
+- [Style Guide](#style-guide)
+
 ## Branches in this Content Repo
 
 The master branch is the tree-trunk, so **always** make changes you want carried forward in this branch. This includes:
@@ -16,7 +26,7 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 |------------| ---------|
 | master     | Use for staging doc for the next release. (staged here: https://docs-staging.vmware.com/en/Cloud-Service-Broker-for-GCP/0.1/cloud-service-broker-gcp/GUID-index.html)
 
-### Releasing a New Minor Version
+## Releasing a New Minor Version
 
 Because **master** is the latest and greatest documentation, the process would be to cut a **x.x** branch
 for the version that **master** was targeting during that time.
@@ -27,24 +37,6 @@ After this point, **master** will then be the target for the next version of the
 ## Partials
 
 Cross-product partials (if any) for Cloud Service Broker are single sourced from the [Docs Partials](https://github.com/pivotal-cf/docs-partials) repository.
-
-
-## Troubleshooting Markdown
-
-| Problem | List displays as a paragraph |
-|---------|-----------|
-| Symptom:| Bulleted or numbered lists look fine on GitHub but display as a single paragraph in HTML.|
-| Solution: | Add a blank line after the stem sentence and before the first item in the list.|
-
-| Problem | List numbering is broken: every item is `1.` |
-|---------|-----------|
-| Symptom:| Each numbered item in a list is a `1.` instead of `1.`, `2.`, `3.`, etc|
-| Solution: | Try removing any blank newlines within each step.|
-
-| Problem | Code boxes not showing |
-|---------|-----------|
-| Symptom:| VMware publishing system doesn't accept code tags after the three back ticks.|
-| Solution: | Make sure you're not using `shell` or `bash` or `console` or `yaml` after back ticks.|
 
 
 ## Contributing to Documentation
@@ -59,19 +51,10 @@ then you will need to:
 + create a pull request for each individual minor version
 + or ask the technical writer to cherry-pick to particular branches/versions.
 
-### Creating a Pull Request
-
 For instructions on how to create a pull request on a branch and instructions on how to create a
 pull request using a fork, see
 [Creating a PR](https://docs-wiki.sc2-04-pcf1-apps.oc.vmware.com/wiki/external/create-pr.html)
 in the documentation team wiki.
-
-### Releasing a New Minor Version
-
-Because **master** is the latest and greatest documentation, the process would be to cut a **x.x** branch
-for the version that **master** was targeting during that time.
-
-After this point, **master** will then be the target for the next version of the Cloud Service Broker product.
 
 
 ## Publishing Docs
@@ -147,6 +130,22 @@ General information about landing pages:
 - Some products like [Tanzu Kubernetes Grid](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html) publish separate release notes publications for each point release.
 - For comparison see https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/index.html
 
+## Troubleshooting Markdown
+
+| Problem | List displays as a paragraph |
+|---------|-----------|
+| Symptom:| Bulleted or numbered lists look fine on GitHub but display as a single paragraph in HTML.|
+| Solution: | Add a blank line after the stem sentence and before the first item in the list.|
+
+| Problem | List numbering is broken: every item is `1.` |
+|---------|-----------|
+| Symptom:| Each numbered item in a list is a `1.` instead of `1.`, `2.`, `3.`, etc|
+| Solution: | Try removing any blank newlines within each step.|
+
+| Problem | Code boxes not showing |
+|---------|-----------|
+| Symptom:| VMware publishing system doesn't accept code tags after the three back ticks.|
+| Solution: | Make sure you're not using `shell` or `bash` or `console` or `yaml` after back ticks.|
 
 ## Style Guide
 
