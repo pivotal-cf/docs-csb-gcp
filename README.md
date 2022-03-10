@@ -59,8 +59,6 @@ in the documentation team wiki.
 
 ## Publishing Docs
 
-v1.1 Staging docs:  
-
 - [docworks](https://docworks.vmware.com/) is the main tool for managing docs used by writers.
 - [docsdash](https://docsdash.vmware.com/) is a deployment UI which manages the promotion from
 staging to pre-prod to production. The process below describes how to upload our docs to staging,
@@ -68,26 +66,9 @@ replacing the publication with the same version.
 
 ### Prepare Markdown Files
 - Markdown files live in this repo.
-- Each page requires an entry in [toc.md](docs/config/toc.md) for the table of contents.
 - Images should live in an `images` directory at the same level and linked with a relative link.
-
-### Create the ZIP File
-Starting from the repo root, this will create a new `docs.zip` with no root folder and show its
-contents.
-
-
-```sh
-git pull ; rm *.zip ; zip -r tap-1-0 *
-```
-
-
-### Upload the ZIP File to Docworks
-- Go to https://docworks.vmware.com/md2docs/publish
-- Fill in the fields exactly as below. Repeat this every time - the browser can help to remember form fields.
-- Click on upload, and when prompted, enter your VMware AD password (for docsdash)
-- If you see invalid path errors in the yellow box on the right there are broken links, but the site will still be published.
-- If the toc.md is invalid then the site will not build, but there will be no indication that something is wrong.
-
+- Each page requires an entry in [config/toc.md](config/toc.md) for the table of contents.
+- Variables live in [config/template_variables.yml](config/template_variables.yml).
 
 ### In Docsdash
 
@@ -119,16 +100,6 @@ git pull ; rm *.zip ; zip -r tap-1-0 *
 8. Select the publication again
 
 9. Click "Deploy selected to Prod"
-
-### Landing Page and Publications
-
-General information about landing pages:
-
-- Every product has a landing page (Not exactly true: every umbrella product, such as Tanzu Application Platform should have a landing page.)
-- The landing page is a container for all the "publications" for a product. Our first publication will be our combined docs for our first Beta, including installation, and user docs.
-- Typically there will be a new docs publication for each minor release but not each point release. This version number become part of the URL e.g. Our first release was version `0.1` (see form section above for the current release).
-- Some products like [Tanzu Kubernetes Grid](https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html) publish separate release notes publications for each point release.
-- For comparison see https://docs.vmware.com/en/VMware-Tanzu-Application-Catalog/index.html
 
 ## Troubleshooting Markdown
 
