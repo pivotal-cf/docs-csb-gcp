@@ -41,7 +41,6 @@ in the left sidebar. This adds the tile to your staging area.
 
 1. Click the newly added **Cloud Service Broker for gcp** tile.
 
-
 ## <a id="config-gcp"></a> Configure the <%= vars.product_short %>
 
 The following procedures describe configuring the panes on the <%= vars.product_short %> tile.
@@ -65,7 +64,6 @@ To configure AZs and networks:
     | Network | Select a subnet for the <%= vars.product_short %> broker. This is typically the same subnet that includes the component VMs for <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>). |
 
 1. Click **Save**.
-
 
 ### <a id="config-creds"></a> Configure GCP Credentials
 
@@ -186,3 +184,17 @@ To remove encryption from the state database:
 1. Click **Apply changes** to install the <%= vars.product_short %> tile.
 
 1. (Recommended) After the apply changes process completes, delete all label and password pairs and apply changes again. 
+
+### <a id="config-azs"></a> Configure Feature Flags
+
+This section describes how to enable feature flags for <%= vars.product_short %>.
+
+To configure Feature Flags:
+
+1. Click **Feature Flags**.
+
+1. By default the `enable-beta-services` flag will be false. To enable services tagged as beta tick the checkbox.  
+
+1. Click **Save**.
+
+
