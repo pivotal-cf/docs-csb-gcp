@@ -21,9 +21,9 @@ This release has the following breaking change:
 
 New features and changes in this release:
 
-* **Property change requests no longer override plan-defined properties:**
-Previously, provision and update operations accepted property change requests.
-Now, plan-defined values override any attempts at property change requests.
+* **Property change requests fail when attempting to override plan-defined properties:**
+Previously, provision and update operations accepted property change requests even when the properties were not used.
+Now, requests attempting to override plan-defined values result in a failure.
 
 * **Validation of parameters:** When additional JSON parameters are supplied as part of
 `cf create-service`, `cf update-service`, `cf bind-service`, or `cf create-service-key` they are now
