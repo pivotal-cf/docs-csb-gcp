@@ -18,8 +18,8 @@ Before you install <%= vars.product_short %>, you must have:
 
 * **GCP Account Credentials:**
 
-    An account that will be used to provision the services that this broker will manage.
-    To Service Account JSON credentials of that account will be required to configure this broker.
+    An account to provision the services that this broker will manage.
+    Service Account JSON credentials of that account are required to configure this broker.
 
 ## <a id="install"></a> Install <%= vars.product_short %>
 
@@ -93,7 +93,7 @@ The encryption password that you enter on the Service Broker Config pane is used
 
 <p class="note">
 <strong>Note:</strong>
-We recommend that backup and restore capabilities are enabled in the MySQL database before attemping encryption.
+VMware recommends that backup and restore capabilities are enabled in the MySQL database before attempting encryption.
 </p>
 
 <p class="note">
@@ -210,7 +210,7 @@ To rotate the password on the state database:
 
 1. Click **Apply changes** to install the <%= vars.product_short %> tile.
 
-1. (Recommended) After the apply changes process completes, delete the non-primary label and password pair and apply changes again. 
+1. (Recommended) After the apply changes process completes, delete the non-primary label and password pair and apply changes again.
 
 ## <a id="remove-encryption"></a> Remove Encryption from the State Database
 
@@ -232,7 +232,7 @@ To remove encryption from the state database:
 
 1. Click **Apply changes** to install the <%= vars.product_short %> tile.
 
-1. (Recommended) After the apply changes process completes, delete all label and password pairs and apply changes again. 
+1. (Recommended) After the apply changes process completes, delete all label and password pairs and apply changes again.
 
 ### <a id="config-azs"></a> Configure Feature Flags
 
@@ -242,7 +242,8 @@ To configure Feature Flags:
 
 1. Click **Feature Flags**.
 
-1. By default the `enable-beta-services` flag will be false. To enable all services tagged as beta tick the checkbox.  
+1. By default the `enable-beta-services` flag is false.
+To enable all services tagged as beta, select the check box.
 
 1. Click **Save**.
 
@@ -253,17 +254,17 @@ This section describes how to uninstall  <%= vars.product_short %>.
 Step 1:  Clean up service instances and associated resources
 
 Before deleting the <%= vars.product_short %> tile you should decide what should happen to the service instances already created, if any.
-Uninstalling this broker will stop the users from managing the service instances, bindings or keys created by this broker through Cloud Foundry. 
+Uninstalling this broker stops users from managing the service instances, bindings, or keys created by this broker by using Cloud Foundry.
 
-    Option 1: Permanently deleting all service instances, bindings and keys
-    For all services created by this broker run `cf delete-service <SERVICE-NAME>`. 
-    This command will delete the service instance and the associated service bindings and service keys. 
-    The resources will also be removed from the Google Cloud Platform Console.
+    Option 1: Permanently deleting all service instances, bindings, and keys
+    For all services created by this broker run `cf delete-service SERVICE-NAME`.
+    This command deletes the service instance and the associated service bindings and service keys.
+    The resources are removed from the Google Cloud Platform (GCP) Console.
 
-    Option 2: Deleting all service instances, but keeping the GCP resources   
-    For all services created by this broker run `cf purge-service-instance <SERVICE-NAME>`. 
-    This will delete the service instance and the associated service bindings and service keys record from CF. 
-    The resources will not be removed from the Google Cloud Platform Console, but can no longer be manged by the CSB for GCP.
+    Option 2: Deleting all service instances, but keeping the GCP resources
+    For all services created by this broker run `cf purge-service-instance SERVICE-NAME`.
+    This deletes the service instance and the associated service bindings and service keys record from CF.
+    The resources are not removed from the GCP Console, but are no longer managed by <%= vars.product_short %>.
 
 Step 2: Remove tile
 
