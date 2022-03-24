@@ -27,9 +27,8 @@ The table below lists the plans for Google Dataproc:
 ## <a id="plans-config"></a> Plan Configuration Parameters
 
 When configuring <%= vars.product_short %> you can add additional plans.
-<%# For how to configure plans, see
-[Configure Services with Cloud Service Broker for Google](../installing-with-google.html#services)%>.
-<%# This page does not exist yet. %>
+For how to configure plans, see
+[Configure Services with Cloud Service Broker for GCP](../installing-with-gcp.html#services).
 
 The following table lists parameters which can only be configured for additional plans:
 
@@ -39,6 +38,9 @@ The following table lists parameters which can only be configured for additional
 | `id`*                | A unique GUID                  | _n/a_     |
 | `description`*       | Description of the new plan    | _n/a_     |
 | `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
+| `free`               | When false, Service Instances of this Service Plan have a cost    | true     |
+| `bindable`           | Specifies whether Service Instances of the Service Plan can be bound to applications    | true     |
+| `plan_updateable`    | Whether the Plan supports upgrade/downgrade/sidegrade to another version    | true     |
 
 <sup>*</sup> Required
 
