@@ -15,15 +15,15 @@ These are release notes for <%= vars.product_full %>.
 
 This release has the following breaking change:
 
-**Terraform v1.1.3**: <%= vars.product_short %> now uses Terraform v1.1.3.
+* **Terraform v1.1.3**: <%= vars.product_short %> now uses Terraform v1.1.3.
 
 ### Features
 
 New features and changes in this release:
 
-* **Property change requests fail when attempting to override plan-defined properties:**
-Previously, provision and update operations accepted property change requests even when the properties were not used.
-Now, requests attempting to override plan-defined values result in a failure.
+* **Provision and update operations alert you if you attempt to override plan defined properties:**
+The attempt now returns an error. Previously these commands would accept the
+property change request, but override your change with the plan defined value.
 
 * **Validation of parameters:** When additional JSON parameters are supplied as part of
 `cf create-service`, `cf update-service`, `cf bind-service`, or `cf create-service-key` they are now
@@ -33,6 +33,6 @@ validated against the list of supported parameters. The operation fails if a par
 
 This release has the following fix:
 
-**Parameters persist through multiple updates:**
+* **Parameters persist through multiple updates:**
 Parameters sent when updating a service are now stored and don't need to be sent again in subsequent
 updates.

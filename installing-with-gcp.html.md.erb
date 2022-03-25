@@ -5,7 +5,7 @@ owner: Cloud Service Broker
 
 <strong><%= modified_date %></strong>
 
-This topic describes how to install and configure <%= vars.product_full %> (<%= vars.product_short %>).
+This topic describes how to install and configure <%= vars.product_full %>.
 
 ## <a id="prereq"></a> Prerequisites for Installing <%= vars.product_short %>
 
@@ -34,7 +34,7 @@ upload the product file.
 1. Under **Import a Product**, click **+** next to the version number of <%= vars.product_short %>
 in the left sidebar. This adds the tile to your staging area.
 
-1. Click the newly added **Cloud Service Broker for gcp** tile.
+1. Click the newly added **<%= vars.product_short %>** tile.
 
 ## <a id="config-gcp"></a> Configure the <%= vars.product_short %>
 
@@ -186,6 +186,19 @@ supply the credentials as properties to a plan instance in the additional plans 
 
 1. Review your Cloud Foundry Marketplace to see the new plan sizes.
 
+### <a id="config-flags"></a> Configure Feature Flags
+
+This section describes how to enable feature flags for <%= vars.product_short %>.
+
+To configure Feature Flags:
+
+1. Click **Feature Flags**.
+
+1. By default the `enable-beta-services` flag is false.
+To enable all services tagged as beta, select the check box.
+
+1. Click **Save**.
+
 ## <a id="rotate-password"></a>Rotate the Encryption Password on the State Database
 
 If you have already set an encryption password and want to change it, follow the instructions below:
@@ -233,19 +246,6 @@ To remove encryption from the state database:
 1. Click **Apply changes** to install the <%= vars.product_short %> tile.
 
 1. (Recommended) After the apply changes process completes, delete all label and password pairs and apply changes again.
-
-### <a id="config-azs"></a> Configure Feature Flags
-
-This section describes how to enable feature flags for <%= vars.product_short %>.
-
-To configure Feature Flags:
-
-1. Click **Feature Flags**.
-
-1. By default the `enable-beta-services` flag is false.
-To enable all services tagged as beta, select the check box.
-
-1. Click **Save**.
 
 ## <a id="uninstall"></a> Uninstall <%= vars.product_short %>
 
