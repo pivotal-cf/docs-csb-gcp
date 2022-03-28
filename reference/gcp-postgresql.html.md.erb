@@ -138,6 +138,24 @@ provisioning a csb-google-postgres service:
     <td>provision</td>
   </tr>
   <tr>
+    <td><code>authorized_networks_cidrs</code></td>
+    <td>array</td>
+    <td>
+      CIDR notation IPv4 or IPv6 addresses that are allowed to access this instance.
+    </td>
+    <td><code>[]</code> </td>
+    <td>provision</td>
+  </tr>
+  <tr>
+    <td><code>public_ip</code></td>
+    <td>boolean</td>
+    <td>
+      Assign a public ip to the database.
+    </td>
+    <td><code>false</code> </td>
+    <td>provision</td>
+  </tr>
+  <tr>
     <td><code>credentials</code></td>
     <td>string</td>
     <td>
