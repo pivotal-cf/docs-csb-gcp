@@ -21,17 +21,19 @@ service instances already created.
 Uninstalling this broker stops users from using Cloud Foundry to manage the service instances, bindings,
 and keys created by this broker.
 
-Choose one of the following options to clean up the resources for all services created by this broker:
+Choose one of the following options to clean up the resources for each service:
 
-* **Option 1:** To permanently delete all service instances, bindings, and keys from Cloud Foundry,
-and remove all resources from the Google Cloud Platform (GCP) Console, run:
+* **Option 1:** Permanently delete all service instances, bindings, and keys from Cloud Foundry,
+and remove all resources from the Google Cloud Platform (GCP) Console.
+For each service created by <%= vars.product_short %>, run:
 
     ```
     cf delete-service SERVICE-NAME
     ```
 
-* **Option 2:** To delete all service instances and associated service bindings and
-service keys from Cloud Foundry, but keep the GCP resources, run:
+* **Option 2:** Delete all service instances and associated service bindings and
+service keys from Cloud Foundry, but keep the GCP resources.
+For each service created by <%= vars.product_short %>, run:
 
     ```
     cf purge-service-instance SERVICE-NAME
