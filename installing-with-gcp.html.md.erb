@@ -246,29 +246,3 @@ To remove encryption from the state database:
 1. Click **Apply changes** to install the <%= vars.product_short %> tile.
 
 1. (Recommended) After the apply changes process completes, delete all label and password pairs and apply changes again.
-
-## <a id="uninstall"></a> Uninstall <%= vars.product_short %>
-
-This section describes how to uninstall  <%= vars.product_short %>.
-
-Step 1:  Clean up service instances and associated resources
-
-Before deleting the <%= vars.product_short %> tile you should decide what should happen to the service instances already created, if any.
-Uninstalling this broker stops users from managing the service instances, bindings, or keys created by this broker by using Cloud Foundry.
-
-    Option 1: Permanently deleting all service instances, bindings, and keys
-    For all services created by this broker run `cf delete-service SERVICE-NAME`.
-    This command deletes the service instance and the associated service bindings and service keys.
-    The resources are removed from the Google Cloud Platform (GCP) Console.
-
-    Option 2: Deleting all service instances, but keeping the GCP resources
-    For all services created by this broker run `cf purge-service-instance SERVICE-NAME`.
-    This deletes the service instance and the associated service bindings and service keys record from CF.
-    The resources are not removed from the GCP Console, but are no longer managed by <%= vars.product_short %>.
-
-Step 2: Remove tile
-
-1. Navigate to the <%= vars.ops_manager %> Installation Dashboard and click the bin icon on the <%= vars.product_short %> tile.
-1. Click `Confirm` on the pop up window.
-3. Click **Review Pending Changes**.
-3. Click **Apply changes** to uninstall the <%= vars.product_short %> tile.
