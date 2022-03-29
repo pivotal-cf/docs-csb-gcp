@@ -140,9 +140,27 @@ provisioning a csb-google-postgres service:
     <td><code>authorized_network_id</code></td>
     <td>string</td>
     <td>
-      The id of the Google Compute Engine network to which the instance is connected.
+      The ID of the Google Compute Engine network to which the instance is connected.
     </td>
     <td><code>""</code> </td>
+    <td>provision</td>
+  </tr>
+  <tr>
+    <td><code>authorized_networks_cidrs</code></td>
+    <td>array</td>
+    <td>
+      CIDR notation IPv4 or IPv6 addresses that are allowed to access this instance.
+    </td>
+    <td><code>[]</code> </td>
+    <td>provision</td>
+  </tr>
+  <tr>
+    <td><code>public_ip</code></td>
+    <td>Boolean</td>
+    <td>
+      Assign a public IP to the database.
+    </td>
+    <td><code>false</code> </td>
     <td>provision</td>
   </tr>
   <tr>
