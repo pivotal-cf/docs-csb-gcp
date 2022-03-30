@@ -183,7 +183,7 @@ provisioning a csb-google-postgres service:
   </tr>
 </table>
 
-## <a id="binding"></a> Binding 
+## <a id="binding"></a> Binding
 
 You can bind a service by running:
 
@@ -191,9 +191,10 @@ You can bind a service by running:
 cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
 ```
 
-On bind a new user is created that inherits from the provision user. The provision user is created during provisioning and it has 
-create role permissions and database and table grants.
-On unbind all object ownership is passed from the bind user to the provision user.
+After binding, a new user is created that inherits from the provision user.
+The provision user is created during provisioning and it has `create role` and `grant` permissions 
+for databases and tables.
+After unbinding, all object ownership is passed from the bind user to the provision user.
 
 ### <a id="binding-creds"></a> Binding Credentials
 
