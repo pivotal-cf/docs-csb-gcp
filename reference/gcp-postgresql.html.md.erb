@@ -183,13 +183,20 @@ provisioning a csb-google-postgres service:
   </tr>
 </table>
 
-## <a id="binding-creds"></a> Binding Credentials
+## <a id="binding"></a> Binding
 
 You can bind a service by running:
 
 ```bash
 cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
 ```
+
+After binding, a new user is created that inherits from the provision user.
+The provision user is created during provisioning and it has `create role` and `grant` permissions
+for databases and tables.
+After unbinding, all object ownership is passed from the bind user to the provision user.
+
+### <a id="binding-creds"></a> Binding Credentials
 
 The format for binding credentials for Google PostgreSQL is as follows:
 
