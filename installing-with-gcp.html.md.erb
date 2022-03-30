@@ -18,8 +18,24 @@ Before you install <%= vars.product_short %>, you must have:
 
 * **GCP Account Credentials:**
 
-    An account to provision the services that this broker will manage.
-    Service Account JSON credentials of that account are required to configure this broker.
+    A project and account to provision the services that this broker manages.
+    Service Account JSON credentials of this account are required to configure this broker.
+
+* **GCP-enabled APIs:**
+
+Enable the services you need by enabling the relevant APIs in **APIs and services** > **Library**.
+
+| Service                       | Necessity | API to enable |
+|-------------------------------|-----------|---------------|
+| Google Cloud Resource Manager | Required | [Google Cloud Resource Manager API](https://console.cloud.google.com/apis/api/cloudresourcemanager.googleapis.com/overview) |
+| Google Identity and Access Management (IAM) | Required | [Google Identity and Access Management (IAM) API](https://console.cloud.google.com/apis/api/iam.googleapis.com/overview) |
+| CloudSQL as a service (MySQL and PostgreSQL) | Optional | [CloudSQL API](https://console.cloud.google.com/apis/library/sql-component.googleapis.com), [CloudSQL Admin API](https://console.developers.google.com/apis/api/sqladmin.googleapis.com/overview), and [Service Networking API](https://console.cloud.google.com/apis/library/servicenetworking.googleapis.com) |
+| Cloud Storage as a service | Optional | [Cloud Storage API](https://console.cloud.google.com/apis/api/storage_component/overview) |
+| Redis as a service | Optional | [Redis API](https://console.cloud.google.com/apis/library/redis.googleapis.com) |
+| Dataproc as a service | Optional | [Dataproc API](https://console.developers.google.com/apis/api/dataproc.googleapis.com/overview) |
+| Cloud Spanner as a service | Optional | [Cloud Spanner API](https://console.developers.google.com/apis/api/spanner.googleapis.com/overview) |
+
+For more information about the API library, see the [GCP documentation](https://console.cloud.google.com/apis/library).
 
 ## <a id="install"></a> Install <%= vars.product_short %>
 
