@@ -25,7 +25,10 @@ To continue managing previously created service instances an update will need to
 
 New features and changes in this release:
 
-* **Feature flag for Beta services:** The feature flag tab allows operators to enable or disable beta services at a global level.
+* **PostgreSQL plans are now configurable in the tile**
+* **Feature flag for Beta services:** The feature flag tab allows operators to enable or disable beta services at a global level. 
+All beta services are disabled by default. They can be enabled by ticking enable-beta-services.
+* **BROKERPAK_UPDATES_ENABLED feature always enabled:** HCL used when managing a service instance is always the latest taken from the brokerpak.
 * **Public IPs can be assigned to Postgresql databases on creation:** This can be enabled by setting the public_ip parameter which defaults to false
 * **PostgreSQL access control by IP:** List of IP addresses can now be specified to allow connections to a Postgresql database by setting the authorized_networks_cidrs parameter
 
