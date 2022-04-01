@@ -15,28 +15,26 @@ These are release notes for <%= vars.product_full %>.
 
 This release has the following breaking change:
 
-* **PostgreSQL instance properties can not be updated**
-* **Default PostgreSQL version 13:** This now matches the GCP default
-* **PostgreSQL bind users now deleted on unbind:** ownership of the objects they created is passed on to a "provision_user".
-As a result bindings created with previous versions cannot longer be managed by the broker. We recommend deleting the bindings before upgrading.
-To continue managing previously created service instances an update will need to be performed before doing any other operation.
+* **PostgreSQL instance properties cannot be updated**
+* **Default PostgreSQL v13:** PostgreSQL is now v13 to match the GCP default.
+* **PostgreSQL bind users are deleted on unbind:** Bind-user ownership of the objects is passed on to a `provision_user`.
+As a result, the broker can no longer manage bindings created with previous versions. VMware recommends deleting the bindings before upgrading.
+To continue managing service instances created earlier, perform an update before doing any other operation.
 
 ### Features
 
 New features and changes in this release:
 
 * **PostgreSQL plans are now configurable in the tile**
-* **Feature flag for Beta services:** The feature flag tab allows operators to enable or disable beta services at a global level. 
-All beta services are disabled by default. They can be enabled by ticking enable-beta-services.
-* **BROKERPAK_UPDATES_ENABLED feature always enabled:** HCL used when managing a service instance is always the latest taken from the brokerpak.
-* **Public IPs can be assigned to Postgresql databases on creation:** This can be enabled by setting the public_ip parameter which defaults to false
-* **PostgreSQL access control by IP:** List of IP addresses can now be specified to allow connections to a Postgresql database by setting the authorized_networks_cidrs parameter
+* **Feature flag for beta services:** The feature flag tab allows operators to enable or disable beta services at a global level.
+All beta services are disabled by default. They can be enabled by selecting the `enable-beta-services` check box.
+* **`BROKERPAK_UPDATES_ENABLED` feature always enabled:** Service instances are always managed with the latest HCL <%# What does HCL stand for? %> taken from the brokerpak.
+* **Public IPs can be assigned to PostgreSQL databases on creation:** This can be enabled by setting the `public_ip` parameter, which is `false` by default.
+* **PostgreSQL access control by IP address:** Use the `authorized_networks_cidrs` parameter to specify a list of IP addresses that allow connections to a PostgreSQL database.
 
 ### Resolved issues
 
 This release has the following fix:
 
-* **Beta services:** All service offerings and plans are highlighted to be at a Beta lifecycle state.
-* **Fixed typo defualt => default:** in the postgres service, now the size of storage volume should default to 10 GB
-
-
+* **Beta services:** All service offerings and plans are explicitly in the beta life cycle state.
+* **Fixed `defualt` typo:** In the Postgres service, the storage volume size is now 10&nbsp;GB by default.
