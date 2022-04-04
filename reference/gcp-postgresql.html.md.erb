@@ -128,6 +128,15 @@ provisioning a csb-google-postgres service:
     <td>provision</td>
   </tr>
   <tr>
+    <td><code>use_tls</code></td>
+    <td>boolean</td>
+    <td>
+      Use TLS for connection.
+    </td>
+    <td><code>true</code> </td>
+    <td>provision</td>
+  </tr>
+  <tr>
     <td><code>authorized_network</code></td>
     <td>string</td>
     <td>
@@ -207,8 +216,11 @@ The format for binding credentials for Google PostgreSQL is as follows:
     "port" : "DATABASE-SERVER-PORT",
     "username" : "AUTHENTICATION-USERNAME",
     "password" : "AUTHENTICATION-PASSWORD",
-    "use_tls" : false,
+    "use_tls" : true,
     "uri" : "DATABASE-CONNECTION-URI",
-    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URI"
+    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URI",
+    "sslcert" : "SSL_CLIENT_CERT",
+    "sslkey" : "SSL_CLIENT_CERT_KEY",
+    "sslrootcert" : "SSL_ROOT_CERT"
 }
 ```
