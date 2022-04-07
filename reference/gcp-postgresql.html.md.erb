@@ -84,7 +84,7 @@ provisioning a csb-google-postgres service:
       (Required unless defined in plan) Minimum number of cores for service instance, 1&ndash;64, multiples of 2.
     </td>
     <td><code>2</code></td>
-    <td>provision</td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>postgres_version</code></td>
@@ -102,7 +102,7 @@ provisioning a csb-google-postgres service:
       (Required unless defined in plan) Size of storage volume for service instance. 10&ndash;4096&nbsp;GB.
     </td>
     <td><code>10</code></td>
-    <td>provision</td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>instance_name</code></td>
@@ -143,7 +143,7 @@ provisioning a csb-google-postgres service:
       The name of the Google Compute Engine network to which the instance is connected.
     </td>
     <td><code>default</code> </td>
-    <td>provision</td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>authorized_network_id</code></td>
@@ -152,7 +152,7 @@ provisioning a csb-google-postgres service:
       The ID of the Google Compute Engine network to which the instance is connected.
     </td>
     <td><code>""</code> </td>
-    <td>provision</td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>authorized_networks_cidrs</code></td>
@@ -161,7 +161,7 @@ provisioning a csb-google-postgres service:
       CIDR notation IPv4 or IPv6 addresses that are allowed to access this instance.
     </td>
     <td><code>[]</code> </td>
-    <td>provision</td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>public_ip</code></td>
@@ -170,7 +170,7 @@ provisioning a csb-google-postgres service:
       Assign a public IP to the database.
     </td>
     <td><code>false</code> </td>
-    <td>provision</td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>backups_retain_number</code></td>
@@ -215,7 +215,7 @@ provisioning a csb-google-postgres service:
       The GCP credentials.
     </td>
     <td>The value the operator entered for <strong>Credentials</strong> in <%= vars.ops_manager %>.</td>
-    <td>provision</td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>project</code></td>
