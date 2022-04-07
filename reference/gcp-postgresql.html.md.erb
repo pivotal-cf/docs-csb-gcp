@@ -79,7 +79,7 @@ provisioning a csb-google-postgres service:
   </thead>
   <tr>
     <td><code>cores</code></td>
-    <td>string</td>
+    <td>number</td>
     <td>
       (Required unless defined in plan) Minimum number of cores for service instance, 1&ndash;64, multiples of 2.
     </td>
@@ -171,6 +171,42 @@ provisioning a csb-google-postgres service:
     </td>
     <td><code>false</code> </td>
     <td>provision</td>
+  </tr>
+  <tr>
+    <td><code>backups_retain_number</code></td>
+    <td>number</td>
+    <td>
+      Number of backups to retain. Setting to zero disables backups.
+    </td>
+    <td><code>7</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>backups_location</code></td>
+    <td>string</td>
+    <td>
+      Location where backups are stored.
+    </td>
+    <td><code>us</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>backups_start_time</code></td>
+    <td>string</td>
+    <td>
+      Start of the backup time window in UTC
+    </td>
+    <td><code>07:00</code> </td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>backups_point_in_time_log_retain_days</code></td>
+    <td>number</td>
+    <td>
+      Number of days to retain point in time logs. Setting to zero disables point in time logging. Backups must be enabled too via the <code>backups_retain_number</code> property.
+    </td>
+    <td><code>7</code> </td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>credentials</code></td>
