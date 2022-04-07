@@ -167,7 +167,7 @@ provisioning a csb-google-postgres service:
     <td><code>public_ip</code></td>
     <td>Boolean</td>
     <td>
-      Assign a public IP to the database.
+      Assigns a static IPV4 ip to the database. Note - one of [authorized_network, authorized_network_id, authorized_networks_cidrs] must be configured to enable access.
     </td>
     <td><code>false</code> </td>
     <td>provision and update</td>
