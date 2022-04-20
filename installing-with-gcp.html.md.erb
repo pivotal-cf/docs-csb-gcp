@@ -86,6 +86,13 @@ To configure GCP credentials:
 
 1. Click **Save**.
 
+<p class="note">
+  <strong>Note:</strong> <%= vars.product_short %> services are validated using the same GCP project and Region
+  for <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) and <%= vars.product_short %>. In other
+  configurations, make sure that <%= vars.app_runtime_abbr %> apps have network connectivity to the services
+  managed by <%= vars.product_short %>.
+</p>
+
 ### <a id="state-db"></a>Configure a State Database
 
 This section describes how to associate <%= vars.product_short %> with a MySQL database,
