@@ -176,7 +176,7 @@ provisioning a csb-google-postgres service:
     <td><code>backups_retain_number</code></td>
     <td>number</td>
     <td>
-      Number of backups to retain. Setting to zero disables backups.
+      The number of backups to retain. Set this to zero to deactivate backups.
     </td>
     <td><code>7</code></td>
     <td>provision and update</td>
@@ -185,7 +185,7 @@ provisioning a csb-google-postgres service:
     <td><code>backups_location</code></td>
     <td>string</td>
     <td>
-      Location where backups are stored.
+      The location where backups are stored.
     </td>
     <td><code>us</code></td>
     <td>provision and update</td>
@@ -194,7 +194,7 @@ provisioning a csb-google-postgres service:
     <td><code>backups_start_time</code></td>
     <td>string</td>
     <td>
-      Start of the backup time window in UTC
+      Start of the backup time window in UTC.
     </td>
     <td><code>07:00</code> </td>
     <td>provision and update</td>
@@ -203,7 +203,8 @@ provisioning a csb-google-postgres service:
     <td><code>backups_point_in_time_log_retain_days</code></td>
     <td>number</td>
     <td>
-      Number of days to retain point in time logs. Setting to zero disables point in time logging. Backups must be enabled too via the <code>backups_retain_number</code> property.
+      The number of days to retain point in time logs. Set to zero to deactivate point in time logging.
+      Before you set this property, you must first enable backups using the <code>backups_retain_number</code> property.
     </td>
     <td><code>7</code> </td>
     <td>provision and update</td>
@@ -237,7 +238,7 @@ cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
 ```
 
 After binding, a new user is created that inherits from the provision user.
-The provision user is created during provisioning and it has `create role` and `grant` permissions 
+The provision user is created during provisioning and it has `create role` and `grant` permissions
 for databases and tables.
 After unbinding, all object ownership is passed from the bind user to the provision user.
 
