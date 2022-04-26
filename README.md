@@ -24,7 +24,8 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 | Branch Name| Use for… |
 |------------| ---------|
-| master     | Use for staging doc for the next release. (staged here: https://docs-staging.vmware.com/en/Cloud-Service-Broker-for-GCP/0.1/cloud-service-broker-gcp/GUID-index.html)
+| master     | Use for staging doc for the next release. (staged here: https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.0/csb-gcp/GUID-index.html)
+| 0.2        | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/0.2/csb-gcp/GUID-index.html |
 
 ## Releasing a New Minor Version
 
