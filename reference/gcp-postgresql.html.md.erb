@@ -128,13 +128,13 @@ provisioning a csb-google-postgres service:
     <td>provision</td>
   </tr>
   <tr>
-    <td><code>use_tls</code></td>
+    <td><code>require_ssl</code></td>
     <td>boolean</td>
     <td>
-      Activate TLS for the connection between PostgreSQL and the apps bound to the service.
+      Require TLS for the connection between PostgreSQL and the apps bound to the service.
     </td>
     <td><code>true</code> </td>
-    <td>provision</td>
+    <td>provision and update</td>
   </tr>
   <tr>
     <td><code>authorized_network</code></td>
@@ -253,7 +253,7 @@ The format for binding credentials for Google PostgreSQL is as follows:
     "port" : "DATABASE-SERVER-PORT",
     "username" : "AUTHENTICATION-USERNAME",
     "password" : "AUTHENTICATION-PASSWORD",
-    "use_tls" : true,
+    "require_ssl" : true,
     "uri" : "DATABASE-CONNECTION-URI",
     "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URI",
     "sslcert" : "SSL_CLIENT_CERT",
