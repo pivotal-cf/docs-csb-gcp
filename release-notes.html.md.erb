@@ -7,27 +7,36 @@ owner: Cloud Service Broker
 
 These are release notes for <%= vars.product_full %>.
 
-## <a id="0-3-0"></a> v0.3.0
+## <a id="1-0-0"></a> v1.0.0
 
-**Release Date:** MONTH DAY, 2022
+**Release Date:** May 15, 2022
 
 ### Breaking Changes
 
 This release has the following breaking changes:
 
-* **Run-in heading:** Description
-* **Run-in heading:** Description
+* **GA PostgreSQL Service Offering:** PostgreSQL is no longer in beta and can be used in production. Due to new features in the PostgreSQL 
+service offering, it is not possible to upgrade from a previous (Beta) version to this version. You should either delete all existing PostgreSQL 
+instances before upgrade, or run "cf purge-service-instance" on them to remove them from CloudFoundry management.
 
 ### Features
 
 New features and changes in this release:
 
-* **Run-in heading:** Description
-* **Run-in heading:** Description
+* **PostgreSQL supports TLS:** PostgreSQL connections must be via TLS by default. TLS requirement can be disabled at plan or service instance
+ creation time by setting `require_ssl` to false. 
+* **PostgreSQL enables backup:** PostgreSQL backups are enabled by default and can be configured via the new `backups_retain_number`, 
+`backups_location`, `backups_start_time` and `backups_point_in_time_log_retain_days` properties.
+* **Secure PostgreSQL password:** PostgreSQL password stored using `scram-sha-256` for additional security. Postgres admin password is now 64 bytes.
+* **Some PostgreSQL properties can now be updated:** PostgreSQL properties can now be updated: tiers, storage_gb, credentials, authorized_network,
+authorized_network_id, authorized_networks_cidrs, public_ip.
+* **PostgreSQL- Enable support for GCP tiers:** Google SQL service tiers are now exposed when provisioning, or updating an instance. 
+The previous 'cores' abstraction has been removed, in favour of using the underlying Google tier.
+* **CSB database TLS config:** Users are allowed to configure the TLS skip-verify option when using custom certificates.
+
 
 ### Resolved issues
 
 This release has the following fixes:
 
-* **Run-in heading:** Description
-* **Run-in heading:** Description
+* **Enforce storage minimum constraints:** Minimum constraints on MySQL, PostgreSQL, and Spanner storage_gb are now enforced.
