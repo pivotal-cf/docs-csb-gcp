@@ -44,6 +44,14 @@ To create plans with specific size and versions we recommend setting `tier`, `st
   change the value when creating or updating service instances.
 </p>
 
+<p class="note warning">
+  <strong>Warning: </strong>
+  When editing a plan configuration, consider the implications on existing services. If a default value is changed,
+  then this will be applied to existing service instances when they are updated. For example if the `region` is changed,
+  then when a service instance is updated, an attempt will be made to change the region. This is not a supported operation
+  in GCP and may result in data loss.
+</p>
+
 ## <a id="parameters"></a> Configuration Parameters
 
 You can provision a service by running:
@@ -118,7 +126,7 @@ provisioning a csb-google-postgres service:
     <td>
       The region of the PostgreSQL instance.
     </td>
-    <td><code>us-central1</code> </td>
+    <td>The value the operator entered for <strong>Region</strong> in <%= vars.ops_manager %>.</td>
     <td>provision</td>
   </tr>
   <tr>
