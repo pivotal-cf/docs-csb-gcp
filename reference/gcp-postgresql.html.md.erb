@@ -84,7 +84,7 @@ see whether a paramter is supported only for provision, or for both provision an
     <td><code>tier</code></td>
     <td>string</td>
     <td>
-      (Required unless defined in plan) Google machine tier. This determines the CPU and RAM resource. Please review the Google [documentation for machine tiers](https://cloud.google.com/sql/docs/postgres/create-instance#machine-types), to specify an appropriate machine.
+    (Required unless defined in plan) Google machine tier. This determines the CPU and RAM resource. It can be a legacy machine type such as <code>db-f1-micro</code>, <code>db-g1-small</code>, <code>db-n1-standard-8</code>, <code>db-n1-highmem-16</code>, or a custom machine type such as <code>db-custom-8-8192</code>. Please review the [Google documentation for machine types](https://cloud.google.com/sql/docs/postgres/create-instance#machine-types) for more information.
     </td>
     <td> _n/a_ </td>
     <td>provision and update</td>
