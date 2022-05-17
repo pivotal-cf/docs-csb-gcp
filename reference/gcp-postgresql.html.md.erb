@@ -46,8 +46,8 @@ To create plans with specific size and versions we recommend setting `tier`, `st
 
 <p class="note warning">
   <strong>Warning:</strong> When editing a plan configuration, consider the implications on existing services.
-  If a default value is changed, then this is applied to existing service instances when they are updated.
-  For example, if the <code>region</code> is changed, then when a service instance is updated, an attempt is made
+  If you change a default value, this value is applied to existing service instances when they are updated.
+  For example, if you change the <code>region</code>, then when a service instance is updated, an attempt is made
   to change the region. This is not a supported operation in GCP and might result in data loss.
 </p>
 
@@ -171,7 +171,11 @@ whether a parameter is supported for both provision and update, or for provision
     <td><code>public_ip</code></td>
     <td>Boolean</td>
     <td>
-      Assigns a static public IPV4 IP to the database. Note - authorized_networks_cidrs must be configured on the selected network to enable access.
+      Assigns a static public IPV4 IP to the database.
+      <p class="note">
+        <strong>Note:</strong> You must configure <code>authorized_networks_cidrs</code>
+        on the selected network to enable access.
+      </p>
     </td>
     <td><code>false</code> </td>
     <td>provision and update</td>
