@@ -44,10 +44,12 @@ To create plans with specific size and versions we recommend setting `tier`, `st
   change the value when creating or updating service instances.
 </p>
 
-> **Warning:** When editing a plan configuration, consider the implications on existing services.
-> If a default value is changed, then this is applied to existing service instances when they are updated.
-> For example, if the `region` is changed, then when a service instance is updated, an attempt is made
-> to change the region. This is not a supported operation in GCP and might result in data loss.
+<p class="note warning">
+  <strong>Warning:</strong> When editing a plan configuration, consider the implications on existing services.
+  If a default value is changed, then this is applied to existing service instances when they are updated.
+  For example, if the <code>region</code> is changed, then when a service instance is updated, an attempt is made
+  to change the region. This is not a supported operation in GCP and might result in data loss.
+</p>
 
 ## <a id="parameters"></a> Configuration Parameters
 
