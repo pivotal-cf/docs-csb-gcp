@@ -1,0 +1,18 @@
+---
+title: Upgrading Cloud Service Broker for GCP
+owner: Cloud Service Broker
+---
+
+This topic describes how to upgrade <%= vars.product_short %>.
+
+## <a id="1-0-0"></a> Upgrading from Beta to 1.0.0
+
+Due to differences in the PostgreSQL service offering, it is not possible to upgrade Beta instances to the GA version. All previously created service instances must be deleted before upgrading the <%= vars.product_short %>.
+If you wish to retain the instances in the IaaS, you can run command `cf purge-service-instance` to remove them from Cloud Foundry. These instances will not be managed by the <%= vars.product_short %> going forward.  
+
+## <a id="procedure"></a> Procedure
+
+To upgrade the Cloud Service Broker to a later version:
+
+1. Download the new version of the product tile [<%= vars.product_network %>](https://network.pivotal.io/products/cloud-service-broker-gcp/).
+1. Follow the procedure described in [Installing with GCP](/installing-with-gcp.)
