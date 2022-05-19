@@ -1,6 +1,7 @@
 *   [Tanzu Cloud Service Broker for GCP](/docs-csb-gcp/index.html)
 *   [Release Notes](/docs-csb-gcp/release-notes.html)
 *   [Installing and Configuring](/docs-csb-gcp/installing-with-gcp.html)
+*   [Upgrading](/docs-csb-gcp/upgrading.html)
 *   [Service Plan Reference](/docs-csb-gcp/reference/index.html)
     *   [Google PostgreSQL](/docs-csb-gcp/reference/gcp-postgresql.html)
     *   [Google MySQL (Beta)](/docs-csb-gcp/reference/gcp-mysql.html)
@@ -9,4 +10,4 @@
     *   [Google Spanner (Beta)](/docs-csb-gcp/reference/gcp-spanner.html)
     *   [Google Dataproc (Beta)](/docs-csb-gcp/reference/gcp-dataproc.html)
     *   [Google Stackdriver Trace (Beta)](/docs-csb-gcp/reference/gcp-stack-driver-trace.html)
-* [Uninstalling](/docs-csb-gcp/uninstall.html)
+*   [Uninstalling](/docs-csb-gcp/uninstall.html)
