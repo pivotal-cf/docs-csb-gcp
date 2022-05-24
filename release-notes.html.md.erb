@@ -12,7 +12,6 @@ These are release notes for <%= vars.product_full %>.
 
 **Release Date:** May 24, 2022
 
-
 ### Breaking Changes
 
 This release has the following breaking change:
@@ -21,7 +20,6 @@ This release has the following breaking change:
 Because of new features in the PostgreSQL service offering, it is not possible to upgrade from a
 previous (beta) version to this version.
 Before upgrading, delete all existing PostgreSQL instances or run `cf purge-service-instance` on the instances to remove them from Cloud Foundry management.
-
 
 ### Features
 
@@ -34,9 +32,18 @@ New features and changes in this release:
 * **Enable support for GCP tiers:** Google SQL service tiers are now exposed when provisioning or updating an instance. The previous "cores" abstraction is removed, in favor of using the underlying Google tier.
 * **CSB database TLS config:** Users are allowed to configure the TLS skip-verify option when using custom certificates.
 
-
 ### Resolved issues
 
 This release has the following fix:
 
 **Enforce storage minimum constraints:** Minimum constraints on MySQL, PostgreSQL, and Spanner `storage_gb` are now enforced.
+
+### Known issues
+
+There are no known issues for this release.
+
+
+## <a id="view"></a> View Release Notes for Another Version
+
+To view the release notes for another product version, select the version from dropdown at the top of
+this page.
