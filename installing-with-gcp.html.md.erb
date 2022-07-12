@@ -144,16 +144,16 @@ To configure <%= vars.product_short %> with a database:
 
 1. Click **Save**.
 
-1. If upgrading from a previous tile version, service instances may need upgrading. 
-By default, the tile will upgrade all instances during the installation process. 
-To configure the upgrade task see [Upgrade All Service Instances Config](#upgrade-all-config) below.
-Refer to the [Upgrading Cloud Service Broker for GCP](../upgrading.html) page for version-specific upgrade instructions.
+1. If upgrading from a previous tile version, service instances might need upgrading.
+By default, the tile upgrades all instances during installation.
+To configure the upgrade task, see [Upgrade All Service Instances Config](#upgrade-all-config).
+For version-specific upgrade instructions, see [Upgrading Cloud Service Broker for GCP](upgrading.html).
 
 1. Return to the <%= vars.ops_manager %> Installation Dashboard.
 
-1. Click **Review Pending Changes**.
+2. Click **Review Pending Changes**.
 
-1. Click **Apply changes** to install the <%= vars.product_short %> tile.
+3. Click **Apply changes** to install the <%= vars.product_short %> tile.
 
 If you later want to change the password on the state database,
 see [Rotate the Encryption Password on the State Database](#rotate-password) below.<br>
@@ -272,38 +272,38 @@ To remove encryption from the state database:
 
 ## <a id="upgrade-all-config"></a> Upgrade All Services Instances Config
 
-If upgrading from a previous tile version, service instances may need upgrading. By default,
-the tile will upgrade all instances during the installation process. 
-This section contain general configuration of the upgrade task, refer to the [Upgrading Cloud Service Broker for GCP](../upgrading.html) page for version-specific upgrade instructions.
+If upgrading from a previous tile version, service instances might need upgrading.
+By default, the tile upgrades all instances during installation.
+This section is about the general configuration of upgrades.
+For version-specific upgrade instructions, see [Upgrading Cloud Service Broker for GCP](upgrading.html).
 
-    <p class="note">
-        <strong>Note:</strong> If **Upgrade all services** is unchecked, service instances will not be upgraded during the installation process.
-        The broker may not be able to manage this service instances anymore. In that case, any operations on that instance (update/bind/unbind/delete) will be blocked until upgrade is performed.
-        The upgrade task can be run at any time by following the same process outlined below.
-    </p>
+If <strong>Upgrade all services</strong> is unchecked, service instances are not upgraded during
+installation. The broker might not be able to manage these service instances anymore.
+In that case, any operations on that instance (update/bind/unbind/delete) are blocked until the
+upgrade is performed. You can run the upgrade task any time.
 
-    <p class="note">
-        <strong>Note:</strong> Deleting custom plans before upgrading all instances may result some instances being unmanageable by the broker. 
-        Delete plans at a later step or refer to [Release Notes for Cloud Service Broker for GCP](../release-notes.html) and [Upgrading Cloud Service Broker for GCP](../upgrading.html) pages to ensure there will be no conflicting upgrade.
-    </p>
+Deleting custom plans before upgrading all instances might cause some instances to become unmanageable
+by the broker.
+Delete plans at a later step or see [Release Notes for Cloud Service Broker for GCP](release-notes.html)
+and [Upgrading Cloud Service Broker for GCP](upgrading.html) to ensure there are no conflicting upgrades.
 
-    <p class="note">
-        <strong>Note:</strong> In the case of instances that have been subsumed by the broker, they must be changed to a suitable plan other than the `subsume` plan before performing any upgrades. 
-        Failure to do this will result in the broker not being able to manage those instances any more.
-    </p>
+Instances that the broker has subsumed must be changed to a suitable plan, other than the `subsume`
+plan, before performing any upgrades.
+Failure to do so causes the broker to become unable to manage those instances anymore.
 
+To perform the upgrade task:
 
 1. Go to the **Upgrade All Service Instances Config** tab
 
- <%= image_tag("images/upgrade-all-services-config-pane.png", :alt => "Fields for configuring Upgrade all service instances task.
+ <%= image_tag("images/upgrade-all-services-config-pane.png", :alt => "Fields for configuring Upgrade All Service Instances task.
   See the following steps for detailed descriptions of the configurable fields.", :width => "400") %>
 
 1. Configure the fields as follows:
 
     | Field | Instructions |
     |-------|--------------|
-    | **Upgrade all services** | Checked by default. Indicates if service instances will be upgraded during product installation.|
-    | **The number of upgrades to run in parallel** | Indicates the number of instances that can be in `upgrading` status at any given time. |
+    | **Upgrade all services** | Checked by default. Indicates if service instances are upgraded during product installation.|
+    | **The number of upgrades to run in parallel** | Indicates the number of instances that can be in the `upgrading` status at any given time. |
 
 1. Click **Save**
 
@@ -312,6 +312,3 @@ This section contain general configuration of the upgrade task, refer to the [Up
 1. Click **Review Pending Changes**.
 
 1. Click **Apply changes** to install the <%= vars.product_short %> tile.
-
-
-
