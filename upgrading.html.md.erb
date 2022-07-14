@@ -5,6 +5,24 @@ owner: Cloud Service Broker
 
 This topic describes how to upgrade <%= vars.product_full %>.
 
+## <a id="upgrade-to-1-1"></a> Upgrading from 1.0 to 1.1
+
+  If you have Redis or Dataproc instances created with previous versions of the <%= vars.product_short %>
+  without explicitly passing a value for `instance_id` for Redis or `name` for Dataproc you will have to update
+  those instances before installing this version.
+
+  For Redis instances run
+
+```
+  cf update-service your-redis-si -c '{"instance_id":"<current-name-from-GCP-console>"}'
+```
+
+  For Dataproc instances run
+
+```
+  cf update-service your-dataproc-si -c '{"name":"<current-name-from-GCP-console>"}'
+```
+
 ## <a id="upgrade-to-1-0"></a> Upgrading from Beta to 1.0
 
 Due to differences in the PostgreSQL service offering, it is not possible to upgrade
