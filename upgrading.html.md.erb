@@ -5,27 +5,27 @@ owner: Cloud Service Broker
 
 This topic describes how to upgrade <%= vars.product_full %>.
 
-## <a id="upgrade-to-1-1"></a> Upgrading from 1.0 to 1.1
+## <a id="upgrade-to-1-1"></a> Upgrading from v1.0 to v1.1
 
-  If you have Redis or Dataproc instances created with previous versions of the <%= vars.product_short %>
-  without explicitly passing a value for `instance_id` for Redis or `name` for Dataproc you will have to update
-  those instances before installing this version.
+If you have Redis or Dataproc instances created with previous versions of the <%= vars.product_short %>
+without explicitly passing a value for `instance_id` for Redis or `name` for Dataproc you will have
+to update those instances before installing this version.
 
-  For Redis instances run
+For Redis instances run:
 
-```
-  cf update-service your-redis-si -c '{"instance_id":"<current-name-from-GCP-console>"}'
-```
-
-  For Dataproc instances run
-
-```
-  cf update-service your-dataproc-si -c '{"name":"<current-name-from-GCP-console>"}'
+```console
+cf update-service YOUR-REDIS-SI -c '{"instance_id":"<CURRENT-NAME-FROM-GCP-CONSOLE>"}'
 ```
 
-## <a id="upgrade-to-1-0"></a> Upgrading from Beta to 1.0
+For Dataproc instances run:
 
-Due to differences in the PostgreSQL service offering, it is not possible to upgrade
+```console
+cf update-service YOUR-DATAPROC-SI -c '{"name":"<CURRENT-NAME-FROM-GCP-CONSOLE>"}'
+```
+
+## <a id="upgrade-to-1-0"></a> Upgrading from Beta to v1.0
+
+Because of differences in the PostgreSQL service offering, it is not possible to upgrade
 beta instances to v1.0.
 You must delete all previously created service instances before upgrading <%= vars.product_short %> from v0.2 to v1.0.
 
@@ -34,11 +34,11 @@ If you want to retain beta instances in the IaaS, you can remove them from Cloud
 
 To remove the instances from Cloud Foundry, run the command:
 
-```
+```console
 cf purge-service-instance
 ```
 
-## <a id="procedure"></a> Upgrade Procedure
+## <a id="procedure"></a> Upgrade rocedure
 
 To upgrade the <%= vars.product_short %> to a later version:
 
