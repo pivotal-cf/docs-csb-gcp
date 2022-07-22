@@ -7,7 +7,6 @@ owner: Cloud Service Broker
 
 These are release notes for <%= vars.product_full %>.
 
-
 ## <a id="1-1-0"></a> v1.1.0
 
 **Release Date:** July 27, 2022
@@ -16,29 +15,33 @@ These are release notes for <%= vars.product_full %>.
 
 New features and changes in this release:
 
-* **Terraform version update:**  Teraform version is now 1.2.4. All previous instances can be upgraded to this version.
- Upgrades are only supported for Terraform versions >= 0.12.0
-* **New upgrade-all-instances task:** Operator can choose if they want to upgrade all instances to the latest version of the brokerpak while deploying the broker.
-By default all instances will be upgraded. Update, bind, unbind and delete operations on an instance are blocked if an upgrade is available and has not been applied yet.
-* **Flexible region property:** Previously brokerpak specified regions that could be used with each service and as the supported regions in the IaaS changed tile upgrade was required in order to enable those.
-Since this version any supported IaaS region for the specific service will work.
+* **Terraform version update:**  Terraform is now v1.2.4. All previous instances can be upgraded to
+this version. Upgrades are only supported for Terraform v0.12.0 and later.
+* **New upgrade-all-instances task:** The operator can choose if they want to upgrade all instances
+to the latest version of the brokerpak while deploying the broker.
+By default all instances are upgraded. Update, bind, unbind, and delete operations on an instance are
+blocked if an upgrade is available and has not been applied yet.
+* **Flexible region property:** Previously, the brokerpak specified regions that can be used with each
+service and, as the supported regions in the IaaS changed, a tile upgrade was required to enable those.
+As of this version, any supported IaaS region for the specific service works.
 
 ### Resolved issues
 
 * **Data loss prevention:**
   * Added additional checks to prevent service instance recreation during an update.
-  * `region` is not updatable in BigQuery and Storage services anymore as it results in the
+  * `region` cannot be updated in BigQuery and Storage services anymore because it causes the
 recreation of the service instance and loss of data.
-* **Service instance deletion:** Fixed an issue that caused a service instance deletion request to fail if the instance was still in `Create in progress` state.
-* **Redis and Dataproc updates no longer cause instance recreation:** Default IaaS instance names set by the brokerpak now rely on the request instance ID. It was previously relying on a
-timestamp and this was causing updates to update the name and therefore to destroy the instance.
+* **Service instance deletion:** Fixed an issue that caused a service instance deletion request to
+fail if the instance was still in `Create in progress` state.
+* **Redis and Dataproc updates no longer cause instance recreation:** Default IaaS instance names set
+by the brokerpak now rely on the request instance ID. It was previously relying on a timestamp and
+this was causing updates to update the name and therefore to destroy the instance.
 
 ### Known issues
 
 There are no known issues for this release.
 
-
 ## <a id="view"></a> View Release Notes for Another Version
 
-To view the release notes for another product version, select the version from dropdown at the top of
-this page.
+To view the release notes for another product version, select the version from drop-down menu at the
+top of this page.
