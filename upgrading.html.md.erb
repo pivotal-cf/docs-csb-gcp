@@ -11,16 +11,16 @@ If you have Redis or Dataproc instances created with previous versions of the <%
 without explicitly passing a value for `instance_id` for Redis or `name` for Dataproc, you must
 update those instances before installing this version.
 
-For Redis instances, run:
+For Redis instances, set `instance_id` by running:
 
 ```console
-cf update-service YOUR-REDIS-SI -c '{"instance_id":"CURRENT-NAME-FROM-GCP-CONSOLE"}'
+cf update-service SERVICE-INSTANCE-NAME -c '{"instance_id":"CURRENT-NAME-FROM-GCP-CONSOLE"}'
 ```
 
-For Dataproc instances, run:
+For Dataproc instances, set `name` by running:
 
 ```console
-cf update-service YOUR-DATAPROC-SI -c '{"name":"CURRENT-NAME-FROM-GCP-CONSOLE"}'
+cf update-service SERVICE-INSTANCE-NAME -c '{"name":"CURRENT-NAME-FROM-GCP-CONSOLE"}'
 ```
 
 ## <a id="upgrade-to-1-0"></a> Upgrading from beta to v1.0
