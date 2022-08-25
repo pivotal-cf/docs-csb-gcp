@@ -10,58 +10,58 @@ It details the plans, configuration parameters, and binding credentials.
 
 ## <a id="plans"></a> Plans
 
-A default plan will be made available when installing the tile. This plan is for reference only, and
-is not intended for production use.
-It is recommended that you remove this default plan and create plans which fit your requirements.
+A default plan becomes available when installing the tile.
+This plan is for reference only, and is not intended for production use.
+Remove this default plan and create plans that fit your requirements.
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
 
 When configuring <%= vars.product_short %> you can add additional plans.
 For how to configure plans, see
-[Configure Services with Cloud Service Broker for GCP](../installing-with-gcp.html#services).
+[Configure Services with Cloud Service Broker for GCP](../installing-with-gcp.html.md.erb#services).
 
 The following table lists parameters which can be configured at a plan level:
 
-| Parameter Name       | Values                         | Default   |
-|----------------------|--------------------------------|-----------|
-| `name`*              | The plan name                  | _n/a_     |
-| `id`*                | A unique GUID                  | _n/a_     |
-| `description`*       | Description of the new plan    | _n/a_     |
-| `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
-| `free`               | When false, Service Instances of this Service Plan have a cost    | true     |
-| `bindable`           | Specifies whether Service Instances of the Service Plan can bind to applications    | true     |
-| `plan_updateable`    | Whether the Plan supports upgrade/downgrade/sidegrade to another version    | true     |
+| Parameter Name       | Values                         | Default   | Required |
+|----------------------|--------------------------------|-----------|----------|
+| `name`               | The plan name                  | _n/a_     | Yes      |
+| `id`                 | A unique GUID                  | _n/a_     | Yes      |
+| `description`        | Description of the new plan    | _n/a_     | Yes      |
+| `display_name`       | Name to use when displaying plan in Marketplace    | _n/a_     | No |
+| `free`               | When false, Service Instances of this Service Plan have a cost    | true     | No |
+| `bindable`           | Specifies whether Service Instances of the Service Plan can bind to applications    | true     | No |
+| `plan_updateable`    | Whether the Plan supports upgrade/downgrade/sidegrade to another version    | true     | No |
 
-<sup>*</sup> Required
+You can also add any of the configuration parameters listed in the [parameters](#parameters) section
+to your plan.
 
-You can also add any of the configuration parameters listed in the [parameters](#parameters) section to your plan.
+To create plans with specific sizes and versions, set the `tier`, `storage_gb`, and `postgres_version`
+properties.
 
-To create plans with specific size and versions we recommend setting `tier`, `storage_gb` and
-`postgres_version` properties.
-
-<p class="note">
-  <strong>Note:</strong> If you set a parameter at plan level, developers cannot
-  change the value when creating or updating service instances.
-</p>
+If you set a parameter at plan level, developers cannot change the value when creating or updating
+service instances.
 
 <p class="note warning">
-  <strong>Warning:</strong> When editing a plan configuration, consider the implications on existing services.
-  If you change a default value, this value is applied to existing service instances when they are updated.
-  For example, if you change the <code>region</code>, then when a service instance is updated, an attempt is made
-  to change the region. This is not a supported operation in GCP and might result in data loss.
+  <strong>Warning:</strong> When editing a plan configuration, consider the implications for existing
+  services.
+  If you change a default value, this value is applied to existing service instances when they are
+  updated.
+  For example, if you change the <code>region</code>, then when a service instance is updated, an
+  attempt is made to change the region. This is not a supported operation in GCP and might result in
+  data loss.
 </p>
 
 ## <a id="parameters"></a> Configuration Parameters
 
 You can provision a service by running:
 
-```bash
+```console
 cf create-service csb-google-postgres PLAN-NAME SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
 ```
 
 You can update the configuration parameters for a service instance by running:
 
-```bash
+```console
 cf update-service SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
 ```
 
@@ -92,7 +92,7 @@ whether a parameter is supported for both provision and update, or for provision
     <td><code>postgres_version</code></td>
     <td>string</td>
     <td>
-      Required unless defined in the plan. The version for the Postgres instance.
+      Required unless defined in the plan. The version for the PostgreSQL instance.
       <code>POSTGRES_11</code>, <code>POSTGRES_12</code>,
       <code>POSTGRES_13</code>, or <code>POSTGRES_14</code>.
     </td>
@@ -172,10 +172,7 @@ whether a parameter is supported for both provision and update, or for provision
     <td>Boolean</td>
     <td>
       Assigns a static public IPV4 IP to the database.
-      <p class="note">
-        <strong>Note:</strong> You must configure <code>authorized_networks_cidrs</code>
-        on the selected network to enable access.
-      </p>
+      You must configure <code>authorized_networks_cidrs</code> on the selected network to enable access.
     </td>
     <td><code>false</code> </td>
     <td>provision and update</td>
@@ -241,16 +238,19 @@ whether a parameter is supported for both provision and update, or for provision
 
 You can bind a service by running:
 
-```bash
-cf bind-service APP-NAME SERVICE-INSTANCE --binding-name BINDING-NAME
+```console
+cf bind-service APP-NAME SERVICE-INSTANCE-NAME --binding-name BINDING-NAME
 ```
 
-A binding or service key corresponds to a user in PostgreSQL. By default, PostgreSQL users do not have
-have access to data written by other users. In order for bindings to have access to the same data,
-the <code>public</code> schema may be used, or a schema can be created and access granted to other users.
-When a binding or service key is deleted, data owned by the PostgreSQL user is re-assigned to a role
-called <code>binding_user_group</code> before the user is deleted. This ensures that other bindings
-still have access to the data.
+A binding or service key corresponds to a user in PostgreSQL.
+By default, PostgreSQL users do not have have access to data written by other users.
+
+For bindings to have access to the same data, the `public` schema can be used,
+or a schema can be created and access can be granted to other users.
+
+When a binding or service key is deleted, data that the PostgreSQL user owns is re-assigned to a role
+called `binding_user_group` before the user is deleted. This ensures that other bindings still have
+access to the data.
 
 ### <a id="binding-creds"></a> Binding Credentials
 
@@ -265,7 +265,7 @@ The format for binding credentials for Google PostgreSQL is as follows:
     "password" : "AUTHENTICATION-PASSWORD",
     "require_ssl" : true,
     "uri" : "DATABASE-CONNECTION-URI",
-    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URI",
+    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URL",
     "sslcert" : "SSL_CLIENT_CERT",
     "sslkey" : "SSL_CLIENT_CERT_KEY",
     "sslrootcert" : "SSL_ROOT_CERT"
