@@ -5,13 +5,12 @@ owner: Cloud Service Broker for GCP
 
 <strong><%= modified_date %></strong>
 
-This topic describes migrating from GCP Relational Database Service (Google Cloud SQL) for
-PostgreSQL Instance of the GCP Service Broker for VMware Tanzu tile
-to the <%= vars.product_full %> tile.
+This topic describes migrating a GCP Relational Database Service (Google Cloud SQL) for
+PostgreSQL instance from the GCP Service Broker for VMware Tanzu tile to the <%= vars.product_full %> tile.
 
 ## <a id='about'></a> About Migrating Data to Google Cloud SQL for PostgreSQL Instance
 
-Because the GCP Service Broker for VMware Tanzu (hereafter: "the legacy broker") tile
+Because the GCP Service Broker for VMware Tanzu (hereafter referred to as the legacy broker) tile
 is going out of support, it is important to move from PostgreSQL instances that
 were created by the legacy broker over to the <%= vars.product_short %>.
 
@@ -19,16 +18,16 @@ The <%= vars.product_short %> plans are configurable.
 When migrating, examine the configuration of the plans in use with the legacy broker and create
 matching plans in the <%= vars.product_short %>.
 
-You can use the GCP Database Import and Export functionality to migrate data between Google Cloud SQL for PostgreSQL Instances.
-The tool copies data from one database to a GCP Bucket and from there to another Database Instance.
+You can use the GCP Database Import and Export tool to migrate data between Google Cloud SQL for PostgreSQL Instances.
+The tool copies data from one database to a GCP Bucket and from there to another database instance.
 Because the original database is not modified, you can reverse the migration if you detect any problems.
 
 ### <a id='configuration'></a> Matching Configuration
 
 Both the legacy broker and the <%= vars.product_short %> allow you to customize service plans.
 Create plans in the <%= vars.product_short %> that match the plans used in the legacy broker.
-It is mandatory for the new Service Instances to be created with the same major version of Postgres as the old instances and with the same (or larger) available disk size.
-It may be useful to create a test service instance and compare the properties in the GCP console.
+It is mandatory for the new service instances to be created with the same major version of PostgreSQL as the old instances and with the same, or larger, available disk size.
+It might be useful to create a test service instance and compare the properties in the GCP console.
 For instructions on how to configure plans, see
 [Configure Services with Cloud Service Broker for GCP](installing-with-gcp.html#services).
 
@@ -38,8 +37,8 @@ You might want to migrate data from instances created with the legacy broker to 
 created with the <%= vars.product_short %>.
 
 <p class="note important">
-  <strong>Important:</strong> Migration of data might incur app downtime.
-  The amount of downtime depends on the method chosen.
+    <strong>Important:</strong> Migration of data might incur app downtime.
+    The amount of downtime depends on the method chosen.
 </p>
 
 There are many options for performing data migration which include [GCP SQL Import and Export](https://cloud.google.com/sql/docs/postgres/backup-recovery/restoring),
@@ -49,10 +48,10 @@ For more information about the data migration process, refer to the documentatio
 In general, the data migration steps are:
 
 1. Create a backup of the PostgreSQL instance.
-1. Create an Google Cloud SQL for PostgreSQL instance using the <%= vars.product_short %>.
-1. Restore a backup of the data from a legacy broker PostgreSQL instance into the newly created instance.
-1. Unbind apps from the legacy broker PostgreSQL instance and bind them to the newly created instance.
-1. After migration is complete, you can stop on-going migration and optionally delete the legacy broker 
+2. Create a Google Cloud SQL for PostgreSQL instance using the <%= vars.product_short %>.
+3. Restore a backup of the data from a legacy broker PostgreSQL instance into the newly created instance.
+4. Unbind apps from the legacy broker PostgreSQL instance and bind them to the newly created instance.
+5. After migration is complete, you can stop on-going migration and optionally delete the legacy broker
    PostgreSQL instance.
 
 For more detailed steps showing the Cloud Foundry and `gcloud` commands necessary to use GCP SQL Import and Export,
@@ -60,65 +59,74 @@ see [Migrate Data from a GCP Service Broker for VMware Tanzu PostgreSQL Instance
 
 ## <a id='steps'></a> Migrate Data from a GCP Service Broker for VMware Tanzu PostgreSQL Instance
 
-To migrate data from an existing legacy PostgreSQL instance to the <%= vars.product_short %>:
-
-
 <p class="note important">
-<strong>Important:</strong> Since GCP SQL Import and Export does not support a streaming / continuos replication you may want
-  to consider putting your Application in read only mode while the migration is ongoing. 
+    <strong>Important:</strong> Because the GCP SQL Import and Export tool does not support a streaming or continuous replication, consider putting your application in read only mode while the migration is ongoing.
 </p>
 
+To migrate data from an existing legacy PostgreSQL instance to the <%= vars.product_short %>:
 
-1. Create a bucket (Bucket names need to be lowercase) to hold the backup files.:
-   
-   ```console
-   gsutil mb gs://<BACKUP-BUCKET-NAME>
-   ```
-
-1. Get OLD_INSTANCE_ID for the legacy PostgreSQL instance details by running:
+1. Create a bucket to hold the backup files by running:
 
     ```console
-    cf env APP-USING-LEGACY-SERVICE-INSTANCE
+    gsutil mb gs://BACKUP-BUCKET-NAME
     ```
 
-    Where is `APP-USING-LEGACY-SERVICE-INSTANCE` is the name of an app that is bound to a
-    service instance from the legacy broker. Inspect the `VCAP_SERVICES` JSON
-    it will contain a property named `database_name`, this is your <OLD_INSTANCE_DB_NAME>, and a property named `instance_name` which is your <OLD_INSTANCE_ID>.
+    Where `BACKUP-BUCKET-NAME` is a name you choose that must be lowercase.
 
-1. Create a new PostgreSQL service instance using <%= vars.product_short %>. You will need to provide the <OLD_INSTANCE_DB_NAME> as a property. Additionally you will have to set the appropriate POSTGRES Version (same os your old service instance)
+1. Get the `VCAP_SERVICES` JSON for the legacy PostgreSQL instance by running:
 
     ```console
-    cf create-service <NEW_SERVICE_BROKER> <SERVICE-INSTANCE-NAME> -c '{"db_name":"<OLD_INSTANCE_DB_NAME>", "database_version": "<OLD_INSTANCE_PG_VERSION>" }'
+    cf env APP-NAME
     ```
 
-1. Determine the GCP Database ID from the `cf service` output:
+    Where `APP-NAME` is the name of an app that is bound to a service instance from the legacy broker.
+
+1. From the `VCAP_SERVICES` JSON, record value of `database_name`, which is your `OLD-INSTANCE-DB-NAME`, and `instance_name`, which is your `OLD-INSTANCE-ID`.
+
+1. Create a new PostgreSQL service instance using <%= vars.product_short %> by running:
 
     ```console
-    cf service <SERVICE-INSTANCE-NAME >--guid
+    cf create-service NEW-SERVICE-BROKER NEW-SERVICE-INSTANCE-NAME -c '{"db_name":"OLD-INSTANCE-DB-NAME", "database_version": "OLD-INSTANCE-PG-VERSION" }'
     ```
 
-    This will output your CF Service Instance GUID. To get the GCP Database Instance ID you need to prefix the guid with: `csb-postgres-` resulting in a string similar to:
+    Where:
 
-    `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`
+    - `NEW-SERVICE-BROKER` is <!-- is this the name of the service offering? Would this be gsb-google-postgres? -->
+    - `NEW-SERVICE-INSTANCE-NAME` is the name you want for your new PostgreSQL service instance.
+    - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in the previous step.
+    - `OLD-INSTANCE-PG-VERSION` is the appropriate PostgreSQL version to be the same as your old service instance.
 
+1. Retrieve the GCP database instance ID for the new service instance.
+The GCP database instance ID is the Cloud Foundry service instance GUID with the prefix `csb-postgres-` added to it.
+This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
 
-1. Create a backup of the old service instance with GCP Import and Export
+    To get the Cloud Foundry service instance GUID, run:
 
-   ```
-   // Give old DB Instance Service Account access to the newly created bucket.
+    ```console
+    cf service NEW-SERVICE-INSTANCE-NAME --guid
+    ```
 
-   INSTANCE_SERVICE_ACCOUNT_NAME=$(gcloud sql instances describe <OLD_INSTANCE_ID> --format json | jq .serviceAccountEmailAddress)
-   gsutil acl ch -u "${INSTANCE_SERVICE_ACCOUNT_NAME}:W" gs://<BACKUP-BUCKET-NAME>
+1. Create a backup of the old service instance with GCP Import and Export by running:
 
-   // Run the export
-   gcloud sql export sql -i <OLD_INSTANCE_ID> "gs://<BACKUP-BUCKET-NAME>/backup.sql" -d <OLD_INSTANCE_DB_NAME>
-   ```
+    ```console
+    // Give the old database instance service account access to the newly created bucket.
 
+    INSTANCE_SERVICE_ACCOUNT_NAME=$(gcloud sql instances describe OLD-INSTANCE-ID --format json | jq .serviceAccountEmailAddress)
+    gsutil acl ch -u "${INSTANCE_SERVICE_ACCOUNT_NAME}:W" gs://BACKUP-BUCKET-NAME
 
-1. Prepare the database for the import. GCP Import and Export can cause problems with permissions on DB objects created by activating extensions.
+    // Run the export
+    gcloud sql export sql -i OLD-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/backup.sql" -d OLD-INSTANCE-DB-NAME
+    ```
 
+    Where:
 
-   ```console
+    - `OLD-INSTANCE-ID` is the `instance_name` you recorded in an earlier step.
+    - `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
+    - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in an earlier step.
+
+1. Prepare the database for the import. GCP Import and Export can cause problems with permissions on database objects created by activating extensions.
+
+    ```console
    cat <<EOF> prepare.sql
       create role "binding_user_group" with login;
       grant all privileges on all tables in schema public to "binding_user_group";
@@ -140,63 +148,67 @@ To migrate data from an existing legacy PostgreSQL instance to the <%= vars.prod
                   end loop;
           end
       $$
-  EOF
+    EOF
 
-  gsutil cp ./prepare.sql "gs://<BACKUP-BUCKET-NAME>/prepare.sql"
+    gsutil cp ./prepare.sql "gs://BACKUP-BUCKET-NAME/prepare.sql"
 
-  cat <<EOF> cleanup.sql
+    cat <<EOF> cleanup.sql
     alter role "binding_user_group" with nologin
-  EOF
+    EOF
 
+    gsutil cp ./cleanup.sql "gs://BACKUP-BUCKET-NAME/cleanup.sql"
+    ```
 
-  gsutil cp ./cleanup.sql "gs://<BACKUP-BUCKET-NAME>/cleanup.sql"
+    Where `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
 
-
-   ```
-      
-1. You can optionally check the contents of the export at this point in time by inspecting the contents of the created dump by downloading it via gsutil:
-
-
-   ```console
-     gsutil cp "gs://<BACKUP-BUCKET-NAME>/backup.sql" /path/to/local/copy/of/dump
-
-   ```
-
-   You can inspect the dump with your texteditor / tooling of choice.
-
-1. Restore the backup of the old service instance into the new Service Instance.
-   E.g via
-
-   ```
-     // Give the new DB Instance Service Account access to the newly created bucket.
-
-     INSTANCE_SERVICE_ACCOUNT_NAME=$(gcloud sql instances describe <NEW_INSTANCE_ID> --format json | jq .serviceAccountEmailAddress)
-     gsutil acl ch -u "${INSTANCE_SERVICE_ACCOUNT_NAME}:R" 'gs://<BACKUP-BUCKET-NAME>/*'
-
-     // Run the prepare
-
-     gcloud sql import sql <NEW_INSTANCE_ID> "gs://<BACKUP-BUCKET-NAME>/prepare.sql" -d <OLD_INSTANCE_DB_NAME>
-
-     // Run the import
-
-     gcloud sql import sql <NEW_INSTANCE_ID> "gs://<BACKUP-BUCKET-NAME>/backup.sql" -d <OLD_INSTANCE_DB_NAME> --user binding_user_group
-     
-     // Run the cleanup
-
-     gcloud sql import sql <NEW_INSTANCE_ID> "gs://<BACKUP-BUCKET-NAME>/cleanup.sql" -d <OLD_INSTANCE_DB_NAME>
-
-   ```
-
-1. Disconnect the app from the legacy service binding by running:
+1. (Optional) Verify the contents of the export by inspecting the contents of the created dump<!-- |core dump|, |memory dump|, and as an adjective, for example, |dump file|. ฿--> by downloading it using gsutil:
 
     ```console
-    cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE
+    gsutil cp "gs://BACKUP-BUCKET-NAME/backup.sql" PATH-TO-DUMP
+    ```
+
+    Where `PATH-TO-DUMP` is the filepath where you want to download the local copy of the dump<!-- |core dump|, |memory dump|, and as an adjective, for example, |dump file|. ฿-->
+
+    You can inspect the dump with your text editor or tooling of choice.
+
+1. Restore the backup of the old service instance into the new service instance. For example:
+
+    ```console
+    // Give the new database instance service account access to the newly created bucket.
+
+    INSTANCE_SERVICE_ACCOUNT_NAME=$(gcloud sql instances describe NEW-INSTANCE-ID --format json | jq .serviceAccountEmailAddress)
+    gsutil acl ch -u "${INSTANCE_SERVICE_ACCOUNT_NAME}:R" 'gs://BACKUP-BUCKET-NAME/*'
+
+    // Run the prepare
+
+    gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/prepare.sql" -d OLD-INSTANCE-DB-NAME
+
+    // Run the import
+
+    gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/backup.sql" -d OLD-INSTANCE-DB-NAME --user binding_user_group
+
+    // Run the cleanup
+
+    gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/cleanup.sql" -d OLD-INSTANCE-DB-NAME
+
     ```
 
     Where:
 
-    * `APP-NAME` is the app using the PostgreSQL instance.
-    * `LEGACY-SERVICE-INSTANCE` is the name of the GCP Service Broker for VMware Tanzu-brokered PostgreSQL instance.
+    - `NEW-INSTANCE-ID` is the GCP database instance ID for the new service instance you retrieved in an earlier step.
+    - `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
+    - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in an earlier step.
+
+1. Disconnect the app from the legacy service binding by running:
+
+    ```console
+    cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE-NAME
+    ```
+
+    Where:
+
+    - `APP-NAME` is an app using the legacy PostgreSQL instance.
+    - `LEGACY-SERVICE-INSTANCE-NAME` is the name of the GCP Service Broker for VMware Tanzu-brokered PostgreSQL instance.
 
     For example:
 
@@ -210,8 +222,11 @@ To migrate data from an existing legacy PostgreSQL instance to the <%= vars.prod
     cf bind-service APP-NAME NEW-SERVICE-INSTANCE
     ```
 
-    Where `NEW-SERVICE-INSTANCE` is the name of the <%= vars.product_short %> service instance
-    that you created in step 2 above.
+    Where:
+
+    - `APP-NAME` is an app that you unbound in the previous step.
+    - `NEW-SERVICE-INSTANCE` is the name of the <%= vars.product_short %> service instance
+    that you created in an earlier step.
 
     For example:
 
