@@ -86,15 +86,16 @@ To migrate data from an existing legacy PostgreSQL instance to the <%= vars.prod
 1. Create a new PostgreSQL service instance using <%= vars.product_short %> by running:
 
     ```console
-    cf create-service NEW-SERVICE-BROKER NEW-SERVICE-INSTANCE-NAME -c '{"db_name":"OLD-INSTANCE-DB-NAME", "database_version": "OLD-INSTANCE-PG-VERSION" }'
+    cf create-service csb-google-postgres PLAN-NAME NEW-SERVICE-INSTANCE-NAME -b cloud-service-broker-gcp -c '{"db_name":"OLD-INSTANCE-DB-NAME", "database_version": "OLD-INSTANCE-PG-VERSION" }'
     ```
 
     Where:
 
-    - `NEW-SERVICE-BROKER` is <!-- is this the name of the service offering? Would this be gsb-google-postgres? -->
+    - `PLAN-NAME` is the name of the <%= vars.product_short %> plan you want to use for the new instance.
+    Ensure this plan matches the plan used in the legacy broker.
     - `NEW-SERVICE-INSTANCE-NAME` is the name you want for your new PostgreSQL service instance.
     - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in the previous step.
-    - `OLD-INSTANCE-PG-VERSION` is the appropriate PostgreSQL version to be the same as your old service instance.
+    - `OLD-INSTANCE-PG-VERSION` is the same PostgreSQL version as your old service instance.
 
 1. Retrieve the GCP database instance ID for the new service instance.
 The GCP database instance ID is the Cloud Foundry service instance GUID with the prefix `csb-postgres-` added to it.
@@ -161,15 +162,16 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
 
     Where `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
 
-1. (Optional) Verify the contents of the export by inspecting the contents of the created dump<!-- |core dump|, |memory dump|, and as an adjective, for example, |dump file|. ฿--> by downloading it using gsutil:
+1. (Optional) Verify the contents of the export by inspecting the contents of the created SQL dump file.
+To do so, download it using gsutil by running:
 
     ```console
-    gsutil cp "gs://BACKUP-BUCKET-NAME/backup.sql" PATH-TO-DUMP
+    gsutil cp "gs://BACKUP-BUCKET-NAME/backup.sql" PATH-TO-SQL-DUMP-FILE
     ```
 
-    Where `PATH-TO-DUMP` is the filepath where you want to download the local copy of the dump<!-- |core dump|, |memory dump|, and as an adjective, for example, |dump file|. ฿-->
+    Where `PATH-TO-SQL-DUMP-FILE` is the filepath where you want to download the local copy of the dump file.
 
-    You can inspect the dump with your text editor or tooling of choice.
+    You can inspect the dump file with your text editor or tooling of choice.
 
 1. Restore the backup of the old service instance into the new service instance. For example:
 
