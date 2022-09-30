@@ -1,7 +1,7 @@
 *   [Tanzu Cloud Service Broker for GCP](/docs-csb-gcp/index.html)
 *   [Release Notes](/docs-csb-gcp/release-notes.html)
 *   [Installing and Configuring](/docs-csb-gcp/installing-with-gcp.html)
-*   [Migrating to a Google Cloud SQL for PostgreSQL Instance](gcp-postgres-migration.html)
+*   [Migrating to a Google Cloud SQL for PostgreSQL Instance](/docs-csb-gcp/gcp-postgres-migration.html)
 *   [Upgrading](/docs-csb-gcp/upgrading.html)
 *   [Service Plan Reference](/docs-csb-gcp/reference/index.html)
     *   [Google PostgreSQL](/docs-csb-gcp/reference/gcp-postgresql.html)
