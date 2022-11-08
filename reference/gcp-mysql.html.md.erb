@@ -19,11 +19,11 @@ It details the plans, configuration parameters, and binding credentials.
 
 The table below lists the plans for Google MySQL:
 
-| Plan | Description |
-|------|-------------|
-| small | MySQL v5.7, minimum 2 cores, minimum 4&nbsp;GB RAM, 10&nbsp;GB storage |
-| medium | MySQL v5.7, minumum 4 cores, minumum 8&nbsp;GB RAM, 10&nbsp;GB storage  |
-| large | MySQL v5.7, minumum 8 cores, minumum 16&nbsp;GB RAM, 20&nbsp;GB storage  |
+| Plan   | Description                                                             |
+|--------|-------------------------------------------------------------------------|
+| small  | MySQL v5.7, minimum 2 cores, minimum 4&nbsp;GB RAM, 10&nbsp;GB storage  |
+| medium | MySQL v5.7, minimum 4 cores, minimum 8&nbsp;GB RAM, 10&nbsp;GB storage  |
+| large  | MySQL v5.7, minimum 8 cores, minimum 16&nbsp;GB RAM, 20&nbsp;GB storage |
 
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
@@ -34,15 +34,15 @@ For how to configure plans, see
 
 The following table lists parameters which can only be configured for additional plans:
 
-| Parameter Name       | Values                         | Default   |
-|----------------------|--------------------------------|-----------|
-| `name`*              | The plan name                  | _n/a_     |
-| `id`*                | A unique GUID                  | _n/a_     |
-| `description`*       | Description of the new plan    | _n/a_     |
-| `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
-| `free`               | When false, Service Instances of this Service Plan have a cost    | true     |
-| `bindable`           | Specifies whether Service Instances of the Service Plan can bind to applications    | true     |
-| `plan_updateable`    | Whether the Plan supports upgrade/downgrade/sidegrade to another version    | true     |
+| Parameter Name    | Values                                                                           | Default |
+|-------------------|----------------------------------------------------------------------------------|---------|
+| `name`*           | The plan name                                                                    | _n/a_   |
+| `id`*             | A unique GUID                                                                    | _n/a_   |
+| `description`*    | Description of the new plan                                                      | _n/a_   |
+| `display_name`    | Name to use when displaying plan in marketplace                                  | _n/a_   |
+| `free`            | When false, Service Instances of this Service Plan have a cost                   | true    |
+| `bindable`        | Specifies whether Service Instances of the Service Plan can bind to applications | true    |
+| `plan_updateable` | Whether the Plan supports upgrade/downgrade/sidegrade to another version         | true    |
 
 <sup>*</sup> Required
 
@@ -87,7 +87,7 @@ provisioning a csb-google-mysql service:
     <td><code>cores</code></td>
     <td>string</td>
     <td>
-      (Required unless defined in plan) Minimum number of cores for service instance, 1&ndash;64, multiples of 2.
+      (Required unless defined in plan) Minimum number of cores for service instance, 2&ndash;64, multiples of 2.
     </td>
     <td><code>2</code></td>
     <td>provision and update</td>
