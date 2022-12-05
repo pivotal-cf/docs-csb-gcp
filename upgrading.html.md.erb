@@ -39,11 +39,13 @@ To remove the instances from Cloud Foundry, run the command:
 cf purge-service-instance
 ```
 
+## <a id="upgrade-to-1-2"></a> Upgrading to v1.2
+
 ### <a id="gcp-changing-custom-plans"></a> Changing custom plans
 
 Make the following changes to existing custom plans before upgrading.
 
-#### <a id="storage-type"></a> Set `tier`
+#### <a id="gcp-changing-custom-plans-mysql-set-tier"></a> Set `tier` MySQL service
 
 If you have custom plans already configured for MySQL, you must change the configuration.
 This is because the old property `cores` has been removed, and you have to use `tier` instead to define compute
