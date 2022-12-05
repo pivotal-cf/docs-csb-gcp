@@ -45,7 +45,7 @@ cf purge-service-instance
 
 Make the following changes to existing custom plans before upgrading.
 
-#### <a id="gcp-changing-custom-plans-mysql-set-tier"></a> Set `tier` MySQL service
+#### <a id="gcp-changing-custom-plans-mysql-set-tier"></a> Set `tier` for MySQL service
 
 If you have custom plans already configured for MySQL, you must change the configuration.
 This is because the old property `cores` has been removed, and you have to use `tier` instead to define compute
