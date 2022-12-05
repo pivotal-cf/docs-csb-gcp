@@ -11,13 +11,26 @@ These are release notes for <%= vars.product_full %>.
 
 **Release Date:** MMM DD, YYYY
 
+### Breaking Changes
+
+This release has the following breaking changes:
+
+- **`cores` property removed:**
+  The `cores` property has been removed and is not configurable. Use the `tier` property instead to define compute
+  and memory capacity.
+  The old custom plans containing the property `cores` must be changed. For more information, see
+  [Changing custom plans](upgrading.html.md.erb#gcp-changing-custom-plans).
+  
+
 ### Features
 
 New features and changes in this release:
 
-* **Run-in header:** Description
-* **Run-in header:** Description
-* **Run-in header:** Description
+#### Google MySQL
+
+- **`tier` property exposed:**
+  The `tier` property is now configurable at plan creation or instance operations for Google MySQL.
+  The `tier` property determines the computation and memory capacity of a Google MySQL database instance.
 
 ### Resolved Issues
 
