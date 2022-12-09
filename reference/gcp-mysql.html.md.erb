@@ -92,6 +92,27 @@ provisioning a csb-google-mysql service:
     <td>provision and update</td>
   </tr>
   <tr>
+    <td><code>disk_autoresize</code></td>
+    <td>boolean</td>
+    <td>
+      Enables auto-resizing of the storage size.
+      If the value of the `disk_autoresize_limit` is other than 0, and you want to disable the functionality,
+      it will be necessary to set the property `disk_autoresize_limit` to zero and set `disk_autoresize` to false.
+    </td>
+    <td>true</td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>disk_autoresize_limit</code></td>
+    <td>number</td>
+    <td>
+      The maximum size in GB to which storage capacity can be automatically increased.
+      The default value is 0, which specifies that there is no limit.
+    </td>
+    <td>0</td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
     <td><code>storage_gb</code></td>
     <td>string</td>
     <td>
