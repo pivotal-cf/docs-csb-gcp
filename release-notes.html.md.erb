@@ -32,6 +32,11 @@ New features and changes in this release:
   The `tier` property is now configurable at plan creation or instance operations for Google MySQL.
   The `tier` property determines the computation and memory capacity of a Google MySQL database instance.
 
+- **MySQL version is exposed:**
+  Previously the parameter mysql_version was restricted to a property plan. You can now choose the version you want
+  when creating a plan or creating and updating the instance.
+  This property is required if it is not defined in the plan.
+
 ### Resolved Issues
 
 This release has the following fixes:
