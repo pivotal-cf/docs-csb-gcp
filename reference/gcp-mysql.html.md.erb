@@ -105,7 +105,8 @@ provisioning a csb-google-mysql service:
     <td>boolean</td>
     <td>
       Enables auto-resizing of the storage size.
-      When disabling the storage auto-resizing, the value of the `disk_autoresize_limit` should also be set to 0.
+      When deactivating the storage auto-resizing, set value of the <code>disk_autoresize_limit</code>
+      to 0.
     </td>
     <td>true</td>
     <td>provision and update</td>
@@ -133,8 +134,9 @@ provisioning a csb-google-mysql service:
     <td><code>storage_gb</code></td>
     <td>string</td>
     <td>
-      (Required unless defined in plan) Size of storage volume for service instance.
-      See GCP documentation to understand the limits https://cloud.google.com/sql/docs/mysql/quotas#storage_limits
+      Required unless defined in plan. Size of storage volume for service instance.
+      To understand the limits, see the
+      <a href="https://cloud.google.com/sql/docs/mysql/quotas#storage_limits">GCP documentation</a>.
     </td>
     <td><code>10</code></td>
     <td>provision and update</td>

@@ -20,7 +20,7 @@ This release has the following breaking changes:
   and memory capacity.
   The old custom plans containing the property `cores` must be changed. For more information, see
   [Changing custom plans](upgrading.html.md.erb#gcp-changing-custom-plans).
-  
+
 
 ### Features
 
@@ -35,9 +35,10 @@ New features and changes in this release:
 - **Storage auto-scaling controls exposed:**
   New properties has been exposed to control the storage auto-scaling functionality.
   You can change the behaviour through these properties:
-  
+
   - `disk_autoresize`: Enables auto-resizing of the storage size. Defaults to `true`.
-  When disabling the storage auto-resizing, the value of the disk_autoresize_limit should also be set to 0.
+    When deactivating the storage auto-resizing, the value of the `disk_autoresize_limit` must also be
+    set to 0.
   - `disk_autoresize_limit`: The maximum size in GB to which storage capacity can be automatically increased.
   The default value is 0, which specifies that there is no limit.
 
@@ -51,9 +52,11 @@ New features and changes in this release:
   configuration or during provision or update operations. By default, the protection is deactivated.
 
 - **Maximum storage capacity limit removed:**
-  The maximum storage capacity limit has been removed. From now on, you can select the desired storage capacity.
-  See GCP documentation to understand the limits https://cloud.google.com/sql/docs/mysql/quotas#storage_limits
-  Capacity cannot be reduced later.
+  The maximum storage capacity limit no longer exists. From now on, you can select the storage
+  capacity that you want.
+  To understand the limits, see the
+  [GCP documentation](https://cloud.google.com/sql/docs/mysql/quotas#storage_limits).
+  The capacity cannot be reduced later.
 
 ### Resolved Issues
 
