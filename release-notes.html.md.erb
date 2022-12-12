@@ -36,10 +36,8 @@ New features and changes in this release:
   New properties has been exposed to control the storage auto-scaling functionality.
   You can change the behaviour through these properties:
   
-  - `disk_autoresize`: Enables auto-resizing of the storage size.
-  Defaults to `true`.
-  If the value of the `disk_autoresize_limit` is other than 0, and you want to disable the functionality,
-  it will be necessary to set the property `disk_autoresize_limit` to zero and set `disk_autoresize` to false.
+  - `disk_autoresize`: Enables auto-resizing of the storage size. Defaults to `true`.
+  When disabling the storage auto-resizing, the value of the disk_autoresize_limit should also be set to 0
   - `disk_autoresize_limit`: The maximum size in GB to which storage capacity can be automatically increased.
   The default value is 0, which specifies that there is no limit.
 
