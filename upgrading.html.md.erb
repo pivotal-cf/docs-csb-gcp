@@ -48,10 +48,11 @@ Make the following changes to existing custom plans before upgrading.
 #### <a id="gcp-mysql-set-tier"></a> Set `tier` for the MySQL service
 
 If you have custom plans already configured for MySQL, you must change the configuration.
-This is because the old property `cores` has been removed, and you have to use `tier` instead to define compute
-and memory capacity.
+This is because the old property `cores` was removed, and you have to use `tier` instead to define
+compute and memory capacity.
 
-To ensure that no unintended changes happen to your existing instances, add the `tier` property. For example:
+To ensure that no unintended changes happen to your existing instances, add the `tier` property.
+For example:
 
 ```json
   {
@@ -64,7 +65,8 @@ To ensure that no unintended changes happen to your existing instances, add the 
   }
 ```
 
-For more information about the machine types see [GCP documentation](https://cloud.google.com/sql/docs/mysql/instance-settings)
+For more information about the machine types, see the
+[GCP documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
 
 ## <a id="procedure"></a> Upgrade procedure
 
