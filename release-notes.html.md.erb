@@ -61,13 +61,16 @@ New features and changes in this release:
   The capacity cannot be reduced later.
 
 - **Backups are now configurable:**
-  Regular backups are enabled by default, and can be configured via the following properties:
+  Regular backups are enabled by default, and you can configure them by using the following properties:
 
-  - `backups_retain_number`: How many backups to retain. Setting this property to `0` disables regular backups.
-  - `backups_location`: (Optional) Name of a specific GCP region to store backups. When left unspecified, multi-regional storage is used.
-  - `backups_start_time`: Preferred time to start daily regular backups, in the format `HH:MM`. Defaults to `07:00`.
-  - `backups_transaction_log_retention_days`: Controls the number of days to keep the transaction logs. Defaults to `0`.
-    Up to 7 days of transaction logs can be stored.
+  - `backups_retain_number`: How many backups to retain. Setting this property to `0` deactivates
+    regular backups.
+  - `backups_location`: (Optional) Name of a specific GCP region in which to store backups.
+    When left unspecified, multi-regional storage is used.
+  - `backups_start_time`: Preferred time, in the format `HH:MM`, to start daily regular backups.
+    It is `07:00` by default.
+  - `backups_transaction_log_retention_days`: Controls the number of days to keep the transaction logs.
+    It is `0` by default. Up to 7 days of transaction logs can be stored.
 
 - **Longer password for the admin user:** The length of the auto-generated password for the admin
   user is extended to 64 characters.

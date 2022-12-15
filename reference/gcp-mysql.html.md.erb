@@ -199,7 +199,7 @@ provisioning a csb-google-mysql service:
     <td><code>backups_retain_number</code></td>
     <td>number</td>
     <td>
-      The number of backups to retain. Setting this value to 0 disables the backups.
+      The number of backups to retain. Setting this value to 0 deactivates the backups.
     </td>
     <td>7</td>
     <td>provision and update</td>
@@ -208,7 +208,7 @@ provisioning a csb-google-mysql service:
     <td><code>backups_location</code></td>
     <td>string</td>
     <td>
-      The name of the GCP region to store the backup.
+      The name of the GCP region in which to store the backup.
     </td>
     <td></td>
     <td>provision and update</td>
@@ -217,7 +217,7 @@ provisioning a csb-google-mysql service:
     <td><code>backups_start_time</code></td>
     <td>string</td>
     <td>
-      Time indicating when the backup should start, in HH:MM format.
+      Time in HH:MM format that indicates when the backup starts.
     </td>
     <td>07:00</td>
     <td>provision and update</td>
@@ -226,8 +226,8 @@ provisioning a csb-google-mysql service:
     <td><code>backups_transaction_log_retention_days</code></td>
     <td>number</td>
     <td>
-      The number of days to retain the transaction logs. Setting this value to 0 disables transaction log backups.
-      The transaction logs can be retained up to 7 days
+      The number of days to retain the transaction logs. Setting this value to 0 deactivates
+      transaction log backups. The transaction logs can be retained for up to 7 days.
     </td>
     <td>0</td>
     <td>provision and update</td>
