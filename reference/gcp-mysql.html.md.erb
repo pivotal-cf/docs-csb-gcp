@@ -187,6 +187,25 @@ provisioning a csb-google-mysql service:
     <td>provision</td>
   </tr>
   <tr>
+    <td><code>authorized_networks_cidrs</code></td>
+    <td>array</td>
+    <td>
+      CIDR notation IPv4 or IPv6 addresses that are allowed to access this instance.
+    </td>
+    <td><code>[]</code> </td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>public_ip</code></td>
+    <td>Boolean</td>
+    <td>
+      Assigns a static public IPV4 IP to the database.
+      You must configure <code>authorized_networks_cidrs</code> on the selected network to enable access. See https://cloud.google.com/sql/docs/mysql/configure-ip for more information.
+    </td>
+    <td><code>false</code> </td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
     <td><code>credentials</code></td>
     <td>string</td>
     <td>
