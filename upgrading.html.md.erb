@@ -68,6 +68,28 @@ For example:
 For more information about the machine types, see the
 [GCP documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
 
+#### <a id="gcp-mysql-authorized-network-id"></a> Set `authorized_network_id` for the MySQL service
+
+If you have custom plans already configured for MySQL, and you included the `authorized_network` property,
+you must change the configuration.
+
+This is because the old property `authorized_network` was removed, and you have to use `authorized_network_id` instead
+to define the id of the Google Compute Engine network to which the instance is connected.
+
+To ensure that no unintended changes happen to your existing instances, add the `authorized_network_id` property.
+For example:
+
+```json
+  {
+    "name": "my-custom-plan",
+    "id": "dd448d6e-1d71-11ed-9974-77a0c9ef0141",
+    "description": "Custom plan",
+    "authorized_network_id": "projects/{{project}}/global/networks/{{name}}",
+    "storage_gb": 10,
+    "mysql_version": "MYSQL_5_7"
+  }
+```
+
 ## <a id="procedure"></a> Upgrade procedure
 
 To upgrade the <%= vars.product_short %> to a later version:
