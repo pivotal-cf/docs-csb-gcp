@@ -22,15 +22,15 @@ For how to configure plans, see
 
 The following table lists parameters which can be configured at a plan level:
 
-| Parameter Name       | Values                         | Default   | Required |
-|----------------------|--------------------------------|-----------|----------|
-| `name`               | The plan name                  | _n/a_     | Yes      |
-| `id`                 | A unique GUID                  | _n/a_     | Yes      |
-| `description`        | Description of the new plan    | _n/a_     | Yes      |
-| `display_name`       | Name to use when displaying plan in Marketplace    | _n/a_     | No |
-| `free`               | When false, Service Instances of this Service Plan have a cost    | true     | No |
-| `bindable`           | Specifies whether Service Instances of the Service Plan can bind to applications    | true     | No |
-| `plan_updateable`    | Whether the Plan supports upgrade/downgrade/sidegrade to another version    | true     | No |
+| Parameter Name    | Values                                                                           | Default | Required |
+|-------------------|----------------------------------------------------------------------------------|---------|----------|
+| `name`            | The plan name                                                                    | _n/a_   | Yes      |
+| `id`              | A unique GUID                                                                    | _n/a_   | Yes      |
+| `description`     | Description of the new plan                                                      | _n/a_   | Yes      |
+| `display_name`    | Name to use when displaying plan in Marketplace                                  | _n/a_   | No       |
+| `free`            | When false, Service Instances of this Service Plan have a cost                   | true    | No       |
+| `bindable`        | Specifies whether Service Instances of the Service Plan can bind to applications | true    | No       |
+| `plan_updateable` | Whether the Plan supports upgrade/downgrade/sidegrade to another version         | true    | No       |
 
 You can also add any of the configuration parameters listed in the [parameters](#parameters) section
 to your plan.
@@ -172,7 +172,7 @@ whether a parameter is supported for both provision and update, or for provision
     <td>Boolean</td>
     <td>
       Assigns a static public IPV4 IP to the database.
-      You must configure <code>authorized_networks_cidrs</code> on the selected network to enable access.
+      You must configure <code>authorized_networks_cidrs</code> on the selected network to enable access. See https://cloud.google.com/sql/docs/postgres/configure-ip for more information.
     </td>
     <td><code>false</code> </td>
     <td>provision and update</td>
