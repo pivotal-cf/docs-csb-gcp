@@ -83,6 +83,12 @@ New features and changes in this release:
   that were using built-in plans and that you want to maintain, previously provided plans must be added through the tile configuration.
   For more information, see [Add previously provided pre-configured plans](reference/gcp-mysql.html.md.erb#old-plans).
 
+- **MySQL database server can be assigned a public IP address:**
+  Public IP address isn't assigned by default, but can be enabled via the `public_ip` property. When the public
+  IP address is assigned, access is only allowed from the networks specified via the `authorized_networks_cidrs`
+  property. For more information on using a public IP address for MySQL, see 
+  [GCP Documentation](https://cloud.google.com/sql/docs/mysql/configure-ip).
+
 ### Resolved Issues
 
 This release has the following fixes:
