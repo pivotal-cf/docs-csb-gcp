@@ -72,16 +72,19 @@ New features and changes in this release:
   - `backups_transaction_log_retention_days`: Controls the number of days to keep the transaction logs.
     It is `0` by default. Up to 7 days of transaction logs can be stored.
 
-- **Longer password for the admin user:** The length of the auto-generated password for the admin
-  user is extended to 64 characters.
+- **Longer password for the admin user:**
+  The length of the auto-generated password for the admin user is extended to 64 characters.
 
 - **Configure MySQL plans from Tanzu Ops Manager:**
-  From now on you can add custom plans from the new MySQL configuration section in the broker's general configuration using Tanzu Ops Manager.
+  You can now use Tanzu Ops Manager to add custom plans from the new MySQL configuration section in
+  the broker's general configuration.
 
 - **GCP MySQL pre-configured plans were removed:**
-  From this version onwards, plans are no longer provided with the brokerpak. If you have GCP MySQL service instances
-  that were using built-in plans and that you want to maintain, previously provided plans must be added through the tile configuration.
-  For more information, see [Add previously provided pre-configured plans](reference/gcp-mysql.html.md.erb#old-plans).
+  From this version onwards, plans are no longer provided with the brokerpak.
+  If you have GCP MySQL service instances that were using built-in plans and that you want to maintain,
+  previously provided plans must be added through the tile configuration.
+  For more information, see
+  [Add previously provided pre-configured plans](reference/gcp-mysql.html.md.erb#old-plans).
 
 - **MySQL database server can be assigned a public IP address:**
   A public IP address isn't assigned by default, but can be enabled by using the `public_ip` property.
