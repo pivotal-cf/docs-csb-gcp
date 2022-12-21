@@ -15,16 +15,13 @@ This topic provides reference information about the Google MySQL service (csb-go
 
 It details the plans, configuration parameters, and binding credentials.
 
-## <a id="plans"></a> Plans
-
-The table below lists the plans for Google MySQL:
-
-| Plan   | Description                                             |
-|--------|---------------------------------------------------------|
-| small  | MySQL v5.7, 2 cores, 8&nbsp;GB ram, 10&nbsp;GB storage  |
-| medium | MySQL v5.7, 4 cores, 16&nbsp;GB ram, 10&nbsp;GB storage |
-| large  | MySQL v5.7, 8 cores, 32&nbsp;GB ram, 20&nbsp;GB storage |
-
+<p class="note">
+  <strong>Note:</strong> Release v1.2.0 removes brokerpak pre-configured plans for MySQL.
+  All plans must be configured through the tile.
+  If you have instances of the GCP MySQL that were created in previous versions that you want to
+  maintain, see <a href="#old-plans">Add previously provided pre-configured plans</a>.
+  For more information about upgrade steps, see <a href="../upgrading.html.md.erb">Upgrading</a>.
+</p>
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
 
@@ -273,5 +270,61 @@ The format for binding credentials for Google MySQL is as follows:
     "use_tls" : false,
     "uri" : "DATABASE-CONNECTION-URI",
     "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URI"
+}
+```
+
+## <a id="old-plans"></a> Add previously provided pre-configured plans
+
+The following table lists the previously provided plans for GCP MySQL:
+
+| Plan   | Description                                             |
+|--------|---------------------------------------------------------|
+| small  | MySQL v5.7, 2 cores, 8&nbsp;GB ram, 10&nbsp;GB storage  |
+| medium | MySQL v5.7, 4 cores, 16&nbsp;GB ram, 10&nbsp;GB storage |
+| large  | MySQL v5.7, 8 cores, 32&nbsp;GB ram, 20&nbsp;GB storage |
+
+To keep these plans in later versions of the broker, add them through the tile as custom plans.
+For how to configure plans through the tile, see
+[Configure Services with Cloud Service Broker for GCP](../installing-with-gcp.html#services).
+
+Add the following block to keep the `small` plan:
+
+```json
+{
+    "name": "small",
+    "id": "8809fe67-99b5-48dd-a6dd-890ee45e86be",
+    "description": "MySQL v5.7, 2 cores, 8GB ram, 10GB storage",
+    "display_name": "small",
+    "mysql_version": "MYSQL_5_7",
+    "storage_gb": 10,
+    "tier": "db-n1-standard-2"
+}
+```
+
+Add the following block to keep the `medium` plan:
+
+```json
+{
+    "name": "medium",
+    "id": "753accb8-52a7-4673-8216-ffc539351aea",
+    "description": "MySQL v5.7, 4 cores, 16GB ram, 10GB storage",
+    "display_name": "medium",
+    "mysql_version": "MYSQL_5_7",
+    "storage_gb": 10,
+    "tier": "db-n1-standard-4"
+}
+```
+
+Add the following block to keep the `large` plan:
+
+```json
+{
+    "name": "large",
+    "id": "8f8fc4ab-2b37-41da-bc6a-e915497dac33",
+    "description": "MySQL v5.7, 8 cores, 32GB ram, 20GB storage",
+    "display_name": "large",
+    "mysql_version": "MYSQL_5_7",
+    "storage_gb": 20,
+    "tier": "db-n1-standard-8"
 }
 ```
