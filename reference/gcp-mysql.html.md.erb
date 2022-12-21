@@ -27,7 +27,7 @@ It details the plans, configuration parameters, and binding credentials.
 
 When configuring <%= vars.product_short %> you can add additional plans.
 For how to configure plans, see
-[Configure Services with Cloud Service Broker for GCP](../installing-with-gcp.html#services).
+[Configure Services with Cloud Service Broker for GCP](../installing-with-gcp.html.md.erb#services).
 
 The following table lists parameters which can only be configured for additional plans:
 
@@ -196,8 +196,9 @@ provisioning a csb-google-mysql service:
     <td><code>public_ip</code></td>
     <td>Boolean</td>
     <td>
-      Assigns a static public IPV4 IP to the database.
-      You must configure <code>authorized_networks_cidrs</code> on the selected network to enable access. See https://cloud.google.com/sql/docs/mysql/configure-ip for more information.
+      Assigns a static public IPv4 IP to the database.
+      You must configure <code>authorized_networks_cidrs</code> on the selected network to enable access.
+      For more information, see the <a href="https://cloud.google.com/sql/docs/mysql/configure-ip">GCP documentation</a>.
     </td>
     <td><code>false</code> </td>
     <td>provision and update</td>
