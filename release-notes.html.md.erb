@@ -96,6 +96,12 @@ New features and changes in this release:
   All MySQL connections are now encrypted. The binding credentials include certificates that can be used
   for verifying the connection.
 
+- **Simplified network configuration:** The property `authorized_network` has been removed.
+  From now on, you can configure the networking by using only the `authorized_network_id` property, in other words,
+  by using the id of the Google Compute Engine network to which the instance is connected.
+  If left unspecified, the default network of the region will be used.
+  For more information about the upgrade process, see the [authorized network section](upgrading.html.md.erb#gcp-mysql-authorized-network-id).
+
 ### Resolved Issues
 
 This release has the following fixes:

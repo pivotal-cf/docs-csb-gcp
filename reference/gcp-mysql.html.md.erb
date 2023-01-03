@@ -167,21 +167,15 @@ provisioning a csb-google-mysql service:
     <td>provision</td>
   </tr>
   <tr>
-    <td><code>authorized_network</code></td>
-    <td>string</td>
-    <td>
-      The name of the Google Compute Engine network to which the instance is connected.
-    </td>
-    <td><code>default</code> </td>
-    <td>provision</td>
-  </tr>
-  <tr>
     <td><code>authorized_network_id</code></td>
     <td>string</td>
     <td>
       The ID of the Google Compute Engine network to which the instance is connected.
+      It has the format `https://www.googleapis.com/compute/v1/projects/<PROJECT_NAME>/global/networks/<VPC_NAME>`,
+        where the `https://www.googleapis.com/compute/v1/` prefix can be omitted.
     </td>
-    <td><code>""</code> </td>
+    <td>The value the operator entered for <strong>Authorized Network ID</strong> in <%= vars.ops_manager %>.
+      If that is empty then the default network of the region will be used</td>
     <td>provision</td>
   </tr>
   <tr>
