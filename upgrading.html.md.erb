@@ -5,6 +5,66 @@ owner: Cloud Service Broker
 
 This topic describes how to upgrade <%= vars.product_full %>.
 
+## <a id="upgrade-to-1-2"></a> Upgrading from v1.1 to v1.2
+
+### <a id="updating-instances"></a> Update instances to include the proper value for `authorized_network_id`
+
+Make the following changes to existing instances before upgrading.
+
+The old property `authorized_network` was removed, and you have to use `authorized_network_id` instead.
+If you have any instances created passing an explicit value for authorized_network`, these won't be manageable after the upgrade.
+
+See [Set `authorized_network_id` for the MySQL service](#gcp-mysql-authorized-network-id) if you have the `authorized_network` property  specified in a custom plan.
+
+### <a id="gcp-changing-custom-plans"></a> Changing custom plans
+
+Make the following changes to existing custom plans before upgrading.
+
+#### <a id="gcp-mysql-set-tier"></a> Set `tier` for the MySQL service
+
+If you have custom plans already configured for MySQL, you must change the configuration.
+This is because the old property `cores` was removed, and you have to use `tier` instead to define
+compute and memory capacity.
+
+To ensure that no unintended changes happen to your existing instances, add the `tier` property.
+For example:
+
+```json
+  {
+    "name": "my-custom-plan",
+    "id": "dd448d6e-1d71-11ed-9974-77a0c9ef0141",
+    "description": "Custom plan",
+    "tier": "db-n1-standard-2",
+    "storage_gb": 10,
+    "mysql_version": "MYSQL_5_7"
+  }
+```
+
+For more information about the machine types, see the
+[GCP documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
+
+#### <a id="gcp-mysql-authorized-network-id"></a> Set `authorized_network_id` for the MySQL service
+
+If you have custom plans already configured for MySQL, and you included the `authorized_network` property,
+you must change the configuration.
+
+This is because the old property `authorized_network` was removed, and you have to use `authorized_network_id` instead
+to define the id of the Google Compute Engine network to which the instance is connected.
+
+To ensure that no unintended changes happen to your existing instances, add the `authorized_network_id` property.
+For example:
+
+```json
+  {
+    "name": "my-custom-plan",
+    "id": "dd448d6e-1d71-11ed-9974-77a0c9ef0141",
+    "description": "Custom plan",
+    "authorized_network_id": "projects/GCP_PROJECT/global/networks/VPC_NAME",
+    "storage_gb": 10,
+    "mysql_version": "MYSQL_5_7"
+  }
+```
+
 ## <a id="upgrade-to-1-1"></a> Upgrading from v1.0 to v1.1
 
 If you have Redis or Dataproc instances created with previous versions of the <%= vars.product_short %>
@@ -39,35 +99,6 @@ To remove the instances from Cloud Foundry, run the command:
 cf purge-service-instance
 ```
 
-## <a id="upgrade-to-1-2"></a> Upgrading to v1.2
-
-### <a id="gcp-changing-custom-plans"></a> Changing custom plans
-
-Make the following changes to existing custom plans before upgrading.
-
-#### <a id="gcp-mysql-set-tier"></a> Set `tier` for the MySQL service
-
-If you have custom plans already configured for MySQL, you must change the configuration.
-This is because the old property `cores` was removed, and you have to use `tier` instead to define
-compute and memory capacity.
-
-To ensure that no unintended changes happen to your existing instances, add the `tier` property.
-For example:
-
-```json
-  {
-    "name": "my-custom-plan",
-    "id": "dd448d6e-1d71-11ed-9974-77a0c9ef0141",
-    "description": "Custom plan",
-    "tier": "db-n1-standard-2",
-    "storage_gb": 10,
-    "mysql_version": "MYSQL_5_7"
-  }
-```
-
-For more information about the machine types, see the
-[GCP documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
-
 ## <a id="procedure"></a> Upgrade procedure
 
 To upgrade the <%= vars.product_short %> to a later version:
@@ -76,6 +107,8 @@ To upgrade the <%= vars.product_short %> to a later version:
 [<%= vars.product_network %>](https://network.pivotal.io/products/cloud-service-broker-gcp/).
 
 1. Follow the procedure in [Installing with GCP](installing-with-gcp.html).
+
+1. Make all the changes required for the new version as specified in this page.
 
 1. If you are upgrading to a version later than v1.0, service instances might need to be upgraded.
 Before installing the new version, see
