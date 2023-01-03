@@ -92,6 +92,10 @@ New features and changes in this release:
   `authorized_networks_cidrs` property. For more information about using a public IP address for MySQL,
   see the [GCP documentation](https://cloud.google.com/sql/docs/mysql/configure-ip).
 
+- **MySQL connection encryption:**
+  All MySQL connections are now encrypted. The binding credentials include certificates that can be used
+  for verifying the connection.
+
 - **Simplified network configuration:** The property `authorized_network` has been removed.
   From now on, you can configure the networking by using only the `authorized_network_id` property, in other words,
   by using the id of the Google Compute Engine network to which the instance is connected.
