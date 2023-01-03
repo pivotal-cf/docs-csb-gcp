@@ -26,9 +26,10 @@ This release has the following breaking changes:
 #### Google Cloud Storage
 
 - **Format for binding credentials changed:**
-  From this version onwards, the format for binding credentials has changed and only uses the `snake_case` style and not a combination of them.
-  For more information about the format, see the [reference](reference/gcp-storage.html.md.erb#binding-creds) section.
-  You must adapt your application to correctly read the properties exposed in the binding credentials.
+  The format for binding credentials has changed to only use the snake_case style instead of a
+  combination of styles. For more information about the format, see the
+  [reference](reference/gcp-storage.html.md.erb#binding-creds) topic.
+  You must change your application to correctly read the properties exposed in the binding credentials.
 
 ### Features
 
