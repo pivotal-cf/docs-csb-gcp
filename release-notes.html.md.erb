@@ -37,9 +37,10 @@ New features and changes in this release:
 
 #### Google Cloud Storage
 
-- **The property `acl` associated with the plans has been removed:**
-  From now on, this property will not influence the custom plans created since with this change, the parameter is no longer mandatory.
-  The removal of this parameter does not affect the upgrading process, for more information see the `Resolved Issues` section.
+- **The `acl` parameter associated with the plans was removed:**
+  Because the parameter is no longer mandatory, it doesn't influence the custom plans created.
+  The removal of this parameter does not affect upgrading. For more information see the
+  **Resolved Issues** section.
 
 #### Google MySQL
 
@@ -124,9 +125,10 @@ This release has the following fixes:
 
 <%= partial '/csb/logo-resolved' %>
 
-- **The acl parameter was not being used:**
-  The parameter called acl associated with private and public-read plans was not being used, therefore
-  it did not influence the type of bucket created leading to confusion.
+- **Removal of the redundant `acl` parameter:**
+  The `acl` parameter associated with private and public-read plans was not in use and therefore
+  did not influence the type of bucket created, which caused confusion.
+  The parameter was removed from this version.
 
 ### Known issues
 
