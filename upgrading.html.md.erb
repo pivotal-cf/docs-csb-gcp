@@ -9,12 +9,13 @@ This topic describes how to upgrade <%= vars.product_full %>.
 
 ### <a id="updating-instances"></a> Update instances to include the proper value for `authorized_network_id`
 
-Make the following changes to existing instances before upgrading.
+The old property `authorized_network` was removed.
+Before upgrading, ensure that your instances use `authorized_network_id` instead.
+Any instances that pass an explicit value for `authorized_network` are not manageable after the
+upgrade.
 
-The old property `authorized_network` was removed, and you have to use `authorized_network_id` instead.
-If you have any instances created passing an explicit value for authorized_network`, these won't be manageable after the upgrade.
-
-See [Set `authorized_network_id` for the MySQL service](#gcp-mysql-authorized-network-id) if you have the `authorized_network` property  specified in a custom plan.
+If you have the `authorized_network` property specified in a custom plan,
+see [Set `authorized_network_id` for the MySQL service](#gcp-mysql-auth-network-id).
 
 ### <a id="gcp-changing-custom-plans"></a> Changing custom plans
 
@@ -43,16 +44,17 @@ For example:
 For more information about the machine types, see the
 [GCP documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
 
-#### <a id="gcp-mysql-authorized-network-id"></a> Set `authorized_network_id` for the MySQL service
+#### <a id="gcp-mysql-auth-network-id"></a> Set `authorized_network_id` for the MySQL service
 
-If you have custom plans already configured for MySQL, and you included the `authorized_network` property,
-you must change the configuration.
+If you have custom plans already configured for MySQL, and you included the `authorized_network`
+property, you must change the configuration.
 
-This is because the old property `authorized_network` was removed, and you have to use `authorized_network_id` instead
-to define the id of the Google Compute Engine network to which the instance is connected.
+This is because the old property `authorized_network` was removed, and you have to use
+`authorized_network_id` instead to define the ID of the Google Compute Engine network to which the
+instance is connected.
 
-To ensure that no unintended changes happen to your existing instances, add the `authorized_network_id` property.
-For example:
+To ensure that no unintended changes happen to your existing instances, add the `authorized_network_id`
+property. For example:
 
 ```json
   {
@@ -104,12 +106,12 @@ cf purge-service-instance
 To upgrade the <%= vars.product_short %> to a later version:
 
 1. Download the new version of <%= vars.product_short %> from
-[<%= vars.product_network %>](https://network.pivotal.io/products/cloud-service-broker-gcp/).
+   [<%= vars.product_network %>](https://network.pivotal.io/products/cloud-service-broker-gcp/).
 
-1. Follow the procedure in [Installing with GCP](installing-with-gcp.html).
+2. Follow the procedure in [Installing with GCP](installing-with-gcp.html.md.erb).
 
-1. Make all the changes required for the new version as specified in this page.
+3. Make all the changes described in this topic that are required for the new version.
 
-1. If you are upgrading to a version later than v1.0, service instances might need to be upgraded.
-Before installing the new version, see
-[Upgrade All Service Instances Config](installing-with-gcp.html#upgrade-all-config).
+4. If you are upgrading to a version later than v1.0, you might need to upgrade service instances.
+   Before installing the new version, see
+   [Upgrade All Service Instances Config](installing-with-gcp.html.md.erb#upgrade-all-config).

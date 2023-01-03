@@ -30,13 +30,12 @@ This release has the following breaking changes:
   For more information about the format, see the [reference](reference/gcp-storage.html.md.erb#binding-creds) section.
   You must adapt your application to correctly read the properties exposed in the binding credentials.
 
-
 ### Features
 
 New features and changes in this release:
 
 #### Google Cloud Storage
-- 
+
 - **The property `acl` associated with the plans has been removed:**
   From now on, this property will not influence the custom plans created since with this change, the parameter is no longer mandatory.
   The removal of this parameter does not affect the upgrading process, for more information see the `Resolved Issues` section.
@@ -109,11 +108,14 @@ New features and changes in this release:
   All MySQL connections are now encrypted. The binding credentials include certificates that can be used
   for verifying the connection.
 
-- **Simplified network configuration:** The property `authorized_network` has been removed.
-  From now on, you can configure the networking by using only the `authorized_network_id` property, in other words,
-  by using the id of the Google Compute Engine network to which the instance is connected.
-  If left unspecified, the default network of the region will be used.
-  For more information about the upgrade process, see the [authorized network section](upgrading.html.md.erb#gcp-mysql-authorized-network-id).
+- **Simplified network configuration:**
+  The property `authorized_network` was removed.
+  From now on, you can configure the network by using only the `authorized_network_id` property.
+  In other words, you use the ID of the Google Compute Engine network to which the instance is
+  connected.
+  If left unspecified, the default network of the region is used.
+  For more information about upgrading, see the
+  [authorized network section](upgrading.html.md.erb#gcp-mysql-auth-network-id).
 
 ### Resolved Issues
 
