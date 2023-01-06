@@ -54,6 +54,12 @@ New features and changes in this release:
   The storage class enumerator was removed. Therefore, there are no limits in new storage classes
   added in the future.
 
+- **Dual-region configuration exposed:**
+  The property `placement_dual_region_data_locations` is exposed to configure the list of individual regions that comprise a dual-region bucket.
+  A valid `storage_class` must be selected for the dual-region configuration.
+  Check the list of valid [storage classes for dual-region](https://cloud.google.com/storage/docs/storage-classes).
+  For more information about regions, see [GCP documentation](https://cloud.google.com/storage/docs/locations or https://cloud.google.com/about/locations)
+
   **Resolved Issues** section.
 
 #### Google MySQL
