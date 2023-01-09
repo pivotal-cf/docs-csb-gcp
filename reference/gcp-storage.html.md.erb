@@ -110,6 +110,17 @@ provisioning a csb-google-storage-bucket service:
     <td>provision</td>
   </tr>
   <tr>
+    <td><code>placement_dual_region_data_locations</code></td>
+    <td>array</td>
+    <td>
+      The list of individual regions that comprise a dual-region bucket.
+      Check the list of <a href="https://cloud.google.com/storage/docs/storage-classes">valid storage classes for dual-region</a>.
+      For more information about regions, see <a href="https://cloud.google.com/storage/docs/locations or https://cloud.google.com/about/locations">GCP documentation</a>.
+    </td>
+    <td><code>[]</code></td>
+    <td>provision</td>
+  </tr>
+  <tr>
     <td><code>credentials</code></td>
     <td>string</td>
     <td>
