@@ -39,7 +39,8 @@ New features and changes in this release:
 
 - **The `acl` parameter associated with the plans was removed:**
   Because the parameter is no longer mandatory, it doesn't influence the custom plans created.
-  The removal of this parameter does not affect upgrading. For more information see the
+  The removal of this parameter does not affect upgrading.
+  For more information see the **Resolved Issues** section.
 
 - **Multiregional storage class by default:**
   From now on, the default storage class is multiregional. For more information about the multiregional
@@ -56,8 +57,8 @@ New features and changes in this release:
 
 - **Dual-region configuration exposed:**
   The property `placement_dual_region_data_locations` is exposed to configure the list of individual regions that comprise a dual-region bucket.
-  A valid `storage_class` must be selected for the dual-region configuration.
-  Check the list of valid [storage classes for dual-region](https://cloud.google.com/storage/docs/storage-classes).
+  You must select a valid `storage_class` for the dual-region configuration.
+  For the list of valid storage classes for dual-region, see the [GCP documentation](https://cloud.google.com/storage/docs/storage-classes).
   For more information about regions, see [GCP documentation](https://cloud.google.com/storage/docs/locations or https://cloud.google.com/about/locations)
 
 - **Versioning configuration exposed:**
@@ -75,8 +76,6 @@ New features and changes in this release:
   It defaults to `true`.
   For more information about uniform bucket-level access, see
   [GCP documentation](https://cloud.google.com/storage/docs/uniform-bucket-level-access)
-
-  **Resolved Issues** section.
 
 #### Google MySQL
 
