@@ -62,10 +62,10 @@ New features and changes in this release:
   For more information about regions, see the [GCP documentation](https://cloud.google.com/storage/docs/locations).
 
 - **Exposed the versioning configuration property:**
-  The property `versioning` is exposed to enable Object Versioning for the bucket and a retains noncurrent object version
-  each time you replace or delete a live object version.
-  It defaults to `true`
-  For more information about versioning, see [GCP documentation](https://cloud.google.com/storage/docs/object-versioning)
+  The property `versioning` is exposed to enable Object Versioning for the bucket.
+  It retains noncurrent object version each time you replace or delete a live object version.
+  The default is `true`.
+  For more information about versioning, see the [GCP documentation](https://cloud.google.com/storage/docs/object-versioning).
 
 - **Exposed the property to prevent public access:**
   The property `public_access_prevention` is exposed to configure whether or not to prevent public access for a storage bucket.
@@ -73,7 +73,7 @@ New features and changes in this release:
 
 - **Exposed the property to enable Uniform bucket-level access to the bucket:**
   The property `uniform_bucket_level_access` is exposed to configure whether to enable Uniform bucket-level access to a bucket.
-  It defaults to `true`.
+  The default is `true`.
   For more information about uniform bucket-level access, see the
   [GCP documentation](https://cloud.google.com/storage/docs/uniform-bucket-level-access).
 
