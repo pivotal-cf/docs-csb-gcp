@@ -157,7 +157,7 @@ provisioning a csb-google-storage-bucket service:
     <td>string</td>
     <td>
       The <code>id</code> of a Cloud KMS key that will be used to encrypt objects inserted into this bucket.
-      Its default value is `empty` so a Google-managed encryption key will be used instead.
+      Its default value is `""` so a Google-managed encryption key will be used instead.
       Note: The key ring must be in the same location as the data you intend to encrypt, in other words,
       the same location as the <code>region</code> property, but it can be in a different project.
       For available Cloud KMS locations, see Cloud KMS <a href="https://cloud.google.com/kms/docs/locations">locations</a>.
