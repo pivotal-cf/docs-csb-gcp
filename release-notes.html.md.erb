@@ -86,6 +86,13 @@ New features and changes in this release:
   The property represents the `id` of a Cloud KMS key. For more information, see
   [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
 
+- **Exposed the autoclass property:**
+  The property `autoclass` is exposed to configure whether automatically transitions each object to hotter or colder
+  storage based on object-level activity, to optimise for cost and latency.
+  The default is `false` and can only be set at the provision phase.
+  For more information about autoclass feature, see 
+  [GCP documentation](https://cloud.google.com/storage/docs/autoclass).
+
 #### Google MySQL
 
 - **`tier` property exposed:**
