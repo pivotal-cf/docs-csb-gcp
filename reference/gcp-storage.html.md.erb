@@ -169,6 +169,17 @@ provisioning a csb-google-storage-bucket service:
     <td>provision and update</td>
   </tr>
   <tr>
+    <td><code>autoclass</code></td>
+    <td>boolean</td>
+    <td>
+      Automatically transitions each object to hotter or colder storage based on object-level activity, to optimise for cost and latency.
+      For more information about autoclass feature, see the
+      <a href="https://cloud.google.com/storage/docs/autoclass">GCP documentation</a>.
+    </td>
+    <td><code>false</code></td>
+    <td>provision</td>
+  </tr>
+  <tr>
     <td><code>credentials</code></td>
     <td>string</td>
     <td>
