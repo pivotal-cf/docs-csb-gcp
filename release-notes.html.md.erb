@@ -70,11 +70,12 @@ New features and changes in this release:
   The property `public_access_prevention` is exposed to configure whether or not to prevent public access for a storage bucket.
   Accepted values are `inherited` or `enforced`. Default is `enforced`.
 
-- **Exposed the property to enable Uniform bucket-level access to the bucket:**
-  The property `uniform_bucket_level_access` is exposed to configure whether to enable Uniform bucket-level access to a bucket.
-  When enabled, the option becomes permanent after 90 days. The default is `false`. It disables ACLs.
-  For more information about uniform bucket-level access, see the
-  [GCP documentation](https://cloud.google.com/storage/docs/uniform-bucket-level-access).
+- **Exposed the property to enable uniform bucket-level access to the bucket:**
+  The property `uniform_bucket_level_access` is exposed to configure whether to enable uniform
+  bucket-level access to a bucket.
+  When enabled, the option becomes permanent after 90 days. The default is `false`. The option
+  deactivates ACLs. For more information about uniform bucket-level access, see the
+  [Google Cloud documentation](https://cloud.google.com/storage/docs/uniform-bucket-level-access).
 
 - **Exposed customer-managed encryption key configuration:**
   The property `default_kms_key_name` is exposed, so you can use this property to configure your
