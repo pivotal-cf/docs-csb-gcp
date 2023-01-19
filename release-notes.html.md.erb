@@ -73,6 +73,7 @@ New features and changes in this release:
 - **Exposed the property to enable uniform bucket-level access to the bucket:**
   The property `uniform_bucket_level_access` is exposed to configure whether to enable uniform
   bucket-level access to a bucket.
+  For more information, see
   When enabled, the option becomes permanent after 90 days. The default is `false`. The option
   deactivates ACLs. For more information about uniform bucket-level access, see the
   [Google Cloud documentation](https://cloud.google.com/storage/docs/uniform-bucket-level-access).
@@ -84,11 +85,9 @@ New features and changes in this release:
   [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
 
 - **Exposed the autoclass property:**
-  The property `autoclass` is exposed to configure whether automatically transitions each object to hotter or colder
-  storage based on object-level activity, to optimise for cost and latency.
-  The default is `false` and can only be set at the provision phase.
-  For more information about autoclass feature, see
-  [GCP documentation](https://cloud.google.com/storage/docs/autoclass).
+  The property `autoclass` is exposed to configure whether it automatically transitions each object
+  to hotter or colder storage based on object-level activity. This is to optimize for cost and latency.
+  For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
 
 #### Google MySQL
 
