@@ -56,13 +56,9 @@ New features and changes in this release:
   added in the future.
 
 - **Exposed the dual-region configuration property:**
-  The property `placement_dual_region_data_locations` is exposed to configure the list of individual regions that comprise a dual-region bucket.
-  You must select a valid `storage_class` for the dual-region configuration.
-  The `MULTI_REGIONAL` and `REGIONAL` storage classes are not valid to configure a bucket in dual-region.
-- Therefore, an accepted configuration could be
-  `-c '{"placement_dual_region_data_locations": ["us-east1","us-east4"], "storage_class": "STANDARD", "region": "us"}'`.
-  For the list of valid storage classes for dual-region, see the [GCP documentation](https://cloud.google.com/storage/docs/storage-classes).
-  For more information about valid regions for dual-region configuration, see the [GCP documentation](https://cloud.google.com/storage/docs/locations).
+  The property `placement_dual_region_data_locations` is exposed to configure the list of individual
+  regions that comprise a dual-region bucket. For more information, see
+  [Configuration Parameters](gcp-storage.html.md.erb#parameters).
 
 - **Exposed the versioning configuration property:**
   The property `versioning` is exposed to enable Object Versioning for the bucket.
@@ -90,7 +86,7 @@ New features and changes in this release:
   The property `autoclass` is exposed to configure whether automatically transitions each object to hotter or colder
   storage based on object-level activity, to optimise for cost and latency.
   The default is `false` and can only be set at the provision phase.
-  For more information about autoclass feature, see 
+  For more information about autoclass feature, see
   [GCP documentation](https://cloud.google.com/storage/docs/autoclass).
 
 #### Google MySQL

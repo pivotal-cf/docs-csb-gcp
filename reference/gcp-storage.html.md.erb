@@ -138,8 +138,10 @@ provisioning a csb-google-storage-bucket service:
     <td>
       The list of individual regions that comprise a dual-region bucket.
       Check the list of <a href="https://cloud.google.com/storage/docs/storage-classes">valid storage classes for dual-region</a>.
-      For more information about regions, see the <a href="https://cloud.google.com/storage/docs/locations">GCP documentation</a>.
-      Note that the `MULTI_REGIONAL` and `REGIONAL` storage classes cannot be used for a dual-region bucket.      
+      For more information about valid regions, see the <a href="https://cloud.google.com/storage/docs/locations">Google Cloud documentation</a>.
+      The <code>MULTI_REGIONAL</code> and <code>REGIONAL</code> storage classes cannot be used for a
+      dual-region bucket. Example configuration:<br>
+      <code>-c '{"placement_dual_region_data_locations": ["us-east1","us-east4"], "storage_class": "STANDARD", "region": "us"}'</code>.
     </td>
     <td><code>[]</code></td>
     <td>provision</td>
@@ -159,7 +161,7 @@ provisioning a csb-google-storage-bucket service:
     <td>
       The <code>id</code> of a Cloud KMS key that is used to encrypt objects inserted into this bucket.
       Its default value is <code>""</code>, so a Google-managed encryption key is used instead.
-      For more information about creating customer-managed encryption keys, see the 
+      For more information about creating customer-managed encryption keys, see the
       <a href="https://cloud.google.com/storage/docs/encryption/customer-managed-keys">Google Cloud documentation</a>.
       The key ring must be in the same location as the data you intend to encrypt
       (the same location as the <code>region</code> property) but it can be in a different project.
@@ -168,9 +170,9 @@ provisioning a csb-google-storage-bucket service:
       For most dual-regions, you must create the key ring in the associated multi-region, but for
       predefined dual-regions, you must create the key ring in the same predefined dual-region.
       Each project has a special Cloud Storage service account called a service agent that performs encryption and decryption with customer-managed encryption keys.
-      For more information about service agents, see the 
+      For more information about service agents, see the
       <a href="https://cloud.google.com/storage/docs/encryption/customer-managed-keys#service-agents">Google Cloud documentation</a>.
-      For more information about finding the email address of a project's Cloud Storage service agent, see the 
+      For more information about finding the email address of a project's Cloud Storage service agent, see the
       <a href="https://cloud.google.com/storage/docs/getting-service-agent">Google Cloud documentation</a>.
       To get the <code>id</code> of a Cloud KMS key follow these <a href="https://cloud.google.com/kms/docs/getting-resource-ids#getting_the_id_for_a_key_and_version">steps</a>.
     </td>
