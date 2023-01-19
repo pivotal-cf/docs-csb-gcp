@@ -44,7 +44,7 @@ New features and changes in this release:
 
 - **Multiregional storage class by default:**
   From now on, the default storage class is multiregional. For more information about the multiregional
-  storage class, see the [GCP documentation](https://cloud.google.com/storage/docs/storage-classes).
+  storage class, see the [Google Cloud documentation](https://cloud.google.com/storage/docs/storage-classes).
 
 - **US as the default region:**
   From now on, the default region is the US because the default storage class is multiregional.
@@ -64,7 +64,7 @@ New features and changes in this release:
   The property `versioning` is exposed to enable Object Versioning for the bucket.
   It retains a non-current object version each time you replace or delete a live object version.
   The default is `false`.
-  For more information about versioning, see the [GCP documentation](https://cloud.google.com/storage/docs/object-versioning).
+  For more information about versioning, see the [Google Cloud documentation](https://cloud.google.com/storage/docs/object-versioning).
 
 - **Exposed the property to prevent public access:**
   The property `public_access_prevention` is exposed to configure whether or not to prevent public access for a storage bucket.
@@ -118,7 +118,7 @@ New features and changes in this release:
   The maximum storage capacity limit no longer exists. From now on, you can select the storage
   capacity that you want.
   To understand the limits, see the
-  [GCP documentation](https://cloud.google.com/sql/docs/mysql/quotas#storage_limits).
+  [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/quotas#storage_limits).
   The capacity cannot be reduced later.
 
 - **Backups are now configurable:**
@@ -151,7 +151,7 @@ New features and changes in this release:
   A public IP address isn't assigned by default, but can be enabled by using the `public_ip` property.
   When the public IP address is assigned, access is only allowed from the networks specified by the
   `authorized_networks_cidrs` property. For more information about using a public IP address for MySQL,
-  see the [GCP documentation](https://cloud.google.com/sql/docs/mysql/configure-ip).
+  see the [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/configure-ip).
 
 - **MySQL connection encryption:**
   All MySQL connections are now encrypted. The binding credentials include certificates that can be
