@@ -195,6 +195,38 @@ provisioning a csb-google-storage-bucket service:
     <td>provision</td>
   </tr>
   <tr>
+    <td><code>retention_policy_retention_period</code></td>
+    <td>number</td>
+    <td>
+      The period of time, in seconds, that objects in the bucket must be retained and cannot be deleted, overwritten, or archived,
+      in other words, it is the configuration of the bucket's data retention policy for how long objects in the bucket should be retained.
+      The value must be less than 2_147_483_647 seconds.
+      For more information about retention policy feature, see 
+      <a href="https://cloud.google.com/storage/docs/bucket-lock">Google Cloud documentation</a>.
+    </td>
+    <td><code>0</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>retention_policy_is_locked</code></td>
+    <td>boolean</td>
+    <td>
+     The `retention_policy_is_locked` property locks a retention policy to permanently set it on the bucket.
+      A retention policy locked implies:
+      * It is not possible to remove it.
+      * It is not possible to delete a bucket unless every object in the bucket has met the retention period.
+      * It is not possible to reduce the retention period of a locked retention policy.
+      * It is not possible to increase the retention period of a locked retention policy.
+      Caution: Locking a retention policy is an irreversible action. Once set to true, any attempt to set it to
+      false or to delete the service will result in an error.
+      The property `retention_policy_retention_period` has to be set with a value greater than `0`.
+      For more information about policy locks, see 
+      <a href="https://cloud.google.com/storage/docs/bucket-lock">Google Cloud documentation</a>.
+    </td>
+    <td><code>false</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
     <td><code>credentials</code></td>
     <td>string</td>
     <td>
