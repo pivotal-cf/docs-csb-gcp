@@ -89,15 +89,16 @@ New features and changes in this release:
   to hotter or colder storage based on object-level activity. This is to optimize for cost and latency.
   For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
 
-- **Bucket Lock or retention policy feature added:**
-  New properties are exposed to configure the data retention policy for a Cloud Storage bucket that governs how long objects
-  in the bucket must be retained.
+- **Bucket lock and retention policy:**
+  New properties are exposed to configure the data retention policy for a Cloud Storage
+  bucket that governs how long objects in the bucket must be retained.
   You can change the behavior through these properties:
-  - `retention_policy_retention_period`: The period of time, in seconds, that objects in the bucket must be retained
-   and cannot be deleted, overwritten, or archived, in other words, it is the configuration of the bucket's data
-   retention policy for how long objects in the bucket should be retained.
-  - `retention_policy_is_locked`: It locks a retention policy to permanently set it on the bucket.
-  For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
+
+    - `retention_policy_retention_period`: The period of time, in seconds, that objects in the bucket must be retained
+     and cannot be deleted, overwritten, or archived.
+    - `retention_policy_is_locked`: Locks the retention policy to permanently set it on the bucket.
+
+    For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
 
 #### Google MySQL
 
