@@ -188,8 +188,10 @@ provisioning a csb-google-storage-bucket service:
       Automatically transitions each object to hotter or colder storage based on object-level activity.
       This is to optimize for cost and latency.
       The default can only be set at the provision phase.
-      Caution: Only the `STANDARD` storage class will be accepted when enabling the Autoclass feature.
-      Any attempt to set it using a storage class other than `STANDARD` will result in an error.
+      <br>
+      **Caution:** Only the <code>STANDARD</code> storage class is accepted when you enable the Autoclass feature.
+      Any attempt to set it using a storage class other than <code>STANDARD</code> causes an error.
+      <br>
       For more information about the Autoclass feature, see the
       <a href="https://cloud.google.com/storage/docs/autoclass">Google Cloud documentation</a>.
     </td>
