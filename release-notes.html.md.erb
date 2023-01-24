@@ -21,14 +21,14 @@ This release has the following breaking changes:
   The `cores` property no longer exists and is not configurable.
   Use the `tier` property instead to define compute and memory capacity.
   The old custom plans containing the property `cores` must be changed. For more information, see
-  [Changing custom plans](upgrading.html.md.erb#gcp-changing-custom-plans).
+  [Changing custom plans](upgrading.html#gcp-changing-custom-plans).
 
 #### Google Cloud Storage
 
 - **Format for binding credentials changed:**
   The format for binding credentials has changed to only use the snake_case style instead of a
   combination of styles. For more information about the format, see the
-  [reference](reference/gcp-storage.html.md.erb#binding-creds) topic.
+  [reference](reference/gcp-storage.html#binding-creds) topic.
   You must change your application to correctly read the properties exposed in the binding credentials.
 
 ### Features
@@ -58,7 +58,7 @@ New features and changes in this release:
 - **Exposed the dual-region configuration property:**
   The property `placement_dual_region_data_locations` is exposed to configure the list of individual
   regions that comprise a dual-region bucket. For more information, see
-  [Configuration Parameters](gcp-storage.html.md.erb#parameters).
+  [Configuration Parameters](gcp-storage.html#parameters).
 
 - **Exposed the versioning configuration property:**
   The property `versioning` is exposed to enable Object Versioning for the bucket.
@@ -82,12 +82,12 @@ New features and changes in this release:
   The property `default_kms_key_name` is exposed, so you can use this property to configure your
   bucket to use your key to encrypt and decrypt your objects.
   The property represents the `id` of a Cloud KMS key. For more information, see
-  [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
+  [Configuration Parameters](reference/gcp-storage.html#parameters).
 
 - **Exposed the autoclass property:**
   The property `autoclass` is exposed to configure whether it automatically transitions each object
   to hotter or colder storage based on object-level activity. This is to optimize for cost and latency.
-  For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
+  For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
 
 - **Bucket lock and retention policy:**
   New properties are exposed to configure the data retention policy for a Cloud Storage
@@ -98,7 +98,7 @@ New features and changes in this release:
      and cannot be deleted, overwritten, or archived.
     - `retention_policy_is_locked`: Locks the retention policy to permanently set it on the bucket.
 
-    For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
+    For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
 
 #### Google MySQL
 
@@ -156,7 +156,7 @@ New features and changes in this release:
   If you have GCP MySQL service instances that were using built-in plans and that you want to maintain,
   previously provided plans must be added through the tile configuration.
   For more information, see
-  [Add previously provided pre-configured plans](reference/gcp-mysql.html.md.erb#old-plans).
+  [Add previously provided pre-configured plans](reference/gcp-mysql.html#old-plans).
 
 - **MySQL database server can be assigned a public IP address:**
   A public IP address isn't assigned by default, but can be enabled by using the `public_ip` property.
@@ -175,7 +175,7 @@ New features and changes in this release:
   connected.
   If left unspecified, the default network of the region is used.
   For more information about upgrading, see the
-  [authorized network section](upgrading.html.md.erb#gcp-mysql-auth-network-id).
+  [authorized network section](upgrading.html#gcp-mysql-auth-network-id).
 
 ### Resolved Issues
 
