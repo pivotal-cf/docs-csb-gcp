@@ -246,6 +246,42 @@ provisioning a csb-google-mysql service:
     <td>0</td>
     <td>provision and update</td>
   </tr>
+  <tr>
+    <td><code>highly_available</code></td>
+    <td>boolean</td>
+    <td>
+      Enable regional high availability for the service instance. Requires transaction log backups to be enabled. See
+      <a href="https://cloud.google.com/sql/docs/mysql/high-availability">Google Cloud Documentation</a> for more 
+      details.
+    </td>
+    <td>false</td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td>location_preference_zone</td>
+    <td>string</td>
+    <td>
+      Preferred zone in the instance region for the primary instance in a highly available setup. E.g. "a" or "c". When
+      not specified, one of the available zones will be chosen automatically. See
+      <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a> for a list 
+      of available zones.
+    </td>
+    <td>""</td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td>location_preference_secondary_zone</td>
+    <td>string</td>
+    <td>
+      Preferred zone in the instance region for the standby instance in a highly available setup. E.g. "b" or "f". In a
+      highly available configuration, when the secondary zone is not specified, a zone different from the one specified
+      for the primary instance will be chosen automatically. See
+      <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a> for a list
+      of available zones.
+    </td>
+    <td>""</td>
+    <td>provision and update</td>
+  </tr>
 </table>
 
 ## <a id="binding-creds"></a> Binding Credentials
