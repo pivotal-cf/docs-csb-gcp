@@ -26,7 +26,7 @@ This release has the following breaking changes:
 - **Format for binding credentials changed:**
   The format for binding credentials has changed. Several properties have been exposed to configure TLS.
   The property `use_tls` previously exposed in the binding is now removed.
-  For more information about the format, see the [reference](reference/gcp-mysql.html#binding-creds) topic.
+  For more information about the format, see [Binding Credentials](reference/gcp-mysql.html#binding-creds).
   You must change your application to correctly read the properties exposed in the binding credentials
   and register the certificate.
 
@@ -109,8 +109,8 @@ New features and changes in this release:
 
 #### Google MySQL
 
-- **Insecure connections are no longer supported:**
-  Every connection in GCP MySQL instances must use TLS encryption.
+- **Unsecured connections are no longer supported:**
+  All connections in GCP MySQL instances must use TLS encryption.
   This change is applied to previously existing instances after upgrading or binding recreation.
 
 - **`tier` property exposed:**
