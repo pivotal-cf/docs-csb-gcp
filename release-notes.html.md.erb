@@ -23,6 +23,13 @@ This release has the following breaking changes:
   The old custom plans containing the property `cores` must be changed. For more information, see
   [Changing custom plans](upgrading.html#gcp-changing-custom-plans).
 
+- **Format for binding credentials changed:**
+  The format for binding credentials has changed. Several properties have been exposed to configure TLS.
+  The property `use_tls` previously exposed in the binding is now removed.
+  For more information about the format, see the [reference](reference/gcp-mysql.html#binding-creds) topic.
+  You must change your application to correctly read the properties exposed in the binding credentials
+  and register the certificate.
+
 #### Google Cloud Storage
 
 - **Format for binding credentials changed:**
@@ -101,6 +108,10 @@ New features and changes in this release:
     For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
 
 #### Google MySQL
+
+- **Insecure connections are no longer supported:**
+  Every connection in GCP MySQL instances must use TLS encryption.
+  This change is applied to previously existing instances after upgrading or binding recreation.
 
 - **`tier` property exposed:**
   The `tier` property is now configurable at plan creation or instance operations for Google MySQL.
