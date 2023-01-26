@@ -188,12 +188,12 @@ New features and changes in this release:
   For more information about upgrading, see the
   [authorized network section](upgrading.html#gcp-mysql-auth-network-id).
 
-- **Highly available configuration:**
-  High availability for an instance can now be turned on using the `highly_available` property.
-  When enabled, this will deploy two instances - primary and standby - in different zones of
-  instance's region. If needed, concrete zones can be specified using the `location_preference_zone`
-  and `location_preference_secondary_zone` parameters. The high availability can be turned on or
-  off, and the zones may be re-assigned at any time. For more information on MySQL high availability,
+- **High availability configuration:**
+  You can now turn on high availability for an instance by using the `highly_available` property.
+  When enabled, this deploys two instances, primary and standby, in different zones of
+  instance's region. If needed, you can specify concrete zones by using the `location_preference_zone`
+  and `location_preference_secondary_zone` parameters. You can turn high availability on or
+  off, or re-assign the zone at any time. For more information on MySQL high availability,
   see the [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/high-availability).
 
 ### Resolved Issues
