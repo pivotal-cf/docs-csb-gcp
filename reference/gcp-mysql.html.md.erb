@@ -89,7 +89,7 @@ provisioning a csb-google-mysql service:
       For more information, see the
       <a href="https://cloud.google.com/sql/docs/mysql/instance-settings">Google Cloud documentation</a>.
     </td>
-    <td>""</td>
+    <td><code>""</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -98,7 +98,7 @@ provisioning a csb-google-mysql service:
     <td>
       Sets whether deletion protection is enabled. The database cannot be deleted when this value is set.
     </td>
-    <td>false</td>
+    <td><code>false</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -109,7 +109,7 @@ provisioning a csb-google-mysql service:
       When deactivating the storage auto-resizing, set value of the <code>disk_autoresize_limit</code>
       to 0.
     </td>
-    <td>true</td>
+    <td><code>true</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -119,7 +119,7 @@ provisioning a csb-google-mysql service:
       The maximum size in GB to which storage capacity can be automatically increased.
       The default value is 0, which specifies that there is no limit.
     </td>
-    <td>0</td>
+    <td><code>0</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -129,7 +129,7 @@ provisioning a csb-google-mysql service:
       Required unless defined in plan. This is the version for the MySQL instance, and it can be any
       version that the provider supports.
     </td>
-    <td>""</td>
+    <td><code>""</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -215,7 +215,7 @@ provisioning a csb-google-mysql service:
     <td>
       The number of backups to retain. Setting this value to 0 deactivates the backups.
     </td>
-    <td>7</td>
+    <td><code>7</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -233,7 +233,7 @@ provisioning a csb-google-mysql service:
     <td>
       Time in HH:MM format that indicates when the backup starts.
     </td>
-    <td>07:00</td>
+    <td><code>07:00</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -246,7 +246,7 @@ provisioning a csb-google-mysql service:
       When transaction logs are activated, regular backups are forced
       to be enabled, even if <code>backups_retain_number</code> is set to <code>0</code>.
     </td>
-    <td>0</td>
+    <td><code>0</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
@@ -259,11 +259,11 @@ provisioning a csb-google-mysql service:
       For more information, see the
       <a href="https://cloud.google.com/sql/docs/mysql/high-availability">Google Cloud Documentation</a>.
     </td>
-    <td>false</td>
+    <td><code>false</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
-    <td>location_preference_zone</td>
+    <td><code>location_preference_zone</code></td>
     <td>string</td>
     <td>
       Preferred zone in the instance region for the primary instance in a highly available setup.
@@ -272,11 +272,11 @@ provisioning a csb-google-mysql service:
       For a list of available zones, see the
       <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a>.
     </td>
-    <td>""</td>
+    <td><code>""</code></td>
     <td>provision and update</td>
   </tr>
   <tr>
-    <td>location_preference_secondary_zone</td>
+    <td><code>location_preference_secondary_zone</code></td>
     <td>string</td>
     <td>
       Preferred zone in the instance region for the standby instance in a highly available setup.
@@ -286,7 +286,7 @@ provisioning a csb-google-mysql service:
       For a list of available zones, see the
       <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a>.
     </td>
-    <td>""</td>
+    <td><code>""</code></td>
     <td>provision and update</td>
   </tr>
 </table>
