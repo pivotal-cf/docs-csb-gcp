@@ -240,8 +240,9 @@ provisioning a csb-google-mysql service:
     <td><code>backups_transaction_log_retention_days</code></td>
     <td>number</td>
     <td>
-      The number of days to retain the transaction logs. Setting this value to 0 deactivates
-      transaction log backups. The transaction logs can be retained for up to 7 days.
+      The number of days to retain the transaction logs. Setting this value to 0 disables transaction log backups.
+      The transaction logs can be retained up to 7 days. When transaction logs are enabled, regular backups are forced
+      to be enabled, even if `backups_retain_number` is set to 0.
     </td>
     <td>0</td>
     <td>provision and update</td>
@@ -250,8 +251,9 @@ provisioning a csb-google-mysql service:
     <td><code>highly_available</code></td>
     <td>boolean</td>
     <td>
-      Enable regional high availability for the service instance. Requires transaction log backups to be enabled.
-      For more information, see the
+      Enable regional high availability for the service instance. This will result in a hot standby instance deployed
+      to a different zone in the same region, and will affect the billing accordingly. Requires transaction log backups 
+      to be enabled. For more information, see the
       <a href="https://cloud.google.com/sql/docs/mysql/high-availability">Google Cloud Documentation</a>.
     </td>
     <td>false</td>
