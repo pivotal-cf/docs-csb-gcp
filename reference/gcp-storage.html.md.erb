@@ -230,7 +230,7 @@ provisioning a csb-google-storage-bucket service:
       The <code>retention_policy_is_locked</code> property locks a retention policy to permanently set it on the bucket.
       <br>
       <strong>Caution:</strong> Locking a retention policy is an irreversible action.
-      After you set it to true, any attempt to set it to false or to delete the service causes an error.
+      After you set it to true, any attempt to set it to false causes an error.
       <br><br>
       A locked retention policy means:
       <ul>
@@ -238,7 +238,7 @@ provisioning a csb-google-storage-bucket service:
         <li>It is not possible to delete a bucket unless every object in the bucket has met the retention period.</li>
         <li>It is not possible to reduce or increase the retention period of a locked retention policy.</li>
       </ul>
-      The property <code>retention_policy_retention_period</code> must be set with a value greater than <code>0</code>.
+      In order for the property to take effect, the property <code>retention_policy_retention_period</code> must be set with a value greater than <code>0</code>.
       For more information about policy locks, see
       <a href="https://cloud.google.com/storage/docs/bucket-lock">Google Cloud documentation</a>.
     </td>
