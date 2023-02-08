@@ -289,7 +289,47 @@ provisioning a csb-google-mysql service:
     <td><code>""</code></td>
     <td>provision and update</td>
   </tr>
+  <tr>
+    <td>allow_insecure_connections</td>
+    <td>boolean</td>
+    <td>Specifies whether insecure connections should be allowed to this service instance.</td>
+    <td><code>false</code></td>
+    <td>provision</td>
+  </tr>
 </table>
+
+## <a id="tls-connections"></a> TLS Connections
+
+By default, all new service instances do not allow insecure connections. In order to establish a secure connection,
+the application must extract the CA certificate from [the binding](#binding-creds), as CloudSQL 
+[will generate](https://cloud.google.com/sql/docs/mysql/authorize-ssl#ssltls_certificates) a separate CA 
+certificate for every service instance.
+
+<p class="note">
+  <strong>Note:</strong> Because CloudSQL server certificates do not contain neither the server name, nor it's
+  IP address in any form, the server certificate verification must be limited to 
+  <a href="https://cloud.google.com/sql/docs/mysql/connect-admin-ip#connect-ssl">CA verification only</a>. 
+</p>
+
+Using the contents of the `sslcert` and `sslkey` binding properties a 
+[mutual TLS connection](https://cloud.google.com/sql/docs/mysql/authorize-ssl#overview) to the server can be 
+established. However, mutual TLS is not enforced.
+
+### <a id="tls-connections-java"></a>Java applications
+
+Java applications typically require that the certificates used by the application are loaded into a truststore (for
+CA certificates) or a keystore (for client certificates) in a well-known location. Typically, CA certificates are
+shared either globally, or within an organisation, and in most scenarios, it is possible for any extra certificates to
+be installed into Ops Manager, so that they could be picked up by the Java buildpack to be integrated with the app.
+However, due to CloudSQL specifics, this is not possible in this case, and certificates have to be handled by the
+application itself at load time.
+
+This can be accomplished by deploying a 
+[pre-runtime script](https://docs.cloudfoundry.org/devguide/deploy-apps/deploy-app.html#profile) with the 
+application. The purpose of the script would be to extract the certificates from the environment variables and load
+them into the appropriate stores. The pre-run script in the
+[JDBC test app](https://github.com/cloudfoundry/jdbctestapp/blob/v1.0.0/cf/.profile) on GitHub can be used
+as an example, and adapted to the required deployment context.
 
 ## <a id="binding-creds"></a> Binding Credentials
 
@@ -312,7 +352,7 @@ The format for binding credentials for Google MySQL is as follows:
     "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URL",
     "sslcert" : "SSL-CLIENT-CERT",
     "sslkey" : "SSL-CLIENT-CERT-KEY",
-    "sslrootcert" : "SSL-ROOT-CERT"
+    "sslrootcert" : "SSL-INSTANCE-CA-CERT"
 }
 ```
 

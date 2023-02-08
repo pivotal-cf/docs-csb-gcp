@@ -28,7 +28,8 @@ This release has the following breaking changes:
   The property `use_tls` previously exposed in the binding is now removed.
   For more information about the format, see [Binding Credentials](reference/gcp-mysql.html#binding-creds).
   You must change your application to correctly read the properties exposed in the binding credentials
-  and register the certificate.
+  and register the certificate. See [TLS Connections](reference/gcp-mysql.html.md.erb#tls-connections) for further 
+  details.
 
 #### Google Cloud Storage
 
@@ -119,8 +120,13 @@ New features and changes in this release:
 
 #### Google MySQL
 
-- **Unsecured connections are no longer supported:**
-  All connections in GCP MySQL instances must use TLS encryption.
+- **Insecure connections are no longer available by default:**
+  Connection security is controlled by the following new property:
+  
+  - `allow_insecure_connections`: Controls whether unencrypted connections should be allowed. Defaults to `false`. See
+  [TLS Connections](reference/gcp-mysql.html.md.erb#tls-connections) section for further details on TLS
+  configuration. 
+  
   This change is applied to previously existing instances after upgrading or binding recreation.
 
 - **`tier` property exposed:**
