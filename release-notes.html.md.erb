@@ -107,9 +107,14 @@ New features and changes in this release:
 
     For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
 
-- **Exposed pre-defined ACLs::**
+- **Exposed pre-defined ACLs:**
   The property `predefined_acl` has been exposed to configure the bucket with a pre-defined Access
   Control List.
+  For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
+
+- **Improved bucket name constraints:**
+  New constraints are added to check the name of the bucket.
+  If the name does not satisfy the new constraints will produce an early failure to obtain a better user experience.
   For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
 
 #### Google MySQL
@@ -207,10 +212,17 @@ This release has the following fixes:
 
 <%= partial '/csb/logo-resolved' %>
 
+#### Google Cloud Storage
+
 - **Removal of the redundant `acl` parameter:**
   The `acl` parameter associated with private and public-read plans was not in use and therefore
   did not influence the type of bucket created, which caused confusion.
   The parameter was removed from this version.
+
+- **The bucket name is no longer updatable:**
+  Changing the name of the bucket forces its recreation. The recreation of the service is not allowed by the system,
+  and the operation resulted in an error. From now on, the modification is no longer available producing an early
+  failure and improving the user experience.
 
 ### Known issues
 

@@ -83,9 +83,13 @@ provisioning a csb-google-storage-bucket service:
     <td>string</td>
     <td>
       The name of the bucket to create.
+      To see the requirements the name must meet, see 
+      <a href="https://cloud.google.com/storage/docs/buckets#naming">Google Cloud documentation</a>.
+      Names containing dots require verification, see 
+      <a href="https://cloud.google.com/storage/docs/domain-name-verification">Google Cloud documentation</a>.
     </td>
     <td><code>csb-INSTANCE-ID</code></td>
-    <td>provision and update</td>
+    <td>provision</td>
   </tr>
   <tr>
     <td><code>storage_class</code></td>
