@@ -335,3 +335,38 @@ The format for binding credentials for Google Storage Bucket is as follows:
     "unique_id" : "SERVICE-ACCOUNT-UNIQUE-ID"
 }
 ```
+
+## <a id="old-plans"></a> Add previously provided pre-configured plans
+
+The following table lists the previously provided plans for the Google Cloud Storage service:
+
+| Plan   | Description                                      |
+|--------|--------------------------------------------------|
+| private  | Private Storage bucket   |
+| public-read | Public-read Storage bucket |
+
+To keep these plans in later versions of the broker, add them through the tile as custom plans.
+For how to configure plans through the tile, see
+[Configure Services with Cloud Service Broker for GCP](../installing-with-gcp.html#services).
+
+Add the following block to keep the `private` plan:
+
+```json
+{
+    "name": "private",
+    "id": "bbc4853e-8a63-11ea-a54e-670ca63cee0b",
+    "description": "Private Storage bucket",
+    "display_name": "Private"
+}
+```
+
+Add the following block to keep the `public-read` plan:
+
+```json
+{
+    "name": "public-read",
+    "id": "c07f21a6-8a63-11ea-bc1b-d38b123189cb",
+    "description": "Public-read Storage bucket",
+    "display_name": "Public Read"
+}
+```

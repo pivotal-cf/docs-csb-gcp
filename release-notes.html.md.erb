@@ -38,6 +38,13 @@ This release has the following breaking changes:
   [reference](reference/gcp-storage.html#binding-creds) topic.
   You must change your application to correctly read the properties exposed in the binding credentials.
 
+- **Google Cloud Storage pre-configured plans were removed:**
+  From this version onwards, plans are no longer provided with the brokerpak.
+  If you have Cloud Storage service instances that were using built-in plans and that you want to
+  maintain, previously provided plans must be added through the tile configuration.
+  For more information, see
+  [Add previously provided pre-configured plans](reference/gcp-storage.html#old-plans).
+
 ### Features
 
 New features and changes in this release:
