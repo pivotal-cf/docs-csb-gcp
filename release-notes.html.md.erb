@@ -113,8 +113,8 @@ New features and changes in this release:
   For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
 
 - **Improved bucket name constraints:**
-  New constraints are added to check the name of the bucket.
-  If the name does not satisfy the new constraints will produce an early failure to obtain a better user experience.
+  Added new constraints to check the name of the bucket.
+  If the name does not satisfy the new constraints, an early failure occurs for a better user experience.
   For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
 
 #### Google MySQL
@@ -219,10 +219,10 @@ This release has the following fixes:
   did not influence the type of bucket created, which caused confusion.
   The parameter was removed from this version.
 
-- **The bucket name is no longer updatable:**
-  Changing the name of the bucket forces its recreation. The recreation of the service is not allowed by the system,
-  and the operation resulted in an error. From now on, the modification is no longer available producing an early
-  failure and improving the user experience.
+- **You can no longer update the bucket name:**
+  From now on, this modification is no longer available and results in an early failure to improve the user experience.
+  Changing the bucket name has been disallowed because it forces the bucket to be recreated.
+  The system does not allow the recreation of the service, so the operation resulted in an error.
 
 ### Known issues
 
