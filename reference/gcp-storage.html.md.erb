@@ -14,15 +14,14 @@ owner: Cloud Service Broker
 This topic provides reference information about the Google Storage Bucket service (csb-google-storage-bucket).
 It details the plans, configuration parameters, and binding credentials.
 
-## <a id="plans"></a> Plans
-
-The table below lists the plans for Google Storage Bucket:
-
-| Plan | Description |
-|------|-------------|
-| private | Private Storage bucket |
-| public-read | Public-read Storage bucket  |
-
+<p class="note">
+  <strong>Note:</strong> Release v1.2.0 removes brokerpak pre-configured plans for Google Storage Bucket.
+  All plans must be configured through the tile.
+  If you have instances of Google Storage Bucket that were created in previous versions and that you want to
+  maintain, see <a id="#old-plans">Previously Provided Pre-configured Plans</a>.
+  For more information about upgrade steps, see
+  <a href="../upgrading.html.md.erb">Upgrading Cloud Service Broker for GCP</a>.
+</p>
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
 
@@ -336,16 +335,16 @@ The format for binding credentials for Google Storage Bucket is as follows:
 }
 ```
 
-## <a id="old-plans"></a> Add previously provided pre-configured plans
+## <a id="old-plans"></a> Previously Provided Pre-configured Plans
 
 The following table lists the previously provided plans for the Google Cloud Storage service:
 
-| Plan   | Description                                      |
-|--------|--------------------------------------------------|
-| private  | Private Storage bucket   |
-| public-read | Public-read Storage bucket |
+| Plan        | Description                     |
+|-------------|---------------------------------|
+| private     | Private Storage bucket          |
+| public-read | Public-read Storage bucket      |
 
-To keep these plans in later versions of the broker, add them through the tile as custom plans.
+To keep these plans in this version of the broker, add them through the tile as custom plans.
 For how to configure plans through the tile, see
 [Configure Services with Cloud Service Broker for GCP](../installing-with-gcp.html#services).
 

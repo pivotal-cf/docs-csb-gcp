@@ -30,6 +30,13 @@ This release has the following breaking changes:
   You must change your application to correctly read the properties exposed in the binding credentials
   and register the certificate.
 
+- **Removed Google MySQL pre-configured plans:**
+  From this version onwards, plans are no longer provided with the brokerpak.
+  If you have MySQL service instances that were using built-in plans and that you want to
+  maintain, you must add them through the tile configuration.
+  For more information, see
+  [Previously Provided Pre-configured Plans](reference/gcp-mysql.html#old-plans) in _Google MySQL Reference_.
+
 #### Google Cloud Storage
 
 - **Format for binding credentials changed:**
@@ -38,12 +45,12 @@ This release has the following breaking changes:
   [reference](reference/gcp-storage.html#binding-creds) topic.
   You must change your application to correctly read the properties exposed in the binding credentials.
 
-- **Google Cloud Storage pre-configured plans were removed:**
+- **Removed Google Cloud Storage pre-configured plans:**
   From this version onwards, plans are no longer provided with the brokerpak.
   If you have Cloud Storage service instances that were using built-in plans and that you want to
-  maintain, previously provided plans must be added through the tile configuration.
+  maintain, you must add them through the tile configuration.
   For more information, see
-  [Add previously provided pre-configured plans](reference/gcp-storage.html#old-plans).
+  [Previously Provided Pre-configured Plans](reference/gcp-storage.html#old-plans) in _Google Storage Bucket Reference_.
 
 ### Features
 
@@ -178,13 +185,6 @@ New features and changes in this release:
 - **Configure MySQL plans from Tanzu Ops Manager:**
   You can now use Tanzu Ops Manager to add custom plans from the new MySQL configuration section in
   the broker's general configuration.
-
-- **GCP MySQL pre-configured plans were removed:**
-  From this version onwards, plans are no longer provided with the brokerpak.
-  If you have GCP MySQL service instances that were using built-in plans and that you want to maintain,
-  previously provided plans must be added through the tile configuration.
-  For more information, see
-  [Add previously provided pre-configured plans](reference/gcp-mysql.html#old-plans).
 
 - **MySQL database server can be assigned a public IP address:**
   A public IP address isn't assigned by default, but can be enabled by using the `public_ip` property.
