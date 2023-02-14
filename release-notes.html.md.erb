@@ -21,7 +21,7 @@ This release has the following breaking changes:
   The `cores` property no longer exists and is not configurable.
   Use the `tier` property instead to define compute and memory capacity.
   The old custom plans containing the property `cores` must be changed. For more information, see
-  [Changing custom plans](upgrading.html#gcp-changing-custom-plans).
+  [Changing custom plans](upgrading.html#gcp-mysql-changing-custom-plans).
 
 - **Format for binding credentials changed:**
   The format for binding credentials has changed. Several properties have been exposed to configure TLS.
@@ -206,7 +206,7 @@ New features and changes in this release:
   connected.
   If left unspecified, the default network of the region is used.
   For more information about upgrading, see the
-  [authorized network section](upgrading.html#gcp-mysql-auth-network-id).
+  [authorized network section](upgrading.html#gcp-mysql-custom-plans-auth-network-id).
 
 - **High availability configuration:**
   You can now turn on high availability for an instance by using the `highly_available` property.
