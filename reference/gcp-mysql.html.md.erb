@@ -239,7 +239,7 @@ provisioning a csb-google-mysql service:
     <td>number</td>
     <td>
       The number of days to retain the transaction logs. Setting this value to <code>0</code>
-      deactivates transaction log backups.
+      deactivates transaction log backups.<br><br>
       The transaction logs can be retained up to seven days.
       When transaction logs are activated, regular backups are forced
       to be enabled, even if <code>backups_retain_number</code> is set to <code>0</code>.
@@ -251,9 +251,9 @@ provisioning a csb-google-mysql service:
     <td><code>highly_available</code></td>
     <td>boolean</td>
     <td>
-      Enable regional high availability for the service instance.
+      Enable regional high availability for the service instance.<br><br>
       This deploys a hot standby instance to a different zone in the same region, and affects the billing accordingly.
-      Enabling this setting requires transaction log backups to be enabled.
+      Enabling this setting requires transaction log backups to be enabled.<br><br>
       For more information, see the
       <a href="https://cloud.google.com/sql/docs/mysql/high-availability">Google Cloud Documentation</a>.
     </td>
@@ -265,7 +265,7 @@ provisioning a csb-google-mysql service:
     <td>string</td>
     <td>
       Preferred zone in the instance region for the primary instance in a highly available setup.
-      For example, <code>a</code> or <code>c</code>.
+      For example, <code>a</code> or <code>c</code>.<br><br>
       When not specified, one of the available zones is chosen automatically.
       For a list of available zones, see the
       <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a>.
@@ -278,9 +278,9 @@ provisioning a csb-google-mysql service:
     <td>string</td>
     <td>
       Preferred zone in the instance region for the standby instance in a highly available setup.
-      For example, <code>b</code> or <code>f</code>.
+      For example, <code>b</code> or <code>f</code>.<br><br>
       In a highly available configuration, when the secondary zone is not specified,
-      a zone different from the one specified for the primary instance is chosen automatically.
+      a zone different from the one specified for the primary instance is chosen automatically.<br><br>
       For a list of available zones, see the
       <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a>.
     </td>
