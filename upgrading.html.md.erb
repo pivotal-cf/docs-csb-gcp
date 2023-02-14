@@ -107,6 +107,20 @@ E.g: Let's assume you created the old instance using the private plan without ch
 }
 ```
 
+Or for example, let's assume you created the old instance using the public plan without changing the region. The plan must look like this:
+
+```json
+{
+    "name": "public-read",
+    "id": "c07f21a6-8a63-11ea-bc1b-d38b123189cb",
+    "description": "Public-read Storage bucket",
+    "region": "us-central1",
+    "metadata": {
+      "displayName": "Public Read"
+    }
+}
+```
+
 Moreover, the default storage class now is `MULTI_REGIONAL` which enables high availability across a large area.
 Previously, the default value was `STANDARD`. This storage class needs a large region like the `US`.
 If the old instance was created using a region not accepted in the `MULTI_REGIONAL` configuration,
@@ -125,6 +139,21 @@ E.g: Let's assume you created the old instance using the private plan without ch
     "storage_class": "STANDARD",
     "metadata": {
       "displayName": "Private"
+    }
+}
+```
+
+Or for example, let's assume you created the old instance using the public plan without changing the region. The plan must look like this:
+
+```json
+{
+    "name": "public-read",
+    "id": "c07f21a6-8a63-11ea-bc1b-d38b123189cb",
+    "description": "Public-read Storage bucket",
+    "region": "us-central1",
+    "storage_class": "STANDARD",
+    "metadata": {
+      "displayName": "Public Read"
     }
 }
 ```
