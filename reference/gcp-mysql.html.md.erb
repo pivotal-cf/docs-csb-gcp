@@ -32,17 +32,15 @@ For how to configure plans, see
 
 The following table lists parameters which can only be configured for additional plans:
 
-| Parameter Name    | Values                                                                           | Default |
-|-------------------|----------------------------------------------------------------------------------|---------|
-| `name`*           | The plan name                                                                    | _n/a_   |
-| `id`*             | A unique GUID                                                                    | _n/a_   |
-| `description`*    | Description of the new plan                                                      | _n/a_   |
-| `display_name`    | Name to use when displaying plan in marketplace                                  | _n/a_   |
-| `free`            | When false, Service Instances of this Service Plan have a cost                   | true    |
-| `bindable`        | Specifies whether Service Instances of the Service Plan can bind to applications | true    |
-| `plan_updateable` | Whether the Plan supports upgrade/downgrade/sidegrade to another version         | true    |
-
-<sup>*</sup> Required
+| Parameter Name    | Values                                                                           | Default | Required |
+|-------------------|----------------------------------------------------------------------------------|---------|----------|
+| `name`            | The plan name                                                                    | _n/a_   | Yes      |
+| `id`              | A unique GUID                                                                    | _n/a_   | Yes      |
+| `description`     | Description of the new plan                                                      | _n/a_   | Yes      |
+| `display_name`    | Name to use when displaying plan in marketplace                                  | _n/a_   | No       |
+| `free`            | When false, Service Instances of this Service Plan have a cost                   | true    | No       |
+| `bindable`        | Specifies whether Service Instances of the Service Plan can bind to applications | true    | No       |
+| `plan_updateable` | Whether the Plan supports upgrade/downgrade/sidegrade to another version         | true    | No       |
 
 You can also add any of the configuration parameters listed in the [parameters](#parameters) section to your plan.
 
@@ -292,7 +290,7 @@ provisioning a csb-google-mysql service:
   <tr>
     <td>allow_insecure_connections</td>
     <td>boolean</td>
-    <td>Specifies whether insecure connections should be allowed to this service instance.</td>
+    <td>Specifies whether insecure connections are allowed for this service instance.</td>
     <td><code>false</code></td>
     <td>provision</td>
   </tr>
@@ -300,36 +298,39 @@ provisioning a csb-google-mysql service:
 
 ## <a id="tls-connections"></a> TLS Connections
 
-By default, all new service instances do not allow insecure connections. In order to establish a secure connection,
-the application must extract the CA certificate from [the binding](#binding-creds), as CloudSQL 
-[will generate](https://cloud.google.com/sql/docs/mysql/authorize-ssl#ssltls_certificates) a separate CA 
-certificate for every service instance.
+By default, all new service instances do not allow insecure connections.
+To establish a secure connection, the application must extract the CA certificate from
+the binding, because CloudSQL generates a separate CA certificate for every service instance.
+For more information about certificate generation, see the
+[Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/authorize-ssl#ssltls_certificates).
 
-<p class="note">
-  <strong>Note:</strong> Because CloudSQL server certificates do not contain neither the server name, nor it's
-  IP address in any form, the server certificate verification must be limited to 
-  <a href="https://cloud.google.com/sql/docs/mysql/connect-admin-ip#connect-ssl">CA verification only</a>. 
-</p>
+> **Important** Because a CloudSQL server certificate does not contain the server name, or its
+> IP address in any form, the server certificate verification must be limited to CA verification only.
+> For more information, see the
+> [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/connect-admin-ip#connect-ssl).
 
-Using the contents of the `sslcert` and `sslkey` binding properties a 
-[mutual TLS connection](https://cloud.google.com/sql/docs/mysql/authorize-ssl#overview) to the server can be 
-established. However, mutual TLS is not enforced.
+You can establish a mutual TLS connection to the server by using the contents of the `sslcert` and
+`sslkey` binding properties. However, mutual TLS is not enforced.
+For more information, see the
+[Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/authorize-ssl#overview).
 
-### <a id="tls-connections-java"></a>Java applications
+### <a id="tls-connections-java"></a> Java applications
 
-Java applications typically require that the certificates used by the application are loaded into a truststore (for
-CA certificates) or a keystore (for client certificates) in a well-known location. Typically, CA certificates are
-shared either globally, or within an organisation, and in most scenarios, it is possible for any extra certificates to
-be installed into Ops Manager, so that they could be picked up by the Java buildpack to be integrated with the app.
-However, due to CloudSQL specifics, this is not possible in this case, and certificates have to be handled by the
-application itself at load time.
+Java applications typically require that the certificates used by the application are loaded into a
+trust store (for CA certificates) or a key store (for client certificates) in a well-known location.
 
-This can be accomplished by deploying a 
-[pre-runtime script](https://docs.cloudfoundry.org/devguide/deploy-apps/deploy-app.html#profile) with the 
-application. The purpose of the script would be to extract the certificates from the environment variables and load
-them into the appropriate stores. The pre-run script in the
-[JDBC test app](https://github.com/cloudfoundry/jdbctestapp/blob/v1.0.0/cf/.profile) on GitHub can be used
-as an example, and adapted to the required deployment context.
+Typically, CA certificates are shared either globally or within an organization.
+In most scenarios, any extra certificates can be installed in Ops Manager so that the Java buildpack
+can pick them up to be integrated with the app.
+However, this is not possible with CloudSQL. Instead, the application itself must handle certificates
+at load time, and you can achieve this by deploying a pre-runtime script with the application.
+For more information, see the
+[Cloud Foundry documentation](https://docs.cloudfoundry.org/devguide/deploy-apps/deploy-app.html#profile).
+
+The script extracts the certificates from the environment variables and loads them into the appropriate
+stores. You can use the pre-run script in the
+[JDBC test app](https://github.com/cloudfoundry/jdbctestapp/blob/v1.0.0/cf/.profile) on GitHub as an
+example and adapt it to the required deployment context.
 
 ## <a id="binding-creds"></a> Binding Credentials
 

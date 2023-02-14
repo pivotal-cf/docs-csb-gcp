@@ -28,8 +28,8 @@ This release has the following breaking changes:
   The property `use_tls` previously exposed in the binding is now removed.
   For more information about the format, see [Binding Credentials](reference/gcp-mysql.html#binding-creds).
   You must change your application to correctly read the properties exposed in the binding credentials
-  and register the certificate. See [TLS Connections](reference/gcp-mysql.html.md.erb#tls-connections) for further 
-  details.
+  and register the certificate. For more information, see
+  [TLS Connections](reference/gcp-mysql.html.md.erb#tls-connections).
 
 - **Removed Google MySQL pre-configured plans:**
   From this version onwards, plans are no longer provided with the brokerpak.
@@ -134,13 +134,10 @@ New features and changes in this release:
 
 #### Google MySQL
 
-- **Insecure connections are no longer available by default:**
-  Connection security is controlled by the following new property:
-  
-  - `allow_insecure_connections`: Controls whether unencrypted connections should be allowed. Defaults to `false`. See
-  [TLS Connections](reference/gcp-mysql.html.md.erb#tls-connections) section for further details on TLS
-  configuration. 
-  
+- **Insecure connections are no longer permitted by default:**
+  The new property `allow_insecure_connections` controls whether unencrypted connections are allowed.
+  It is `false` by default.
+  For more information, see [TLS Connections](reference/gcp-mysql.html.md.erb#tls-connections).
   This change is applied to previously existing instances after upgrading or binding recreation.
 
 - **`tier` property exposed:**
