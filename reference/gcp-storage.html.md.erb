@@ -320,6 +320,9 @@ binding to a csb-google-storage-bucket service:
 
 ## <a id="binding-creds"></a> Binding Credentials
 
+Binding to a Google Storage Bucket creates a Google Service Account that is granted a role
+within the bucket. The role granted depends on the `role` property specified when the binding is created.
+
 The format for binding credentials for Google Storage Bucket is as follows:
 
 ```json
