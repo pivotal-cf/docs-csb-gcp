@@ -1,0 +1,203 @@
+---
+title: Migrating to a Google Cloud SQL for MySQL Instance
+owner: Cloud Service Broker for GCP
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes migrating a GCP Relational Database Service (Google Cloud SQL) for
+MySQL instance from the GCP Service Broker for VMware Tanzu tile to the <%= vars.product_full %> tile.
+
+## <a id='about'></a> About Migrating Data to Google Cloud SQL for MySQL Instance
+
+Because the GCP Service Broker for VMware Tanzu (hereafter referred to as the legacy broker) tile
+is going out of support, it is important to move from MySQL instances that
+were created by the legacy broker over to the <%= vars.product_short %>.
+
+The <%= vars.product_short %> plans are configurable.
+When migrating, examine the configuration of the plans in use with the legacy broker and create
+matching plans in the <%= vars.product_short %>.
+
+You can use the GCP Database Import and Export tool to migrate data between Google Cloud SQL for MySQL Instances.
+The tool copies data from one database to a GCP Bucket and from there to another database instance.
+Because the original database is not modified, you can revert the migration if you detect any problems.
+
+### <a id='configuration'></a> Matching Configuration
+
+Both the legacy broker and the <%= vars.product_short %> allow you to customize service plans.
+Create plans in the <%= vars.product_short %> that match the plans used in the legacy broker.
+It is mandatory for the new service instances to be created with the same major version of MySQL as the old instances
+and with the same, or larger, available disk size. It might be useful to create a test service instance and compare the
+properties in the GCP console. For instructions on how to configure plans, see
+[Configure Services with Cloud Service Broker for GCP](installing-with-gcp.html#services).
+
+### <a id='migration'></a> Migrating Data
+
+You might want to migrate data from instances created with the legacy broker to instances
+created with the <%= vars.product_short %>.
+
+<p class="note important">
+    <strong>Important:</strong> Migration of data might incur app downtime.
+    The amount of downtime depends on the method chosen.
+</p>
+
+There are many options for performing data migration which
+include [GCP SQL Import and Export](https://cloud.google.com/sql/docs/postgres/backup-recovery/restoring),
+manual data migration, and options available from other vendors.
+For more information about the data migration process, refer to the documentation for the option that you choose.
+
+In general, the data migration steps are:
+
+1. Create a Google Cloud SQL for MySQL instance using the <%= vars.product_short %>.
+2. Create a backup of the MySQL instance managed by the legacy broker.
+3. Restore a backup of the data from a legacy broker MySQL instance into the newly created instance.
+4. Unbind apps from the legacy broker MySQL instance and bind them to the newly created instance.
+5. Once the migration has been proved to be successful, the legacy instance may be deleted
+
+For more detailed steps showing the Cloud Foundry and `gcloud` commands necessary to use GCP SQL Import and Export,
+see [Migrate Data from a GCP Service Broker for VMware Tanzu MySQL Instance](#steps).
+
+## <a id='steps'></a> Migrate Data from a GCP Service Broker for VMware Tanzu MySQL Instance
+
+<p class="note important">
+    <strong>Important:</strong> Because the GCP SQL Import and Export tool does not support a streaming or continuous 
+    replication, consider putting your application in read only mode while the migration is ongoing.
+</p>
+
+To migrate data from an existing legacy MySQL instance to the <%= vars.product_short %>:
+
+1. Create a bucket to hold the backup files by running:
+
+    ```console
+    gsutil mb gs://BACKUP-BUCKET-NAME
+    ```
+
+   Where `BACKUP-BUCKET-NAME` is a name you choose that must be lowercase.
+
+2. Get the `VCAP_SERVICES` JSON for the legacy MySQL instance by running:
+
+    ```console
+    cf env APP-NAME
+    ```
+
+   Where `APP-NAME` is the name of an app that is bound to a service instance from the legacy broker.
+
+3. From the `VCAP_SERVICES` JSON, record value of `database_name`, which is your `OLD-INSTANCE-DB-NAME`,
+   and `instance_name`, which is your `OLD-INSTANCE-ID`.
+
+4. Create a new MySQL service instance using <%= vars.product_short %> by running:
+
+    ```console
+    cf create-service csb-google-mysql PLAN-NAME NEW-SERVICE-INSTANCE-NAME -b cloud-service-broker-gcp -c '{"db_name":"OLD-INSTANCE-DB-NAME", "mysql_version": "OLD-INSTANCE-MYSQL-VERSION" }'
+    ```
+
+   Where:
+
+    - `PLAN-NAME` is the name of the <%= vars.product_short %> plan you want to use for the new instance.
+      Ensure this plan matches the plan used in the legacy broker.
+    - `NEW-SERVICE-INSTANCE-NAME` is the name you want for your new MySQL service instance.
+    - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in the previous step.
+    - `OLD-INSTANCE-MYSQL-VERSION` is the same MySQL version as your old service instance.
+
+5. Retrieve the GCP database instance ID for the new service instance. The GCP database instance ID is the Cloud Foundry
+   service instance GUID with the prefix `csb-mysql-` added to it. This is a string similar
+   to `csb-mysql-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
+
+   To get the Cloud Foundry service instance GUID, run:
+
+    ```console
+    cf service NEW-SERVICE-INSTANCE-NAME --guid
+    ```
+
+6. Create a backup of the old service instance with GCP Import and Export by running:
+
+    ```console
+    # Give the old database instance service account access to the newly created bucket.
+
+    INSTANCE_SERVICE_ACCOUNT_NAME=$(gcloud sql instances describe OLD-INSTANCE-ID --format json | jq -r .serviceAccountEmailAddress)
+    gsutil acl ch -u "${INSTANCE_SERVICE_ACCOUNT_NAME}:W" gs://BACKUP-BUCKET-NAME
+
+    # Run the export
+    gcloud sql export sql OLD-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/backup.sql" -d OLD-INSTANCE-DB-NAME
+    ```
+
+   Where:
+
+    - `OLD-INSTANCE-ID` is the `instance_name` you recorded in an earlier step.
+    - `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
+    - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in an earlier step.
+
+7. (Optional) Verify the contents of the export by inspecting the contents of the created SQL dump file.
+   To do so, download it using gsutil by running:
+
+    ```console
+    gsutil cp "gs://BACKUP-BUCKET-NAME/backup.sql" PATH-TO-SQL-DUMP-FILE
+    ```
+
+   Where `PATH-TO-SQL-DUMP-FILE` is the filepath where you want to download the local copy of the dump file.
+
+   You can inspect the dump file with your text editor or tooling of choice.
+
+8. Restore the backup of the old service instance into the new service instance. For example:
+
+    ```console
+    # Give the new database instance service account access to the newly created bucket.
+
+    INSTANCE_SERVICE_ACCOUNT_NAME=$(gcloud sql instances describe NEW-INSTANCE-ID --format json | jq -r .serviceAccountEmailAddress)
+    gsutil acl ch -u "${INSTANCE_SERVICE_ACCOUNT_NAME}:R" 'gs://BACKUP-BUCKET-NAME/*'
+
+    # Run the import
+
+    gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/backup.sql" -d OLD-INSTANCE-DB-NAME
+    ```
+
+   Where:
+
+    - `NEW-INSTANCE-ID` is the GCP database instance ID for the new service instance you retrieved in an earlier step.
+    - `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
+    - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in an earlier step.
+
+9. Disconnect the app from the legacy service binding by running:
+
+    ```console
+    cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE-NAME
+    ```
+
+   Where:
+
+    - `APP-NAME` is an app using the legacy MySQL instance.
+    - `LEGACY-SERVICE-INSTANCE-NAME` is the name of the MySQL instance managed by the legacy broker.
+
+   For example:
+
+    <pre class="terminal">
+    $ cf unbind-service my-app my-old-instance
+    </pre>
+
+10. Bind the app to the new service instance by running:
+
+     ```console
+     cf bind-service APP-NAME NEW-SERVICE-INSTANCE
+     ```
+
+    Where:
+
+    - `APP-NAME` is an app that you unbound in the previous step.
+    - `NEW-SERVICE-INSTANCE` is the name of the <%= vars.product_short %> service instance created in an earlier step.
+
+    For example:
+
+     <pre class="terminal">
+     $ cf bind-service my-app my-csb-gcp-instance
+     </pre>
+
+    Because <%= vars.product_short %> creates new credentials at bind time, this creates new binding credentials for the
+    app.
+
+11. Restage the app:
+
+     ```console
+     cf restage APP-NAME
+     ```
+
+12. After the migration is successful, you can remove the legacy service instance.
