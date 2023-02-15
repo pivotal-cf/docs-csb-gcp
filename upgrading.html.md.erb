@@ -18,13 +18,13 @@ Any instances that pass an explicit value for `authorized_network` are not manag
 upgrade.
 
 If you have the `authorized_network` property specified in a custom plan,
-see [Set `authorized_network_id` for the MySQL service](#gcp-mysql-custom-plans-auth-network-id).
+see [Set `authorized_network_id` for the MySQL service](#gcp-mysql-auth-ntwrk-id).
 
-### <a id="gcp-mysql-changing-custom-plans"></a> Changing custom plans
+### <a id="gcp-mysql-chng-cust-plns"></a> Changing custom plans
 
 Make the following changes to existing custom plans before upgrading.
 
-#### <a id="gcp-mysql-changing-custom-plans-set-tier"></a> Set `tier` for the MySQL service
+#### <a id="gcp-mysql-plans-set-tier"></a> Set `tier` for the MySQL service
 
 If you have custom plans already configured for MySQL, you must change the configuration.
 This is because the old property `cores` was removed, and you have to use `tier` instead to define
@@ -47,7 +47,7 @@ For example:
 For more information about the machine types, see the
 [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
 
-#### <a id="gcp-mysql-custom-plans-auth-network-id"></a> Set `authorized_network_id` for the MySQL service
+#### <a id="gcp-mysql-auth-ntwrk-id"></a> Set `authorized_network_id` for the MySQL service
 
 If you have custom plans already configured for MySQL, and you included the `authorized_network`
 property, you must change the configuration.
@@ -70,30 +70,33 @@ property. For example:
   }
 ```
 
-## <a id="gcp-storage-bucket"></a> Google Storage Bucket
+## <a id="gcp-storage-bucket"></a> Google Cloud Storage Bucket
 
-### <a id="gcp-storage-bucket-old-plans"></a> Restoring brokerpak-provided plans
+### <a id="gcp-strg-bckt-old-plans"></a> Restoring brokerpak-provided plans
 
-From this version onwards, Storage Bucket plans are no longer provided with the brokerpak.
-If you have instances that you want to maintain, you must add previously provided plans through the tile.
-For more information, see
+From this version onwards, Google Cloud Storage Bucket plans are no longer provided with the brokerpak.
+If you have instances that you want to maintain, you must add previously provided plans through the
+tile. For more information, see
 [Add previously provided pre-configured plans](reference/gcp-storage.html.md.erb#old-plans).
 
 <p class="note caution">
   <strong>Caution:</strong>
-  The previous version of the service was a beta version, implying that it was not a recommended version for production.
-  Therefore, it is discouraged to keep old instances. If, on the other hand, you want to update the instances,
-  you must understand that there are breaking changes that will influence the configuration of the plans you must define.
-  For more information, see next paragraph.
+  Keeping old instances is discouraged because the previous version of the service was a beta version,
+  and therefore not suitable for production.
+  If you choose to update the instances, there are breaking changes that can affect the configuration
+  of the plans you must define.
 </p>
 
+This version adds breaking changes that force the recreation of the bucket if the old plans are not
+correctly configured.
 
-This version adds braking changes that force the recreation of the bucket if the old plans are not correctly configured.
+From now on, the default region is `US`, a large area. Previously, the default value was `us-central-1`.
+A change in the region forces the recreation of the bucket.
+Therefore, if the old instance was created using a region other than `US`, you must add the region
+property to the old plan, setting the value equal to the old instance region.
 
-From now on, the default region is the `US`, a large area. Previously, the default value was `us-central-1`.
-A change in the region forces the recreation of the bucket. Therefore, if the old instance was created using a
-region other than the `US`, you must add the region property to the old plan setting the value equal to the old instance region.
-E.g: Let's assume you created the old instance using the private plan without changing the region. The plan must look like this:
+For example, if you created the old instance by using the private plan, without changing the region,
+the plan must look like this:
 
 ```json
 {
@@ -107,7 +110,8 @@ E.g: Let's assume you created the old instance using the private plan without ch
 }
 ```
 
-Or for example, let's assume you created the old instance using the public plan without changing the region. The plan must look like this:
+If you created the old instance by using the public plan, without changing the region, the plan
+must look like this:
 
 ```json
 {
@@ -121,14 +125,17 @@ Or for example, let's assume you created the old instance using the public plan 
 }
 ```
 
-Moreover, the default storage class now is `MULTI_REGIONAL` which enables high availability across a large area.
-Previously, the default value was `STANDARD`. This storage class needs a large region like the `US`.
-If the old instance was created using a region not accepted in the `MULTI_REGIONAL` configuration,
-see [documentation to get more information](https://cloud.google.com/about/locations#multi-region),
-you must add the old instance storage class to match the parameters, otherwise the upgrade process will try to set the
-storage class `MULTI_REGIONAL` using an invalid region and the process will be blocked.
+The default storage class now is `MULTI_REGIONAL`, which enables high availability across a large area.
+Previously, the default value was `STANDARD`. This storage class needs a large region like `US`.
 
-E.g: Let's assume you created the old instance using the private plan without changing the region. The plan must look like this:
+If the old instance was created by using a region not accepted in the `MULTI_REGIONAL` configuration,
+add the old instance storage class to match the parameters. If you don't, the upgrade process tries
+to set the storage class `MULTI_REGIONAL` by using an invalid region and the process is blocked.
+For more information, see the
+[Google Cloud documentation](https://cloud.google.com/about/locations#multi-region).
+
+For example, if you created the old instance by using the private plan, without changing the region,
+the plan must look like this:
 
 ```json
 {
@@ -143,7 +150,8 @@ E.g: Let's assume you created the old instance using the private plan without ch
 }
 ```
 
-Or for example, let's assume you created the old instance using the public plan without changing the region. The plan must look like this:
+If you created the old instance by using the public plan, without changing the region, the plan
+must look like this:
 
 ```json
 {
@@ -160,14 +168,11 @@ Or for example, let's assume you created the old instance using the public plan 
 
 <p class="note caution">
   <strong>Caution:</strong> You cannot edit plan properties during a provision or update operation.
+  The same considerations must be taken into account for the customized plans you created.
 </p>
 
-<p class="note caution">
-  <strong>Important:</strong> The same considerations must be taken into account for the customized plans you have created.
-</p>
-
-If you instead want to delete all previously created service instances, you must delete them before
-upgrading <%= vars.product_short %> to this version.
+If you instead want to delete all previously created service instances, delete them before upgrading
+<%= vars.product_short %> to this version.
 
 To remove the instances from the broker and the IaaS, run:
 
