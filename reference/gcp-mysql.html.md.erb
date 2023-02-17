@@ -334,16 +334,18 @@ example and adapt it to the required deployment context.
 
 ## <a id="binding-process"></a> Binding Process
 
-For each new binding, the Google MySQL service will create new user credentials with full access rights to the
-service instance database, so that all the data will remain accessible. However, the client certificate exposed
-via the binding credentials is created during provisioning, and is shared between all binding users. The client
-certificate is managed in this manner for the following reasons:
+For each new binding, the Google MySQL service creates new user credentials with full access rights
+to the service instance database, so that all the data remains accessible.
+However, the client certificate exposed through the binding credentials is created during provisioning,
+and is shared between all binding users. The client certificate is managed in this manner for the
+following reasons:
 
-- each CloudSQL instance is [limited to 10 certificates](https://cloud.google.com/sql/docs/mysql/configure-ssl-instance#new-client)
-- the lifetime of a client certificate is set to 10 years
-- the client certificate is never used to authorize the user - only the connection
+- Each CloudSQL instance is limited to 10 certificates. For more information, see the
+  [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/configure-ssl-instance#new-client).
+- The lifetime of a client certificate is set to 10 years
+- The client certificate is used to authorize only the connection and never the user
 
-At the moment, the Google MySQL service does not provide a mechanism for TLS certificate rotation.
+Currently, the Google MySQL service does not provide a mechanism for TLS certificate rotation.
 
 ## <a id="binding-creds"></a> Binding Credentials
 
