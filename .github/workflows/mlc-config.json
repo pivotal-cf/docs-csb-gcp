@@ -1,0 +1,26 @@
+{
+  "replacementPatterns": [
+    {
+      "pattern": "^(?!https?:\/\/)(.*).html(#[a-z-]+)?$",
+      "replacement": "$1.html.md.erb$2"
+    },
+    {
+      "pattern": "/docs-csb-gcp/",
+      "replacement": "../"
+    }
+  ],
+  "ignorePatterns": [
+    {
+      "pattern": "^#"
+    },
+    {
+      "pattern": "^https://docsdash.vmware.com"
+    },
+    {
+      "pattern": "^https://github.com/pivotal-cf/docs-partials"
+    },
+    {
+      "pattern": "^https://docworks.vmware.com/"
+    }
+  ]
+}
