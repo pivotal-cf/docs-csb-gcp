@@ -17,6 +17,15 @@ This release has the following breaking changes:
 
 #### Google MySQL
 
+<p class="note warning">
+  <strong>Warning: </strong>
+  The service instances created by the beta version of the Google MySQL service can no longer be managed by 
+  <%= vars.product_short %>. If necessary, the pre-existing data can be migrated to new instances using the 
+  <a href="gcp-mysql-migration.html">data migration process</a>.
+</p>
+
+##### Plan changes
+
 - **`cores` property removed:**
   The `cores` property no longer exists and is not configurable.
   Use the `tier` property instead to define compute and memory capacity.
@@ -96,10 +105,12 @@ New features and changes in this release.
   The property `versioning` is exposed to enable Object Versioning for the bucket.
   It retains a non-current object version each time you replace or delete a live object version.
   The default is `false`.
-  For more information about versioning, see the [Google Cloud documentation](https://cloud.google.com/storage/docs/object-versioning).
+  For more information about versioning, see
+  the [Google Cloud documentation](https://cloud.google.com/storage/docs/object-versioning).
 
 - **Exposed the property to prevent public access:**
-  The property `public_access_prevention` is exposed to configure whether or not to prevent public access for a storage bucket.
+  The property `public_access_prevention` is exposed to configure whether or not to prevent public access for a storage
+  bucket.
   Accepted values are `inherited` or `enforced`. Default is `enforced`.
 
 - **Exposed the property to enable uniform bucket-level access to the bucket:**
@@ -126,11 +137,11 @@ New features and changes in this release.
   bucket that governs how long objects in the bucket must be retained.
   You can change the behavior through these properties:
 
-  - `retention_policy_retention_period`: The period of time, in seconds, in which objects in the bucket
-    must be retained and cannot be deleted, overwritten, or archived.
-  - `retention_policy_is_locked`: Locks the retention policy to permanently set it on the bucket.
+    - `retention_policy_retention_period`: The period of time, in seconds, in which objects in the bucket
+      must be retained and cannot be deleted, overwritten, or archived.
+    - `retention_policy_is_locked`: Locks the retention policy to permanently set it on the bucket.
 
-    For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
+      For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
 
 - **Exposed pre-defined ACLs:**
   The property `predefined_acl` has been exposed to configure the bucket with a pre-defined Access
@@ -162,11 +173,11 @@ New features and changes in this release.
   New properties are exposed to control the storage auto-scaling functionality.
   You can change the behavior through these properties:
 
-  - `disk_autoresize`: Enables auto-resizing of the storage size. It is `true` by default.
-    When deactivating the storage auto-resizing, the value of the `disk_autoresize_limit` must also
-    be set to 0.
-  - `disk_autoresize_limit`: The maximum size in GB to which storage capacity can be automatically
-    increased. The default value is 0, which specifies that there is no limit.
+    - `disk_autoresize`: Enables auto-resizing of the storage size. It is `true` by default.
+      When deactivating the storage auto-resizing, the value of the `disk_autoresize_limit` must also
+      be set to 0.
+    - `disk_autoresize_limit`: The maximum size in GB to which storage capacity can be automatically
+      increased. The default value is 0, which specifies that there is no limit.
 
 - **MySQL version is exposed:**
   Previously the parameter `mysql_version` was restricted to a property plan.
@@ -187,14 +198,14 @@ New features and changes in this release.
 - **Backups are now configurable:**
   Regular backups are enabled by default, and you can configure them by using the following properties:
 
-  - `backups_retain_number`: How many backups to retain. Setting this property to `0` deactivates
-    regular backups.
-  - `backups_location`: (Optional) Name of a specific GCP region in which to store backups.
-    When left unspecified, multi-regional storage is used.
-  - `backups_start_time`: Preferred time, in the format `HH:MM`, to start daily regular backups.
-    It is `07:00` by default.
-  - `backups_transaction_log_retention_days`: Controls the number of days to keep the transaction logs.
-    It is `0` by default. Up to 7 days of transaction logs can be stored.
+    - `backups_retain_number`: How many backups to retain. Setting this property to `0` deactivates
+      regular backups.
+    - `backups_location`: (Optional) Name of a specific GCP region in which to store backups.
+      When left unspecified, multi-regional storage is used.
+    - `backups_start_time`: Preferred time, in the format `HH:MM`, to start daily regular backups.
+      It is `07:00` by default.
+    - `backups_transaction_log_retention_days`: Controls the number of days to keep the transaction logs.
+      It is `0` by default. Up to 7 days of transaction logs can be stored.
 
 - **Longer password for the admin user:**
   The length of the auto-generated password for the admin user is extended to 64 characters.
