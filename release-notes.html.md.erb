@@ -55,14 +55,17 @@ This release has the following breaking changes:
 
 ### Features
 
-New features and changes in this release:
+New features and changes in this release.
 
 #### General
 
-* **The internal Terraform was upgraded to v1.3:**
+- **The internal Terraform was upgraded to v1.3:**
   Terraform v1.3 enables the product to make use of fixes and other updates to Terraform.
   All service instances must be upgraded. For more information, see
   [Upgrading Cloud Service Broker for GCP](upgrading.html).
+
+- **New regions added to Ops Manager configuration:**
+  The list of available regions in the section to select the default region in Ops Manager has been completed.
 
 #### Google Cloud Storage
 
@@ -138,6 +141,10 @@ New features and changes in this release:
   Added new constraints to check the name of the bucket.
   If the name does not satisfy the new constraints, an early failure occurs for a better user experience.
   For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
+
+- **Configure Cloud Storage plans from Tanzu Ops Manager:**
+  You can now use Tanzu Ops Manager to add custom plans from the new Cloud Storage configuration section in
+  the broker's general configuration.
 
 #### Google MySQL
 
