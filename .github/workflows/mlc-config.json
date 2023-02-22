@@ -21,6 +21,12 @@
     },
     {
       "pattern": "^https://docworks.vmware.com/"
+    },
+    {
+      "pattern": "^https://docs-staging\\.vmware\\.com"
+    },
+    {
+      "pattern": "^https://docs-wiki\\.[a-z0-9.-]*\\.vmware\\.com"
     }
   ]
 }
