@@ -1,0 +1,127 @@
+---
+title: Migrating to a Google Storage Bucket Instance
+owner: Cloud Service Broker for GCP
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes migrating from a Google Storage Bucket instance of the GCP Service Broker for VMware Tanzu 
+tile to the <%= vars.product_full %> tile.
+
+## <a id='overview'></a> About Migrating a Google Storage Bucket Instance
+
+Because the GCP Service Broker for VMware Tanzu (hereafter referred to as the legacy broker) tile
+is out of support, it is important to move from Google Storage Bucket instances that were created by the legacy
+broker over to the <%= vars.product_short %>.
+
+The <%= vars.product_short %> plans are configurable.
+When migrating, examine the configuration of the plans in use with the legacy broker and create
+matching plans in the <%= vars.product_short %>.
+
+You can use any compatible migration tool for migrating between Google Storage Buckets.
+
+### <a id='configuration'></a> Matching Configuration
+
+Both the legacy broker and the <%= vars.product_short %> allow you to customize service plans.
+Create plans in the <%= vars.product_short %> that match the plans used in the legacy broker.
+It might be useful to create a test service instance and compare the properties in the GCP console.
+For how to configure plans, see
+[Configure Services with Cloud Service Broker for GCP](installing-with-gcp.html.md.erb#services).
+
+### <a id='migration'></a> Migrating Data
+
+You might want to migrate data from instances created with the legacy broker to instances
+created with the <%= vars.product_short %>.
+
+<p class="note important">
+  <strong>Important:</strong>Migration of data might incur app downtime.
+  The amount of downtime depends on the method chosen.
+</p>
+
+There are several options for performing a Google Storage Bucket migration, including the
+[`gcloud storage cp --recursive` command](https://cloud.google.com/storage/docs/moving-buckets#move-buckets),
+the [GCP Storage Transfer Service](https://cloud.google.com/storage-transfer/docs/overview), 
+manual data migration, or options available from other vendors.
+For more information about the data migration process, see the documentation for the option that
+you choose.
+
+In general, to migrate data:
+
+1. Create a backup of the Google Storage Bucket instance.
+2. Create a Google Storage Bucket instance using the <%= vars.product_short %>.
+3. Replicate the data from a legacy broker Google Storage Bucket instance into the newly created instance.
+4. Unbind apps from the legacy broker Google Storage Bucket instance and bind them to the newly created instance.
+5. (Optional) After migration is complete, delete the legacy broker Google Storage Bucket instance.
+
+## <a id='steps'></a> Migrate Data from a Legacy Google Storage Bucket Instance
+
+<p class="note important">
+  <strong>Important:</strong> Changes have been made to the binding credentials format. 
+  You must update the consuming app to handle the credential property.
+  Check the [new binding format](./reference/gcp-storage.html.md.erb#binding-creds).
+</p>
+
+The following steps have the Cloud Foundry commands necessary to use the `gcloud` command.
+To migrate data from an existing legacy Google Storage Bucket instance to the <%= vars.product_short %>:
+
+1. Create a backup of the legacy Google Storage Bucket instance.
+
+1. Create a new Google Storage Bucket service instance using <%= vars.product_short %>.
+
+1. Configure and run data migration, for example, by using the
+   [`gcloud storage cp --recursive` command](https://cloud.google.com/storage/docs/moving-buckets#move-buckets).
+   For how to configure data migration, see the documentation for the process you have chosen.
+
+1. Disconnect the app from the legacy service binding by running:
+
+   ```console
+   cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE-NAME
+   ```
+
+   Where:
+
+   * `APP-NAME` is the app using the Google Storage Bucket instance.
+   * `LEGACY-SERVICE-INSTANCE-NAME` is the name of the GCP Service Broker for VMware Tanzu witch brokered the Google Storage Bucket instance.
+
+   For example:
+
+   ```console
+   $ cf unbind-service my-app my-old-instance
+   ```
+
+1. Bind the app to the new service instance by running:
+
+   ```console
+   cf bind-service APP-NAME NEW-SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
+   ```
+
+   Where `NEW-SERVICE-INSTANCE-NAME` is the name of the <%= vars.product_short %> service instance
+   that you created earlier.
+
+   See [binding params documentation](reference/gcp-storage.html.md.erb#binding-params) to know the required parameters.
+
+   For example:
+
+   ```console
+   $ cf bind-service my-app my-csb-gcp-bucket-instance '{"role":"storage.objectAdmin"}
+   ```
+
+   Because <%= vars.product_short %> creates new credentials at bind time,
+   this creates new binding credentials for the app.
+
+1. Update the app to consume the new binding credential format.
+   You must update the consuming app to handle the credential property.
+   Check the [new binding format](./reference/gcp-storage.html.md.erb#binding-creds).
+    
+    <p class="note">
+      <strong>Note:</strong> VMware recommends reviewing all references where the legacy Google Storage bucket was used
+      to make sure that the new bucket is now being referenced.
+    </p>
+
+1. Push and start the app by running:
+
+   ```console
+   cf push APP-NAME
+   ```
+
+1. (Optional) After the migration has finished, remove the legacy service instance.
