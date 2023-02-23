@@ -5,13 +5,6 @@ owner: Cloud Service Broker
 
 <strong><%= modified_date %></strong>
 
-<p class="note warning">
-  <strong>Caution: </strong>
-  The Google MySQL service offering is currently in beta and is intended for evaluation and test
-  purposes only.
-  Do not use this product in a production environment.
-</p>
-
 This topic provides reference information about the Google MySQL service (csb-google-mysql).
 It details the plans, configuration parameters, and binding credentials.
 
@@ -314,6 +307,10 @@ You can establish a mutual TLS connection to the server by using the contents of
 For more information, see the
 [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/authorize-ssl#overview).
 
+In order to avoid the TLS requirement, the `allow_insecure_connections` parameter needs to be set to `true`
+during the service instance creation. Please note that the value for this parameter cannot be changed
+afterwards.
+
 ### <a id="tls-connections-java"></a> Java applications
 
 Java applications typically require that the certificates used by the application are loaded into a
@@ -359,16 +356,16 @@ The format for binding credentials for Google MySQL is as follows:
 
 ```json
 {
-    "name" : "DATABASE-NAME",
-    "hostname" : "DATABASE-SERVER-HOST",
-    "port" : "DATABASE-SERVER-PORT",
-    "username" : "AUTHENTICATION-USERNAME",
-    "password" : "AUTHENTICATION-PASSWORD",
-    "uri" : "DATABASE-CONNECTION-URI",
-    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URL",
-    "sslcert" : "SSL-CLIENT-CERT",
-    "sslkey" : "SSL-CLIENT-CERT-KEY",
-    "sslrootcert" : "SSL-INSTANCE-CA-CERT"
+  "name": "DATABASE-NAME",
+  "hostname": "DATABASE-SERVER-HOST",
+  "port": "DATABASE-SERVER-PORT",
+  "username": "AUTHENTICATION-USERNAME",
+  "password": "AUTHENTICATION-PASSWORD",
+  "uri": "DATABASE-CONNECTION-URI",
+  "jdbcUrl": "JDBC-FORMAT-CONNECTION-URL",
+  "sslcert": "SSL-CLIENT-CERT",
+  "sslkey": "SSL-CLIENT-CERT-KEY",
+  "sslrootcert": "SSL-INSTANCE-CA-CERT"
 }
 ```
 
@@ -378,27 +375,38 @@ The following table lists the previously provided plans for GCP MySQL:
 
 | Plan   | Description                                             |
 |--------|---------------------------------------------------------|
-| small  | MySQL v8.0, 2 cores, 8&nbsp;GB RAM, 10&nbsp;GB storage  |
-| medium | MySQL v8.0, 4 cores, 16&nbsp;GB RAM, 10&nbsp;GB storage |
-| large  | MySQL v8.0, 8 cores, 32&nbsp;GB RAM, 20&nbsp;GB storage |
+| small  | MySQL v5.7, 2 cores, 8&nbsp;GB RAM, 10&nbsp;GB storage  |
+| medium | MySQL v5.7, 4 cores, 16&nbsp;GB RAM, 10&nbsp;GB storage |
+| large  | MySQL v5.7, 8 cores, 32&nbsp;GB RAM, 20&nbsp;GB storage |
 
 To keep these plans in this version of the broker, add them through the tile as custom plans.
-For how to configure plans through the tile, see
+Please note, that by default, unless specified otherwise, TLS connections will be forced on all
+applications using these plans. See [TLS Connections](#tls-connections) for more information.
+
+<p class="note warning">
+  <strong>Warning: </strong>
+  Upgrading of service instances managed by the beta version of the Google MySQL service is not supported.
+</p>
+
+For configuring plans through the tile, see
 [Configure Services with <%= vars.product_short %>](../installing-with-gcp.html.md.erb#services).
+
+The plan definitions below correspond to the built-in plans of the beta service with one difference:
+the MySQL version has been updated to the latest supported version at the time of writing.
 
 Add the following block to keep the `small` plan:
 
 ```json
 {
-    "name": "small",
-    "id": "8809fe67-99b5-48dd-a6dd-890ee45e86be",
-    "description": "MySQL v8.0, 2 cores, 8GB ram, 10GB storage",
-    "metadata": {
-      "displayName": "small"
-    },
-    "mysql_version": "MYSQL_8_0",
-    "storage_gb": 10,
-    "tier": "db-n1-standard-2"
+  "name": "small",
+  "id": "7e0d9b1e-73ab-4689-a6fb-44bded83f403",
+  "description": "MySQL v8.0, 2 cores, 8GB ram, 10GB storage",
+  "metadata": {
+    "displayName": "small"
+  },
+  "mysql_version": "MYSQL_8_0",
+  "storage_gb": 10,
+  "tier": "db-n1-standard-2"
 }
 ```
 
@@ -406,15 +414,15 @@ Add the following block to keep the `medium` plan:
 
 ```json
 {
-    "name": "medium",
-    "id": "753accb8-52a7-4673-8216-ffc539351aea",
-    "description": "MySQL v8.0, 4 cores, 16GB ram, 10GB storage",
-    "metadata": {
-      "displayName": "medium"
-    },
-    "mysql_version": "MYSQL_8_0",
-    "storage_gb": 10,
-    "tier": "db-n1-standard-4"
+  "name": "medium",
+  "id": "460f8f81-378a-41b4-baa0-4b7eac3e3603",
+  "description": "MySQL v8.0, 4 cores, 16GB ram, 10GB storage",
+  "metadata": {
+    "displayName": "medium"
+  },
+  "mysql_version": "MYSQL_8_0",
+  "storage_gb": 10,
+  "tier": "db-n1-standard-4"
 }
 ```
 
@@ -422,14 +430,28 @@ Add the following block to keep the `large` plan:
 
 ```json
 {
-    "name": "large",
-    "id": "8f8fc4ab-2b37-41da-bc6a-e915497dac33",
-    "description": "MySQL v8.0, 8 cores, 32GB ram, 20GB storage",
-    "metadata": {
-      "displayName": "large"
-    },
-    "mysql_version": "MYSQL_8_0",
-    "storage_gb": 20,
-    "tier": "db-n1-standard-8"
+  "name": "large",
+  "id": "69525ac4-c031-46cd-aff9-c58ccddd97da",
+  "description": "MySQL v8.0, 8 cores, 32GB ram, 20GB storage",
+  "metadata": {
+    "displayName": "large"
+  },
+  "mysql_version": "MYSQL_8_0",
+  "storage_gb": 20,
+  "tier": "db-n1-standard-8"
 }
 ```
+
+## <a id="retiring-beta-instances"></a> Retiring old instances
+
+As the service instances provisioned by the beta version of the Google MySQL service are no longer supported,
+is makes sense to remove them from the supervision of <%= vars.product_short %>. One way of doing this would
+be to follow the [migration instructions](../gcp-mysql-migration.html.md.erb) in order to move the data to a
+new instance, disassociate the old instance with the broker, making it possible to dispose of the old instance
+from the Google Cloud Console.
+
+Alternatively, the credentials for each service instance could be
+[recovered from TAS Credhub](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub),
+and stored in a user-provided service for further consumption by applications. Afterwards, the service instances can
+be safely [purged](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html), and will have to be managed
+manually.
