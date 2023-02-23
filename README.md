@@ -22,12 +22,12 @@ The master branch is the tree-trunk, so **always** make changes you want carried
 
 Then, if necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate branches listed below:
 
-| Branch Name| Use for… |
-|------------| ---------|
-| master     | Use for staging doc for the next release. (staged here: https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html) |
-| 1.1        | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.1/csb-gcp/GUID-index.html |
-| 1.0        | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.0/csb-gcp/GUID-index.html |
-| 0.2        | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/0.2/csb-gcp/GUID-index.html |
+| Branch Name | Use for…                                                                                                                                                         |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| master      | Use for staging doc for the next release. (staged here: https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html) |
+| 1.1         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.1/csb-gcp/GUID-index.html                                                           |
+| 1.0         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.0/csb-gcp/GUID-index.html                                                           |
+| 0.2         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/0.2/csb-gcp/GUID-index.html                                                           |
 
 ## Releasing a New Minor Version
 
@@ -106,20 +106,20 @@ replacing the publication with the same version.
 
 ## Troubleshooting Markdown
 
-| Problem | List displays as a paragraph |
-|---------|-----------|
-| Symptom:| Bulleted or numbered lists look fine on GitHub but display as a single paragraph in HTML.|
-| Solution: | Add a blank line after the stem sentence and before the first item in the list.|
+| Problem   | List displays as a paragraph                                                              |
+|-----------|-------------------------------------------------------------------------------------------|
+| Symptom:  | Bulleted or numbered lists look fine on GitHub but display as a single paragraph in HTML. |
+| Solution: | Add a blank line after the stem sentence and before the first item in the list.           |
 
-| Problem | List numbering is broken: every item is `1.` |
-|---------|-----------|
-| Symptom:| Each numbered item in a list is a `1.` instead of `1.`, `2.`, `3.`, etc|
-| Solution: | Try removing any blank newlines within each step.|
+| Problem   | List numbering is broken: every item is `1.`                            |
+|-----------|-------------------------------------------------------------------------|
+| Symptom:  | Each numbered item in a list is a `1.` instead of `1.`, `2.`, `3.`, etc |
+| Solution: | Try removing any blank newlines within each step.                       |
 
-| Problem | Code boxes not showing |
-|---------|-----------|
-| Symptom:| VMware publishing system doesn't accept code tags after the three back ticks.|
-| Solution: | Make sure you're not using `shell` or `bash` or `console` or `yaml` after back ticks.|
+| Problem   | Code boxes not showing                                                                |
+|-----------|---------------------------------------------------------------------------------------|
+| Symptom:  | VMware publishing system doesn't accept code tags after the three back ticks.         |
+| Solution: | Make sure you're not using `shell` or `bash` or `console` or `yaml` after back ticks. |
 
 ## Style Guide
 

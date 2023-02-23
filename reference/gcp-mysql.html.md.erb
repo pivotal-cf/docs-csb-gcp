@@ -307,6 +307,10 @@ You can establish a mutual TLS connection to the server by using the contents of
 For more information, see the
 [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/authorize-ssl#overview).
 
+In order to avoid the TLS requirement, the `allow_insecure_connections` parameter needs to be set to `true`
+during the service instance creation. Please note that the value for this parameter cannot be changed
+afterwards.
+
 ### <a id="tls-connections-java"></a> Java applications
 
 Java applications typically require that the certificates used by the application are loaded into a
@@ -352,15 +356,29 @@ The format for binding credentials for Google MySQL is as follows:
 
 ```json
 {
-    "name" : "DATABASE-NAME",
-    "hostname" : "DATABASE-SERVER-HOST",
-    "port" : "DATABASE-SERVER-PORT",
-    "username" : "AUTHENTICATION-USERNAME",
-    "password" : "AUTHENTICATION-PASSWORD",
-    "uri" : "DATABASE-CONNECTION-URI",
-    "jdbcUrl" : "JDBC-FORMAT-CONNECTION-URL",
-    "sslcert" : "SSL-CLIENT-CERT",
-    "sslkey" : "SSL-CLIENT-CERT-KEY",
-    "sslrootcert" : "SSL-INSTANCE-CA-CERT"
+  "name": "DATABASE-NAME",
+  "hostname": "DATABASE-SERVER-HOST",
+  "port": "DATABASE-SERVER-PORT",
+  "username": "AUTHENTICATION-USERNAME",
+  "password": "AUTHENTICATION-PASSWORD",
+  "uri": "DATABASE-CONNECTION-URI",
+  "jdbcUrl": "JDBC-FORMAT-CONNECTION-URL",
+  "sslcert": "SSL-CLIENT-CERT",
+  "sslkey": "SSL-CLIENT-CERT-KEY",
+  "sslrootcert": "SSL-INSTANCE-CA-CERT"
 }
 ```
+
+## <a id="retiring-beta-instances"></a> Retiring old instances
+
+As the service instances provisioned by the beta version of the Google MySQL service are no longer supported,
+is makes sense to remove them from the supervision of <%= vars.product_short %>. One way of doing this would
+be to follow the [migration instructions](../gcp-mysql-migration.html.md.erb) in order to move the data to a
+new instance, disassociate the old instance with the broker, making it possible to dispose of the old instance
+from the Google Cloud Console.
+
+Alternatively, the credentials for each service instance could be
+[recovered from TAS Credhub](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub),
+and stored in a user-provided service for further consumption by applications. Afterwards, the service instances can
+be safely [purged](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html), and will have to be managed
+manually.

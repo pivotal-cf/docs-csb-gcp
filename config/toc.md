@@ -2,6 +2,8 @@
 *   [Release Notes](/docs-csb-gcp/release-notes.html)
 *   [Installing and Configuring](/docs-csb-gcp/installing-with-gcp.html)
 *   [Migrating to a Google Cloud SQL for PostgreSQL Instance](/docs-csb-gcp/gcp-postgres-migration.html)
+*   [Migrating to a Google Cloud SQL for MySQL Instance](/docs-csb-gcp/gcp-mysql-migration.html)
+*   [Migrating to a Google Storage Bucket Instance](/docs-csb-gcp/gcp-storage-migration.html)
 *   [Upgrading](/docs-csb-gcp/upgrading.html)
 *   [Service Plan Reference](/docs-csb-gcp/reference/index.html)
     *   [Google PostgreSQL](/docs-csb-gcp/reference/gcp-postgresql.html)
