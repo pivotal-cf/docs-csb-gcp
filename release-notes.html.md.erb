@@ -92,10 +92,6 @@ New features and changes in this release.
   For more information about the regions, see the
   [GCP documentation](https://cloud.google.com/about/locations#multi-region).
 
-- **Removed the storage class enumerator:**
-  The storage class enumerator was removed. Therefore, there are no limits in new storage classes
-  added in the future.
-
 - **Exposed the dual-region configuration property:**
   The property `placement_dual_region_data_locations` is exposed to configure the list of individual
   regions that comprise a dual-region bucket. For more information, see
@@ -156,6 +152,10 @@ New features and changes in this release.
 - **Configure Cloud Storage plans from Tanzu Ops Manager:**
   You can now use Tanzu Ops Manager to add custom plans from the new Cloud Storage configuration section in
   the broker's general configuration.
+
+- **Expanded storage class enumerator options:**
+  You can now use the `ARCHIVE` option.
+  For more information, see [Available storage classes](https://cloud.google.com/storage/docs/storage-classes).
 
 #### Google MySQL
 
