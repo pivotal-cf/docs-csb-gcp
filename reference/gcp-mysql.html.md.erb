@@ -117,7 +117,8 @@ provisioning a csb-google-mysql service:
     <td>string</td>
     <td>
       Required unless defined in plan. This is the version for the MySQL instance, and it can be any
-      version that the provider supports.
+      version that the provider supports. Note that enforcing secure connections is only supported with MySQL 5.7
+      and higher, so if using MySQL 5.6 it is necessary to also set the <code>allow_insecure_connections</code> property.
     </td>
     <td><code>""</code></td>
     <td>provision and update</td>
@@ -282,7 +283,11 @@ provisioning a csb-google-mysql service:
   <tr>
     <td><code>allow_insecure_connections</code></td>
     <td>boolean</td>
-    <td>Specifies whether insecure connections are allowed for this service instance.</td>
+    <td>
+      Specifies whether insecure connections are allowed for this service instance.
+      Note that enforcing secure connections is not supported by MySQL 5.6, so it's necessary
+      to set this property to <code>true</code> for MySQL 5.6.
+    </td>
     <td><code>false</code></td>
     <td>provision</td>
   </tr>
