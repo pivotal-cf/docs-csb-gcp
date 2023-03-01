@@ -94,6 +94,8 @@ provisioning a csb-google-storage-bucket service:
     <td>string</td>
     <td>
       The storage class of the new bucket.
+      When setting Multi-Region, you must choose a valid <code>region</code> for Multi-Region. See <code>region</code>
+      field for more information.
       For more information about valid storage class values, see the
       <a href="https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket#storage_class">Terraform documentation</a>.
     </td>
@@ -140,10 +142,13 @@ provisioning a csb-google-storage-bucket service:
     <td>string</td>
     <td>
       The region of the bucket instance.
+      When using Multi-Region buckets, you must choose a valid region for Multi-Region configuration either in the 
+      plan or at provisioning time, for example, <code>us</code>, <code>eu</code>, <code>asia</code>, etc.
+      The default region set by the operator in the tile configuration section might not work for multi-region.
       For more information about the regions, see the
       <a href="https://cloud.google.com/about/locations#multi-region">Google Cloud documentation</a>.
     </td>
-    <td><code>us</code> </td>
+    <td>The value the operator entered for <strong>Region</strong> in <%= vars.ops_manager %>.</td>
     <td>provision</td>
   </tr>
   <tr>
