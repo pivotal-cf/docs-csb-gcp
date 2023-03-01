@@ -31,15 +31,14 @@ For how to configure plans, see
 
 The following table lists parameters which can only be configured for additional plans:
 
-| Parameter Name       | Values                         | Default   |
-|----------------------|--------------------------------|-----------|
-| `name`*              | The plan name                  | _n/a_     |
-| `id`*                | A unique GUID                  | _n/a_     |
-| `description`*       | Description of the new plan    | _n/a_     |
-| `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
-| `free`               | When false, Service Instances of this Service Plan have a cost    | true     |
-| `bindable`           | Specifies whether Service Instances of the Service Plan can bind to applications    | true     |
-| `plan_updateable`    | Whether the Plan supports upgrade/downgrade/sidegrade to another version    | true     |
+| Parameter Name    | Values                                                                           | Default |
+|-------------------|----------------------------------------------------------------------------------|---------|
+| `name`*           | The plan name                                                                    | _n/a_   |
+| `id`*             | A unique GUID                                                                    | _n/a_   |
+| `description`*    | Description of the new plan                                                      | _n/a_   |
+| `free`            | When false, Service Instances of this Service Plan have a cost                   | true    |
+| `bindable`        | Specifies whether Service Instances of the Service Plan can bind to applications | true    |
+| `plan_updateable` | Whether the Plan supports upgrade/downgrade/sidegrade to another version         | true    |
 
 <sup>*</sup> Required
 
@@ -94,8 +93,10 @@ provisioning a csb-google-storage-bucket service:
     <td><code>storage_class</code></td>
     <td>string</td>
     <td>
-      The Storage Class of the new bucket. Accepted values are <code>STANDARD</code>, <code>MULTI_REGIONAL</code>,
+      The storage class of the new bucket. Accepted values are <code>STANDARD</code>, <code>MULTI_REGIONAL</code>,
       <code>REGIONAL</code>, <code>NEARLINE</code>, <code>COLDLINE</code>, or <code>ARCHIVE</code>.
+      When setting Multi-Region, you must choose a valid <code>region</code> for Multi-Region. See <code>region</code>
+      field for more information.
     </td>
     <td><code>MULTI_REGIONAL</code></td>
     <td>provision and update</td>
@@ -140,10 +141,13 @@ provisioning a csb-google-storage-bucket service:
     <td>string</td>
     <td>
       The region of the bucket instance.
+      When using Multi-Region buckets, you must choose a valid region for Multi-Region configuration either in the 
+      plan or at provisioning time, for example, <code>us</code>, <code>eu</code>, <code>asia</code>, etc.
+      The default region set by the operator in the tile configuration section might not work for multi-region.
       For more information about the regions, see the
       <a href="https://cloud.google.com/about/locations#multi-region">Google Cloud documentation</a>.
     </td>
-    <td><code>us</code> </td>
+    <td>The value the operator entered for <strong>Region</strong> in <%= vars.ops_manager %>.</td>
     <td>provision</td>
   </tr>
   <tr>
