@@ -82,13 +82,11 @@ New features and changes in this release.
   For more information see the **Resolved Issues** section.
 
 - **Multiregional storage class by default:**
-  From now on, the default storage class is multiregional. For more information about the multiregional
+  From now on, the default storage class is multiregional.
+  The default region set by the operator in the tile configuration section might not work for multi-region.
+  For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
+  For more information about the multiregional
   storage class, see the [Google Cloud documentation](https://cloud.google.com/storage/docs/storage-classes).
-
-- **US as the default region:**
-  From now on, the default region is the US because the default storage class is multiregional.
-  For more information about the regions, see the
-  [GCP documentation](https://cloud.google.com/about/locations#multi-region).
 
 - **Exposed the dual-region configuration property:**
   The property `placement_dual_region_data_locations` is exposed to configure the list of individual
