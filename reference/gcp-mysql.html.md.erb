@@ -115,8 +115,8 @@ provisioning a csb-google-mysql service:
     <td>string</td>
     <td>
       Required unless defined in plan. This is the version for the MySQL instance, and it can be any
-      version that the provider supports. Note that enforcing secure connections is only supported with MySQL 5.7
-      and higher, so if using MySQL 5.6 it is necessary to also set the <code>allow_insecure_connections</code> property.
+      version that the provider supports. Note that enforcing secure connections is only supported with MySQL v5.7
+      and later. If you are using MySQL v5.6, you must also set the <code>allow_insecure_connections</code> property.
     </td>
     <td><code>""</code></td>
     <td>provision and update</td>
@@ -283,8 +283,8 @@ provisioning a csb-google-mysql service:
     <td>boolean</td>
     <td>
       Specifies whether insecure connections are allowed for this service instance.
-      Note that enforcing secure connections is not supported by MySQL 5.6, so it's necessary
-      to set this property to <code>true</code> for MySQL 5.6.
+      Note that enforcing secure connections is not supported by MySQL v5.6
+      If you are using MySQL v5.6, you must set this property to <code>true</code>.
     </td>
     <td><code>false</code></td>
     <td>provision</td>
@@ -370,17 +370,3 @@ The format for binding credentials for Google MySQL is as follows:
   "sslrootcert": "SSL-INSTANCE-CA-CERT"
 }
 ```
-
-## <a id="retiring-beta-instances"></a> Retiring old instances
-
-As the service instances provisioned by the beta version of the Google MySQL service are no longer supported,
-is makes sense to remove them from the supervision of <%= vars.product_short %>. One way of doing this would
-be to follow the [migration instructions](../gcp-mysql-migration.html.md.erb) in order to move the data to a
-new instance, disassociate the old instance with the broker, making it possible to dispose of the old instance
-from the Google Cloud Console.
-
-Alternatively, the credentials for each service instance could be
-[recovered from TAS Credhub](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub),
-and stored in a user-provided service for further consumption by applications. Afterwards, the service instances can
-be safely [purged](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html), and will have to be managed
-manually.
