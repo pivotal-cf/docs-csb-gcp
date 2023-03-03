@@ -18,21 +18,20 @@ This release has the following breaking changes:
 #### Google MySQL
 
 <p class="note warning">
-  <strong>Warning: </strong>
-  The service instances created by the beta version of the Google MySQL service can no longer be managed by
-  <%= vars.product_short %>. If necessary, the pre-existing data can be migrated to new instances using the
-  <a href="gcp-mysql-migration.html">data migration process</a>.
+  <strong>Warning:</strong> <%= vars.product_short %> can no longer manage service instances created
+  using the beta version of the Google MySQL service.
+  This is because the Google MySQL service is now generally available.
+  These instances must be removed from <%= vars.product_short %>.
+  For more information, see <a href="upgrading.html#retiring-beta-instances">Retiring old instances</a>.
 </p>
 
-##### Plan changes
-
-- **`cores` property removed:**
+- **Removed the `cores` property:**
   The `cores` property no longer exists and is not configurable.
   Use the `tier` property instead to define compute and memory capacity.
   The old custom plans containing the property `cores` must be changed. For more information, see
   [Changing custom plans](upgrading.html#gcp-mysql-chng-cust-plns).
 
-- **Format for binding credentials changed:**
+- **Changed the format for binding credentials:**
   The format for binding credentials has changed. Several properties have been exposed to configure TLS.
   The property `use_tls` previously exposed in the binding is now removed.
   For more information about the format, see [Binding Credentials](reference/gcp-mysql.html#binding-creds).
@@ -59,6 +58,7 @@ This release has the following breaking changes:
   you must add the plans through the tile configuration.
   For more information, see
   [Previously Provided Pre-configured Plans](reference/gcp-storage.html#old-plans) in _Google Storage Bucket Reference_.
+
 
 ### Features
 
@@ -157,7 +157,9 @@ New features and changes in this release.
 
 #### Google MySQL
 
-- **Google MySQL service:** This service is now generally available.
+**Google MySQL service is now generally available:** Google MySQL is no longer in beta and can be used in production.
+Service instances provisioned by the beta version of the Google MySQL service are no longer supported and must be removed.
+For more information, see [Retiring old instances](upgrading.html#retiring-beta-instances).
 
 - **Insecure connections are no longer permitted by default:**
   The new property `allow_insecure_connections` controls whether unencrypted connections are allowed.

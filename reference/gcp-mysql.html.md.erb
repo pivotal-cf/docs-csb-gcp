@@ -12,7 +12,7 @@ It details the plans, configuration parameters, and binding credentials.
   <strong>Note:</strong> Release v1.2.0 removes brokerpak pre-configured plans for MySQL.
   All plans must be configured through the tile.
   For more information about upgrade steps, see
-  <a href="../upgrading.html.md.erb">Upgrading <%= vars.product_full %></a>.
+  <a href="../upgrading.html">Upgrading <%= vars.product_full %></a>.
 </p>
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
@@ -309,9 +309,12 @@ You can establish a mutual TLS connection to the server by using the contents of
 For more information, see the
 [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/authorize-ssl#overview).
 
-In order to avoid the TLS requirement, the `allow_insecure_connections` parameter needs to be set to `true`
-during the service instance creation. Please note that the value for this parameter cannot be changed
-afterwards.
+To avoid the TLS requirement, set the `allow_insecure_connections` parameter to `true`
+during service instance creation.
+
+<p class="note important">
+  <strong>Important:</strong> You cannot change the value for the `allow_insecure_connections` parameter after creating the instance.
+</p>
 
 ### <a id="tls-connections-java"></a> Java applications
 
