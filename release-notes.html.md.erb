@@ -41,7 +41,7 @@ This release has the following breaking changes:
   If you have MySQL service instances that you want to maintain that use the formerly built-in plans,
   you must add the plans through the tile configuration.
 
-#### Google Cloud Storage
+#### Google Cloud Storage Bucket
 
 - **Format for binding credentials changed:**
   The format for binding credentials has changed to only use the snake_case style instead of a
@@ -49,9 +49,9 @@ This release has the following breaking changes:
   [reference](reference/gcp-storage.html#binding-creds) topic.
   You must change your application to correctly read the properties exposed in the binding credentials.
 
-- **Removed Google Cloud Storage pre-configured plans:**
+- **Removed Google Cloud Storage Bucket pre-configured plans:**
   From this version onwards, plans are no longer provided with the brokerpak.
-  If you have Cloud Storage service instances that you want to maintain that use the formerly built-in plans,
+  If you have Google Cloud Storage Bucket service instances that you want to maintain that use the formerly built-in plans,
   you must add the plans through the tile configuration.
   For more information, see
   [Previously Provided Pre-configured Plans](reference/gcp-storage.html#old-plans) in _Google Storage Bucket Reference_.
