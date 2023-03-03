@@ -8,7 +8,7 @@
 *   [Service Plan Reference](/docs-csb-gcp/reference/index.html)
     *   [Google PostgreSQL](/docs-csb-gcp/reference/gcp-postgresql.html)
     *   [Google MySQL](/docs-csb-gcp/reference/gcp-mysql.html)
-    *   [Google Storage Bucket (Beta)](/docs-csb-gcp/reference/gcp-storage.html)
+    *   [Google Storage Bucket](/docs-csb-gcp/reference/gcp-storage.html)
     *   [Google Redis (Beta)](/docs-csb-gcp/reference/gcp-redis.html)
     *   [Google Spanner (Beta)](/docs-csb-gcp/reference/gcp-spanner.html)
     *   [Google Dataproc (Beta)](/docs-csb-gcp/reference/gcp-dataproc.html)
