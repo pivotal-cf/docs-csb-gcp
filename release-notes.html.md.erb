@@ -19,7 +19,6 @@ This release has the following breaking changes:
 
 - **<%= vars.product_short %> can no longer manage service instances created
   using the beta version of the Google MySQL service:**
-  This is because the Google MySQL service is now generally available.
   These instances must be removed from <%= vars.product_short %>.
   For more information, see <a href="upgrading.html#retiring-beta-instances">Retiring beta instances</a>.
 
@@ -85,8 +84,11 @@ New features and changes in this release.
 
 #### Google Cloud Storage
 
-- **Google Cloud Storage service is now generally available:** Google Cloud Storage is no longer in **beta** and can be
-  used in production.
+- **Google Cloud Storage service is now generally available:**
+  Google Cloud Storage is no longer in beta and can now be used in production.
+  Service instances provisioned by the beta version of the Google Cloud Storage service
+  can still be used but this is discouraged.
+  For more information, see [About beta instances](upgrading.html#gcp-beta-instances).
 
 - **Removed the `acl` parameter associated with the plans:**
   Because the parameter is no longer mandatory, it doesn't influence the custom plans created.

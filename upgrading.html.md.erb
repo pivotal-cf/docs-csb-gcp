@@ -78,20 +78,21 @@ property, you must change the configuration to use `authorized_network_id`. For 
 
 The following sections describe changes for the Google Cloud Storage Bucket service.
 
+### <a id="gcp-beta-instances"></a> About beta instances
+
+Keeping beta instances is discouraged because the previous version of the service was a beta version,
+and therefore not suitable for production.
+
+You can choose to update the instances, but there are breaking changes that can affect the configuration
+of the plans you must define.
+For more information see [Restoring brokerpak-provided plans](#gcp-strg-bckt-old-plans) below.
+
 ### <a id="gcp-strg-bckt-old-plans"></a> Restoring brokerpak-provided plans
 
 From this version onwards, Google Cloud Storage Bucket plans are no longer provided with the brokerpak.
 If you have instances that you want to maintain, you must add previously provided plans through the
 tile. For more information, see
 [Add previously provided pre-configured plans](reference/gcp-storage.html.md.erb#old-plans).
-
-<p class="note caution">
-  <strong>Caution:</strong>
-  Keeping old instances is discouraged because the previous version of the service was a beta version,
-  and therefore not suitable for production.
-  If you choose to update the instances, there are breaking changes that can affect the configuration
-  of the plans you must define.
-</p>
 
 This version adds breaking changes that force the recreation of the bucket if the old plans are not
 correctly configured.
