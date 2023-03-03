@@ -192,6 +192,35 @@ To remove instances from Cloud Foundry, but retain them in the IaaS, run:
 cf purge-service-instance
 ```
 
+## <a id="gcp-redis"></a> Google Redis
+
+### <a id="gcp-rest-redis-old-plans"></a> Restoring brokerpak-provided plans
+
+From this version onwards, Google Redis plans are no longer provided with the brokerpak.
+If you have instances that you want to maintain, you must add previously provided plans through the
+tile. For more information, see
+[Add previously provided pre-configured plans](reference/gcp-redis.html.md.erb#old-plans).
+
+<p class="note caution">
+  <strong>Caution:</strong>
+  Keep in mind that Google Redis is a beta version, and therefore not suitable for production.
+</p>
+
+If you instead want to delete all previously created service instances, delete them before upgrading
+<%= vars.product_short %> to this version.
+
+To remove the instances from the broker and the IaaS, run:
+
+```console
+cf delete-service SERVICE-NAME
+```
+
+To remove instances from Cloud Foundry, but retain them in the IaaS, run:
+
+```console
+cf purge-service-instance
+```
+
 ## <a id="procedure"></a> Upgrade procedure
 
 To upgrade the <%= vars.product_short %> to a later version:

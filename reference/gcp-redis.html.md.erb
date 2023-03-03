@@ -14,15 +14,14 @@ owner: Cloud Service Broker
 This topic provides reference information about the Google Redis service (csb-google-redis).
 It details the plans, configuration parameters, and binding credentials.
 
-## <a id="plans"></a> Plans
-
-The table below lists the plans for Google Redis:
-
-| Plan | Description |
-|------|-------------|
-| basic | A basic plan with no failover. Data will be lost on maintenance or cluster changes. |
-| ha | A highly available plan with automatic failover.  |
-
+<p class="note">
+  <strong>Note:</strong> Release v1.2.0 removes brokerpak pre-configured plans for Google Redis.
+  All plans must be configured through the tile.
+  If you have instances of Google Redis that were created in previous versions and that you want to
+  maintain, see <a id="#old-plans">Previously Provided Pre-configured Plans</a>.
+  For more information about upgrade steps, see
+  <a href="../upgrading.html.md.erb">Upgrading <%= vars.product_full %></a>.
+</p>
 
 ## <a id="plans-config"></a> Plan Configuration Parameters
 
@@ -32,16 +31,15 @@ For how to configure plans, see
 
 The following table lists parameters which can only be configured for additional plans:
 
-| Parameter Name       | Values                         | Default   |
-|----------------------|--------------------------------|-----------|
-| `name`*              | The plan name                  | _n/a_     |
-| `id`*                | A unique GUID                  | _n/a_     |
-| `description`*       | Description of the new plan    | _n/a_     |
-| `service_tier`*                | The service tier of the instance - BASIC or STANDARD_HA    | _n/a_     |
-| `display_name`       | Name to use when displaying plan in marketplace    | _n/a_     |
-| `free`               | When false, Service Instances of this Service Plan have a cost    | true     |
-| `bindable`           | Specifies whether Service Instances of the Service Plan can bind to applications    | true     |
-| `plan_updateable`    | Whether the Plan supports upgrade/downgrade/sidegrade to another version    | true     |
+| Parameter Name    | Values                                                                           | Default |
+|-------------------|----------------------------------------------------------------------------------|---------|
+| `name`*           | The plan name                                                                    | _n/a_   |
+| `id`*             | A unique GUID                                                                    | _n/a_   |
+| `description`*    | Description of the new plan                                                      | _n/a_   |
+| `service_tier`*   | The service tier of the instance - BASIC or STANDARD_HA                          | _n/a_   |
+| `free`            | When false, Service Instances of this Service Plan have a cost                   | true    |
+| `bindable`        | Specifies whether Service Instances of the Service Plan can bind to applications | true    |
+| `plan_updateable` | Whether the Plan supports upgrade/downgrade/sidegrade to another version         | true    |
 
 <sup>*</sup> Required
 
@@ -179,5 +177,52 @@ The format for binding credentials for Google Redis is as follows:
     "memory_size_gb" : "INSTANCE-SIZE-GB",
     "service_tier" : "SERVICE-TIER",
     "redis_version" : "REDIS-VERSION"
+}
+```
+
+## <a id="old-plans"></a> Previously Provided Pre-configured Plans
+
+The table below lists the previously provided plans for Google Redis:
+
+| Plan  | Description                                                                         |
+|-------|-------------------------------------------------------------------------------------|
+| basic | A basic plan with no failover. Data will be lost on maintenance or cluster changes. |
+| ha    | A highly available plan with automatic failover.                                    |
+
+To keep these plans in this version of the broker, add them through the tile as custom plans.
+For how to configure plans through the tile, see
+[Configure Services with <%= vars.product_short %>](../installing-with-gcp.html#services).
+
+Add the following block to keep the `basic` plan:
+
+```json
+{
+    "name": "basic",
+    "id": "6ed44104-8777-4b57-8c03-826b3af7d0be",
+    "description": "Beta - A basic plan with no failover. Data will be lost on maintenance or cluster changes.",
+    "service_tier": "BASIC",
+    "metadata": {
+        "displayName": "basic (Beta)", 
+        "bullets": [
+            "uses defaults", "basic"
+        ]
+    }
+}
+```
+
+Add the following block to keep the `ha` plan:
+
+```json
+{
+    "name": "ha",
+    "id": "8c85c90c-f8e3-4337-9069-c03036243894",
+    "description": "Beta - A highly available plan with automatic failover.",
+    "service_tier": "STANDARD_HA",
+    "metadata": {
+        "displayName": "High Availability (Beta)",
+        "bullets": [
+            "uses defaults", "high availability"
+        ]
+    }
 }
 ```
