@@ -253,6 +253,43 @@ When a binding or service key is deleted, data that the PostgreSQL user owns is 
 called `binding_user_group` before the user is deleted. This ensures that other bindings still have
 access to the data.
 
+## <a id="binding-process"></a> Binding Process
+
+For each new binding, the Google PostgreSQL service creates a new user with role "binding_user_group".
+When the binding is deleted, all the objects the user owns are re-assigned to be owned by the role
+"binding_user_group", and the user is deleted.
+
+The client certificate exposed through the binding credentials is created during provisioning,
+and is shared between all binding users. The client certificate is managed in this manner for the
+following reasons:
+
+- Each CloudSQL instance is limited to 10 certificates. For more information, see the
+  [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/configure-ssl-instance#new-client).
+- The lifetime of a client certificate is set to 10 years
+- The client certificate is used to authorize only the connection and never the user
+
+Currently, the Google PostgreSQL service does not provide a mechanism for TLS certificate rotation.
+
+## <a id="binding-known-issue"></a> Binding Process Known Issue
+
+When an app creates objects with one binding, depending on the permissions granted, other bindings may not have permissions to see these objects.
+This can cause errors in apps, and it can cause errors creating additional bindings. For example:
+<code>
+Binding service instance csb-google-postgres-small to app my-app in org my-org / space my-space as my-user...
+Job (dccc89be-b91f-11ed-a525-3b487b0bd45d) failed: bind could not be completed: Service broker error: error performing bind: error waiting for result: bind failed: Error: pq: permission denied for table flyway_schema_history with csbpg_binding_user.new_user, on main.tf line 15, in resource "csbpg_binding_user" "new_user": 15: resource "csbpg_binding_user" "new_user" { exit status 1
+FAILED
+</code>
+
+If this occurs, it is possible to grant access to the object so that it can be accessed through other bindings.
+1. Look up the GUID of the service instance using the command <code>cf service SERVICE-NAME</code> where SERVICE-NAME is the name of the service.
+1. In the Google Cloud Console, locate the Google SQL instance using the GUID obtained in the previous step.
+1. Set a password for the <code>postgres</code> user.
+1. Log in to the database using the <code>psql</code> command as the <code>postgres</code> user with the password set above.
+1. Grant access to the <code>binding_user_group<code> role: <code>grant binding_user_group to postgres;</code>
+1. Grant public access to the object in question: <code>grant all on table public.flyway_schema_history to public;</code>
+
+After this, subsequent binding operations should succeed and apps using these bindings will be able to see the objects.
+
 ### <a id="binding-creds"></a> Binding Credentials
 
 The format for binding credentials for Google PostgreSQL is as follows:
