@@ -40,7 +40,9 @@ This release has the following fix:
 
 ### Known issues
 
-There are no known issues for this release.
+- **Object access issues in Google PostgreSQL:** if an app creates an object (for example, a table) with permissions that
+  do not allow other users to see that object, subsequent bindings may fail, and other apps may fail to read the objects.
+  See [Binding Process Known Issue](reference/gcp-postgresql.html#binding-known-issue) for more information.
 
 
 ## <a id="view"></a> View Release Notes for Another Version
