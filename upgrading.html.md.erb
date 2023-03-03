@@ -90,11 +90,12 @@ tile. For more information, see
 This version adds breaking changes that force the recreation of the bucket if the old plans are not
 correctly configured.
 
+From now on, the default region is `US`, a large area. Previously, the default value was `us-central-1`.
 A change in the region forces the recreation of the bucket.
-Therefore, if the default region set by the operator in the tile configuration changes, you must add
-the region property to the old plan, setting the value equal to the old instance region.
+Therefore, if the old instance was created using a region other than `US`, you must add the region
+property to the old plan, setting the value equal to the old instance region.
 
-For example, if you created the old instance by using the private plan, and using as default region the `us-central-1`,
+For example, if you created the old instance by using the private plan, without changing the region,
 the plan must look like this:
 
 ```json
@@ -109,7 +110,7 @@ the plan must look like this:
 }
 ```
 
-If you created the old instance by using the public plan, and using as default region the `us-central-1`, the plan
+If you created the old instance by using the public plan, without changing the region, the plan
 must look like this:
 
 ```json
@@ -127,16 +128,14 @@ must look like this:
 The default storage class now is `MULTI_REGIONAL`, which enables high availability across a large area.
 Previously, the default value was `STANDARD`. This storage class needs a large region like `US`.
 
-If the old instance was created by using a storage class different from `MULTI_REGIONAL`,
+If the old instance was created by using a region not accepted in the `MULTI_REGIONAL` configuration,
 add the old instance storage class to match the parameters. If you don't, the upgrade process tries
-to set the storage class to `MULTI_REGIONAL` by using the configured region. If the configured region is not a
-valid region for the `MULTI_REGIONAL` storage class configuration, the process is blocked.
-For more information about valid regions, see the
+to set the storage class `MULTI_REGIONAL` by using an invalid region and the process is blocked.
+For more information, see the
 [Google Cloud documentation](https://cloud.google.com/about/locations#multi-region).
-See [Configuration Parameters](reference/gcp-storage.html#parameters) for more information.
 
-For example, if you created the old instance by using the private plan, using as default region the `us-central-1`,
-and "STANDARD" as `storage_class` configuration, the plan must look like this:
+For example, if you created the old instance by using the private plan, without changing the region,
+the plan must look like this:
 
 ```json
 {
@@ -151,8 +150,8 @@ and "STANDARD" as `storage_class` configuration, the plan must look like this:
 }
 ```
 
-For example, if you created the old instance by using the public plan, using as default region the `us-central-1`,
-and "STANDARD" as `storage_class` configuration, the plan must look like this:
+If you created the old instance by using the public plan, without changing the region, the plan
+must look like this:
 
 ```json
 {
