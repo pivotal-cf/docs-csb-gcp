@@ -6,19 +6,28 @@ owner: Cloud Service Broker
 This topic describes how to upgrade <%= vars.product_full %>.
 The following sections have information about upgrading to v1.2.0.
 
-## <a id="gcp-mysql"></a> GCP for MySQL
+## <a id="gcp-mysql"></a> Google MySQL
 
-The following sections describe changes for GCP for MySQL.
+The following sections describe changes for the Google MySQL service.
 
-### <a id="updating-instances"></a> Update instances to include the proper value for `authorized_network_id`
+### <a id="retiring-beta-instances"></a> Retiring beta instances
 
-The old property `authorized_network` was removed.
-Before upgrading, ensure that your instances use `authorized_network_id` instead.
-Any instances that pass an explicit value for `authorized_network` are not manageable after the
-upgrade.
+The service instances provisioned by the beta version of the Google MySQL service are no longer supported.
+You must remove them from the supervision of <%= vars.product_short %>.
 
-If you have the `authorized_network` property specified in a custom plan,
-see [Set `authorized_network_id` for the MySQL service](#gcp-mysql-auth-ntwrk-id).
+To do so, choose one of the following options:
+
+- **Option 1:** Move the data to a new instance and disassociate the old instance from the broker.
+This makes it possible to dispose of the old instance from the Google Cloud Console.
+For instructions, see [Migrating to a Google Cloud SQL for MySQL Instance](gcp-mysql-migration.html.md.erb).
+
+- **Option 2:** Purge the instances and manage them manually:
+    1. Recover the credentials for each service instance from Credhub, and store them in a user-provided service for further consumption by applications. For instructions, see this [VMware Tanzu Support Hub article](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub).
+    1. [Purge](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html) the service instances by running:
+
+        ```console
+        cf purge-service-instance SERVICE-INSTANCE
+        ```
 
 ### <a id="gcp-mysql-chng-cust-plns"></a> Changing custom plans
 
@@ -26,11 +35,9 @@ Make the following changes to existing custom plans before upgrading.
 
 #### <a id="gcp-mysql-plans-set-tier"></a> Set `tier` for the MySQL service
 
-If you have custom plans already configured for MySQL, you must change the configuration.
-This is because the old property `cores` was removed, and you have to use `tier` instead to define
-compute and memory capacity.
+The old property `cores` has been removed. To define compute and memory capacity, you must use `tier` instead.
 
-To ensure that no unintended changes happen to your existing instances, add the `tier` property.
+If you have custom plans already configured for MySQL, you must change the configuration to use `tier`.
 For example:
 
 ```json
@@ -49,15 +56,12 @@ For more information about the machine types, see the
 
 #### <a id="gcp-mysql-auth-ntwrk-id"></a> Set `authorized_network_id` for the MySQL service
 
+The old property `authorized_network` has been removed.
+To define the ID of the Google Compute Engine network to which the instance is connected, you must use
+`authorized_network_id` instead.
+
 If you have custom plans already configured for MySQL, and you included the `authorized_network`
-property, you must change the configuration.
-
-This is because the old property `authorized_network` was removed, and you have to use
-`authorized_network_id` instead to define the ID of the Google Compute Engine network to which the
-instance is connected.
-
-To ensure that no unintended changes happen to your existing instances, add the `authorized_network_id`
-property. For example:
+property, you must change the configuration to use `authorized_network_id`. For example:
 
 ```json
   {
@@ -71,6 +75,8 @@ property. For example:
 ```
 
 ## <a id="gcp-storage-bucket"></a> Google Cloud Storage Bucket
+
+The following sections describe changes for the Google Cloud Storage Bucket service.
 
 ### <a id="gcp-strg-bckt-old-plans"></a> Restoring brokerpak-provided plans
 
