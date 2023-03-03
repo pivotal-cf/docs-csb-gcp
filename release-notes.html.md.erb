@@ -41,7 +41,7 @@ This release has the following breaking changes:
   If you have MySQL service instances that you want to maintain that use the formerly built-in plans,
   you must add the plans through the tile configuration.
 
-#### Google Cloud Storage Bucket
+#### Google Storage Bucket
 
 - **Format for binding credentials changed:**
   The format for binding credentials has changed to only use the snake_case style instead of a
@@ -49,9 +49,9 @@ This release has the following breaking changes:
   [reference](reference/gcp-storage.html#binding-creds) topic.
   You must change your application to correctly read the properties exposed in the binding credentials.
 
-- **Removed Google Cloud Storage Bucket pre-configured plans:**
+- **Removed Google Storage Bucket pre-configured plans:**
   From this version onwards, plans are no longer provided with the brokerpak.
-  If you have Google Cloud Storage Bucket service instances that you want to maintain that use the formerly built-in plans,
+  If you have Google Storage Bucket service instances that you want to maintain that use the formerly built-in plans,
   you must add the plans through the tile configuration.
   For more information, see
   [Previously Provided Pre-configured Plans](reference/gcp-storage.html#old-plans) in _Google Storage Bucket Reference_.
@@ -82,10 +82,10 @@ New features and changes in this release.
 - **New regions added to <%= vars.ops_manager %> configuration:**
   The list of available regions in the section to select the default region in <%= vars.ops_manager %> has been completed.
 
-#### Google Cloud Storage Bucket
+#### Google Storage Bucket
 
-- **Google Cloud Storage Bucket service is now generally available:**
-  The Google Cloud Storage Bucket service is no longer in beta and can now be used in production.
+- **Google Storage Bucket service is now generally available:**
+  The Google Storage Bucket service is no longer in beta and can now be used in production.
   Service instances provisioned by the beta version of the Google Cloud Storage service
   can still be used but this is discouraged.
   For more information, see [About beta instances](upgrading.html#gcp-beta-instances).
