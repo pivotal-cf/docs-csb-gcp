@@ -4,7 +4,7 @@ owner: Cloud Service Broker
 ---
 
 This topic describes how to upgrade <%= vars.product_full %>.
-The following sections have information about upgrading to v1.2.0.
+The following sections have information about upgrading to v1.2.1.
 
 ## <a id="gcp-mysql"></a> Google MySQL
 
@@ -14,21 +14,32 @@ The following sections describe changes for the Google MySQL service.
 
 The Google MySQL service is now generally available.
 The service instances provisioned by the beta version of the Google MySQL service are no longer supported.
-You must remove them from the supervision of <%= vars.product_short %>.
+You must remove them from the supervision of <%= vars.product_short %>. This can be achieved by deleting
+the service instance, in which case data is also deleted; or by purging the service instance in which case
+it is removed from CloudFoundry, but the database instance will still exist in GCP.
 
-To do so, choose one of the following options:
+Note that if all MySQL instances are not removed, then the installation will fail with the following error:
+```console
+Server error, status code: 502, error code: 270012, message: Service broker catalog is invalid:   
+Service names must be unique within a broker. Services with names ["csb-google-mysql"] already exist
+```
 
-- **Option 1:** Move the data to a new instance and disassociate the old instance from the broker.
-This makes it possible to dispose of the old instance from the Google Cloud Console.
-For instructions, see [Migrating to a Google Cloud SQL for MySQL Instance](gcp-mysql-migration.html.md.erb).
+To purge a service instance, do the following:
 
-- **Option 2:** Purge the instances and manage them manually:
-    1. Recover the credentials for each service instance from Credhub, and store them in a user-provided service for further consumption by applications. For instructions, see this [VMware Tanzu Support Hub article](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub).
+1. Obtain credentials for the service instance. This can be done by creating a user via the Google Cloud Console, or by recovering the existing credentials from Credhub.
+For instructions, see this [VMware Tanzu Support Hub article](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub).
+
     1. [Purge](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html) the service instances by running:
 
         ```console
         cf purge-service-instance SERVICE-INSTANCE
         ```
+
+        1. Upgrade to <%= vars.product_short %> v1.2.1
+
+        1. Use the credentials to manage the data. This can be by:
+        - **Option 1:** Migrating the data to a newly created MySQL instance. See [Migrating to a Google Cloud SQL for MySQL Instance](gcp-mysql-migration.html.md.erb).
+        - **Option 2:** Create a user-provided service instance for further consumption by applications.
 
 ### <a id="gcp-mysql-chng-cust-plns"></a> Changing custom plans
 
