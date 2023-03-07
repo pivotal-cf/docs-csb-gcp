@@ -22,6 +22,8 @@ This release has the following breaking changes:
   These instances must be removed from <%= vars.product_short %>.
   For more information, see <a href="upgrading.html#retiring-beta-instances">Retiring beta instances</a>.
 
+  Note, if instances are not removed prior to the upgrade, then the upgrade operation will fail.
+
 - **Removed the `cores` property:**
   The `cores` property no longer exists and is not configurable.
   Use the `tier` property instead to define compute and memory capacity.
@@ -289,6 +291,10 @@ This release has the following fixes:
 - **Object access issues in Google PostgreSQL:** if an app creates an object (for example, a table) with permissions that
   do not allow other users to see that object, subsequent bindings may fail, and other apps may fail to read the objects.
   See [Binding Process Known Issue](reference/gcp-postgresql.html#binding-known-issue) for more information.
+
+## <a id="1-2-0"></a> v1.2.0
+
+Note that this version was not released.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
