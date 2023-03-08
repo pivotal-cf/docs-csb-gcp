@@ -288,6 +288,7 @@ If this occurs, it is possible to grant access to the object so that it can be a
 1. Log in to the database using the <code>psql</code> command as the <code>postgres</code> user with the password set above.
 1. Grant access to the <code>binding_user_group<code> role: <code>grant binding_user_group to postgres;</code>
 1. Grant public access to the object in question: <code>grant all on table public.flyway_schema_history to public;</code>
+1. Repeat the previous step for all objects that subsequent bindings need access to.
 
 After this, subsequent binding operations should succeed and apps using these bindings will be able to see the objects.
 
