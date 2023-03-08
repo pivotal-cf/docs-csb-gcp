@@ -83,7 +83,11 @@ whether a parameter is supported for both provision and update, or for provision
     <td><code>tier</code></td>
     <td>string</td>
     <td>
-    Required unless defined in plan. Google machine tier. This determines the CPU and RAM resource. It can be a legacy machine type, such as <code>db-f1-micro</code>, <code>db-g1-small</code>, <code>db-n1-standard-8</code>, <code>db-n1-highmem-16</code>, or a custom machine type such as <code>db-custom-8-8192</code>.  For more information about machine types, see the <a href="https://cloud.google.com/sql/docs/postgres/create-instance#machine-types">Google Cloud documentation</a>.
+    Required unless defined in plan. Google machine tier. This determines the CPU and RAM resource.
+    It can be a legacy machine type, such as <code>db-f1-micro</code>, <code>db-g1-small</code>,
+    <code>db-n1-standard-8</code>, <code>db-n1-highmem-16</code>, or a custom machine type such as
+    <code>db-custom-8-8192</code>.  For more information about machine types, see the
+    <a href="https://cloud.google.com/sql/docs/postgres/create-instance#machine-types">Google Cloud documentation</a>.
     </td>
     <td> _n/a_ </td>
     <td>provision and update</td>
@@ -172,7 +176,7 @@ whether a parameter is supported for both provision and update, or for provision
     <td><code>public_ip</code></td>
     <td>Boolean</td>
     <td>
-      Assigns a static public IPV4 IP to the database.
+      Assigns a static public IPv4 IP to the database.
       You must configure <code>authorized_networks_cidrs</code> on the selected network to enable access.
       For more information, see the <a href="https://cloud.google.com/sql/docs/postgres/configure-ip">Google Cloud documentation</a>.
     </td>
@@ -256,9 +260,10 @@ access to the data.
 
 ## <a id="binding-process"></a> Binding Process
 
-For each new binding, the Google PostgreSQL service creates a new user with role "binding_user_group".
-When the binding is deleted, all the objects the user owns are re-assigned to be owned by the role
-"binding_user_group", and the user is deleted.
+For each new binding, the Google PostgreSQL service creates a new user with the role
+`binding_user_group`.
+When the binding is deleted, all the objects the user owns are re-assigned to the role
+`binding_user_group`, and the user is deleted.
 
 The client certificate exposed through the binding credentials is created during provisioning,
 and is shared between all binding users. The client certificate is managed in this manner for the
@@ -266,30 +271,45 @@ following reasons:
 
 - Each CloudSQL instance is limited to 10 certificates. For more information, see the
   [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/configure-ssl-instance#new-client).
-- The lifetime of a client certificate is set to 10 years
-- The client certificate is used to authorize only the connection and never the user
+- The lifetime of a client certificate is set to 10 years.
+- The client certificate is used to authorize only the connection and never the user.
 
 Currently, the Google PostgreSQL service does not provide a mechanism for TLS certificate rotation.
 
 ## <a id="binding-known-issue"></a> Binding Process Known Issue
 
-When an app creates objects with one binding, depending on the permissions granted, other bindings may not have permissions to see these objects.
+When an app creates objects with one binding, depending on the permissions granted, other bindings
+might not have permissions to see these objects.
 This can cause errors in apps, and it can cause errors creating additional bindings. For example:
-<code>
-Binding service instance csb-google-postgres-small to app my-app in org my-org / space my-space as my-user...
-Job (dccc89be-b91f-11ed-a525-3b487b0bd45d) failed: bind could not be completed: Service broker error: error performing bind: error waiting for result: bind failed: Error: pq: permission denied for table flyway_schema_history with csbpg_binding_user.new_user, on main.tf line 15, in resource "csbpg_binding_user" "new_user": 15: resource "csbpg_binding_user" "new_user" { exit status 1
+
+```console
+Binding service instance csb-google-postgres-small to app my-app in org \
+my-org / space my-space as my-user...
+Job (dccc89be-b91f-11ed-a525-3b487b0bd45d) failed: bind could not be completed: \
+Service broker error: error performing bind: error waiting for result: bind failed: Error: pq: \
+permission denied for table flyway_schema_history with csbpg_binding_user.new_user, on main.tf line 15,\
+in resource "csbpg_binding_user" "new_user": 15: resource "csbpg_binding_user" "new_user" { exit status 1
 FAILED
-</code>
+```
 
-If this occurs, it is possible to grant access to the object so that it can be accessed through other bindings.
-1. Look up the GUID of the service instance using the command <code>cf service SERVICE-NAME</code> where SERVICE-NAME is the name of the service.
-1. In the Google Cloud Console, locate the Google SQL instance using the GUID obtained in the previous step.
-1. Set a password for the <code>postgres</code> user.
-1. Log in to the database using the <code>psql</code> command as the <code>postgres</code> user with the password set above.
-1. Grant access to the <code>binding_user_group<code> role: <code>grant binding_user_group to postgres;</code>
-1. Grant public access to the object in question: <code>grant all on table public.flyway_schema_history to public;</code>
+If this occurs, it is possible to grant access to the object so that it can be accessed through other
+bindings.
 
-After this, subsequent binding operations should succeed and apps using these bindings will be able to see the objects.
+1. Look up the GUID of the service instance by running:
+
+   ```console
+   cf service SERVICE-NAME
+   ```
+
+   Where `SERVICE-NAME` is the name of the service
+
+2. In the Google Cloud Console, locate the Google SQL instance by using the GUID you learned earlier.
+3. Set a password for the `postgres` user.
+4. Log in to the database by running the `psql` command as the `postgres` user with the password you set.
+5. Grant access to the `binding_user_group` role: `grant binding_user_group to postgres;`
+6. Grant public access to the object in question: `grant all on table public.flyway_schema_history to public;`
+
+After this, subsequent binding operations succeed and apps using these bindings can detect the objects.
 
 ### <a id="binding-creds"></a> Binding Credentials
 
