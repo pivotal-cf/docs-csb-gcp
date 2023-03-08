@@ -13,33 +13,45 @@ The following sections describe changes for the Google MySQL service.
 ### <a id="retiring-beta-instances"></a> Retiring beta instances
 
 The Google MySQL service is now generally available.
-The service instances provisioned by the beta version of the Google MySQL service are no longer supported.
-You must remove them from the supervision of <%= vars.product_short %>. This can be achieved by deleting
-the service instance, in which case data is also deleted; or by purging the service instance in which case
-it is removed from CloudFoundry, but the database instance will still exist in GCP.
+The service instances provisioned by the beta version of the Google MySQL service are no longer
+supported. You must remove the service instances from the supervision of <%= vars.product_short %>.
 
-Note that if all MySQL instances are not removed, then the installation will fail with the following error:
+If all MySQL instances are not removed, the installation fails with the following error message:
+
 ```console
-Server error, status code: 502, error code: 270012, message: Service broker catalog is invalid:   
+Server error, status code: 502, error code: 270012, message: Service broker catalog is invalid:
 Service names must be unique within a broker. Services with names ["csb-google-mysql"] already exist
 ```
 
-To purge a service instance, do the following:
+There are two options for removing a service instances from the supervision of <%= vars.product_short %>:
 
-1. Obtain credentials for the service instance. This can be done by creating a user via the Google Cloud Console, or by recovering the existing credentials from Credhub.
-For instructions, see this [VMware Tanzu Support Hub article](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub).
+- Purge the service instance, in which case it is removed from Cloud Foundry but the database instance
+  remains in GCP
+- Delete the service instance, which also deletes data
 
-    1. [Purge](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html) the service instances by running:
+To purge a service instance:
 
-        ```console
-        cf purge-service-instance SERVICE-INSTANCE
-        ```
+1. Obtain credentials for the service instance. You can do this by creating a user through the
+   Google Cloud Console, or by recovering the existing credentials from CredHub.
+   For instructions, see the
+   [VMware Tanzu Support documentation](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub).
 
-        1. Upgrade to <%= vars.product_short %> v1.2.1
+2. Purge the service instances by running:
 
-        1. Use the credentials to manage the data. This can be by:
-        - **Option 1:** Migrating the data to a newly created MySQL instance. See [Migrating to a Google Cloud SQL for MySQL Instance](gcp-mysql-migration.html.md.erb).
-        - **Option 2:** Create a user-provided service instance for further consumption by applications.
+   ```console
+   cf purge-service-instance SERVICE-INSTANCE
+   ```
+
+   For more information about the command, see the
+   [Cloud Foundry CLI documentation](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html).
+
+3. Upgrade to <%= vars.product_short %> v1.2.1
+
+4. Use the credentials to manage the data by using one of these methods:
+
+   - **Option 1:** Migrate the data to a newly created MySQL instance.
+     For more information, see [Migrating to a Google Cloud SQL for MySQL Instance](gcp-mysql-migration.html.md.erb).
+   - **Option 2:** Create a user-provided service instance for further consumption by applications.
 
 ### <a id="gcp-mysql-chng-cust-plns"></a> Changing custom plans
 
