@@ -41,9 +41,11 @@ this was causing updates to update the name and therefore to destroy the instanc
 
 ### Known issues
 
-- **Object access issues in Google PostgreSQL:** if an app creates an object (for example, a table) with permissions that
-  do not allow other users to see that object, subsequent bindings may fail, and other apps may fail to read the objects.
-  See [Binding Process Known Issue](reference/gcp-postgresql.html#binding-known-issue) for more information.
+- **Object access issues in Google PostgreSQL:**
+  If an app creates an object, such as a table, with permissions that do not allow other users to see
+  that object, subsequent bindings might fail, and other apps might fail to read the objects.
+  For more information, see
+  [Binding Process Known Issue](reference/gcp-postgresql.html.md.erb#binding-known-issue).
 
 ## <a id="view"></a> View Release Notes for Another Version
 
