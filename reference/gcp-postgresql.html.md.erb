@@ -308,6 +308,7 @@ bindings.
 4. Log in to the database by running the `psql` command as the `postgres` user with the password you set.
 5. Grant access to the `binding_user_group` role: `grant binding_user_group to postgres;`
 6. Grant public access to the object in question: `grant all on table public.flyway_schema_history to public;`
+7. Repeat the previous step for all objects that subsequent bindings need access to.
 
 After this, subsequent binding operations succeed and apps using these bindings can detect the objects.
 
