@@ -124,7 +124,7 @@ provisioning a csb-google-mysql service:
   </tr>
   <tr>
     <td><code>storage_gb</code></td>
-    <td>string</td>
+    <td>number</td>
     <td>
       Required unless defined in plan. Size of storage volume for service instance.
       To understand the limits, see the
@@ -289,6 +289,15 @@ provisioning a csb-google-mysql service:
     </td>
     <td><code>false</code></td>
     <td>provision</td>
+  </tr>
+  <tr>
+    <td><code>project</code></td>
+    <td>string</td>
+    <td>
+      The GCP project to use.
+    </td>
+    <td>The value the operator entered for <strong>Project</strong> in <%= vars.ops_manager %>.</td>
+    <td>provision and update</td>
   </tr>
 </table>
 
