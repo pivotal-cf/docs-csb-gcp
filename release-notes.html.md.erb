@@ -7,7 +7,7 @@ owner: Cloud Service Broker
 
 These are release notes for <%= vars.product_full %>.
 
-## <a id="1-2-1"></a> v1.2.1
+## <a id="1-3-0"></a> v1.3.0
 
 **Release Date:** MMM DD, YYYY
 
@@ -15,286 +15,26 @@ These are release notes for <%= vars.product_full %>.
 
 This release has the following breaking changes:
 
-#### Google MySQL
-
-- **<%= vars.product_short %> can no longer manage service instances created using the beta version of the Google MySQL service:**
-  These instances must be removed from <%= vars.product_short %>.
-  For more information, see <a href="upgrading.html#retiring-beta-instances">Retiring beta instances</a>.
-  If instances are not removed before the upgrade, then the upgrade operation fails.
-
-- **Removed the `cores` property:**
-  The `cores` property no longer exists and is not configurable.
-  Use the `tier` property instead to define compute and memory capacity.
-  The old custom plans containing the property `cores` must be changed. For more information, see
-  [Changing custom plans](upgrading.html#gcp-mysql-chng-cust-plns).
-
-- **Changed the format for binding credentials:**
-  The format for binding credentials has changed. Several properties have been exposed to configure TLS.
-  The property `use_tls` previously exposed in the binding is now removed.
-  For more information about the format, see [Binding Credentials](reference/gcp-mysql.html#binding-creds).
-  You must change your application to correctly read the properties exposed in the binding credentials
-  and register the certificate. For more information, see
-  [TLS Connections](reference/gcp-mysql.html.md.erb#tls-connections).
-
-- **Removed Google MySQL pre-configured plans:**
-  From this version onwards, plans are no longer provided with the brokerpak.
-  If you have MySQL service instances that you want to maintain that use the formerly built-in plans,
-  you must add the plans through the tile configuration.
-
-#### Google Storage Bucket
-
-- **Format for binding credentials changed:**
-  The format for binding credentials has changed to only use the snake_case style instead of a
-  combination of styles. For more information about the format, see the
-  [reference](reference/gcp-storage.html#binding-creds) topic.
-  You must change your application to correctly read the properties exposed in the binding credentials.
-
-- **Removed Google Storage Bucket pre-configured plans:**
-  From this version onwards, plans are no longer provided with the brokerpak.
-  If you have Google Storage Bucket service instances that you want to maintain that use the formerly built-in plans,
-  you must add the plans through the tile configuration.
-  For more information, see
-  [Previously Provided Pre-configured Plans](reference/gcp-storage.html#old-plans) in _Google Storage Bucket Reference_.
-  For more information about upgrade steps, see [Upgrading <%= vars.product_short %>](./upgrading.html.md.erb#gcp-storage-bucket).
-
-#### Google Redis
-
-- **Removed Google Redis pre-configured plans:**
-  From this version onwards, plans are no longer provided with the brokerpak.
-  If you have Cloud Redis service instances that you want to maintain that use the formerly built-in plans,
-  you must add the plans through the tile configuration.
-  For more information, see
-  [Previously Provided Pre-configured Plans](reference/gcp-redis.html#old-plans) in _Google Redis Reference_.
-  For more information about upgrade steps, see [Upgrading <%= vars.product_short %>](./upgrading.html.md.erb#gcp-redis).
-
+- **Breaking change summary:** DESCRIPTION
 
 ### Features
 
 New features and changes in this release.
 
-#### General
-
-- **The internal Terraform is upgraded to v1.3:**
-  Terraform v1.3 enables the product to use fixes and other updates to Terraform.
-  You must upgrade all service instances. For more information, see
-  [Upgrading Cloud Service Broker for GCP](upgrading.html).
-
-- **New regions added to <%= vars.ops_manager %> configuration:**
-  The list of available regions in the section to select the default region in <%= vars.ops_manager %> has been completed.
-
-#### Google Storage Bucket
-
-- **Google Storage Bucket service is now generally available:**
-  The Google Storage Bucket service is no longer in beta and can now be used in production.
-  Service instances provisioned by the beta version of the Google Cloud Storage service
-  can still be used but this is discouraged.
-  For more information, see [About beta instances](upgrading.html#gcp-beta-instances).
-
-- **Removed the `acl` parameter associated with the plans:**
-  Because the parameter is no longer mandatory, it doesn't influence the custom plans created.
-  The removal of this parameter does not affect upgrading.
-  For more information see the **Resolved Issues** section.
-
-- **Multiregional storage class by default:**
-  From now on, the default storage class is multiregional.
-  The default region set by the operator in the tile configuration section might not work for
-  multi-region.
-  For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
-  For more information about the multiregional
-  storage class, see the [Google Cloud documentation](https://cloud.google.com/storage/docs/storage-classes).
-
-- **Exposed the dual-region configuration property:**
-  The property `placement_dual_region_data_locations` is exposed to configure the list of individual
-  regions that comprise a dual-region bucket. For more information, see
-  [Configuration Parameters](reference/gcp-storage.html#parameters).
-
-- **Exposed the versioning configuration property:**
-  The property `versioning` is exposed to enable Object Versioning for the bucket.
-  It retains a non-current object version each time you replace or delete a live object version.
-  The default is `false`.
-  For more information about versioning, see
-  the [Google Cloud documentation](https://cloud.google.com/storage/docs/object-versioning).
-
-- **Exposed the property to prevent public access:**
-  The property `public_access_prevention` is exposed to configure whether or not to prevent public access for a storage
-  bucket.
-  Accepted values are `inherited` or `enforced`. Default is `enforced`.
-
-- **Exposed the property to enable uniform bucket-level access to the bucket:**
-  The property `uniform_bucket_level_access` is exposed to configure whether to enable uniform
-  bucket-level access to a bucket.
-  For more information, see
-  When enabled, the option becomes permanent after 90 days. The default is `false`. The option
-  deactivates ACLs. For more information about uniform bucket-level access, see the
-  [Google Cloud documentation](https://cloud.google.com/storage/docs/uniform-bucket-level-access).
-
-- **Exposed customer-managed encryption key configuration:**
-  The property `default_kms_key_name` is exposed, so you can use this property to configure your
-  bucket to use your key to encrypt and decrypt your objects.
-  The property represents the `id` of a Cloud KMS key. For more information, see
-  [Configuration Parameters](reference/gcp-storage.html#parameters).
-
-- **Exposed the autoclass property:**
-  The property `autoclass` is exposed to configure whether it automatically transitions each object
-  to hotter or colder storage based on object-level activity. This is to optimize for cost and latency.
-  For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
-
-- **Bucket lock and retention policy:**
-  New properties are exposed to configure the data retention policy for a Cloud Storage
-  bucket that governs how long objects in the bucket must be retained.
-  You can change the behavior through these properties:
-
-    - `retention_policy_retention_period`: The period of time, in seconds, in which objects in the bucket
-      must be retained and cannot be deleted, overwritten, or archived.
-    - `retention_policy_is_locked`: Locks the retention policy to permanently set it on the bucket.
-
-      For more information, see [Configuration Parameters](reference/gcp-storage.html#parameters).
-
-- **Exposed pre-defined ACLs:**
-  The property `predefined_acl` has been exposed to configure the bucket with a pre-defined Access
-  Control List.
-  For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
-
-- **Improved bucket name constraints:**
-  Added new constraints to check the name of the bucket.
-  If the name does not satisfy the new constraints, an early failure occurs for a better user experience.
-  For more information, see [Configuration Parameters](reference/gcp-storage.html.md.erb#parameters).
-
-- **Configure Cloud Storage plans from <%= vars.ops_manager %>:**
-  You can now use <%= vars.ops_manager %> to add custom plans from the new Cloud Storage configuration section in
-  the broker's general configuration.
-
-- **Expanded storage class enumerator options:**
-  You can now use the `ARCHIVE` option.
-  For more information, see [Available storage classes](https://cloud.google.com/storage/docs/storage-classes).
-
-#### Google MySQL
-
-- **Google MySQL service is now generally available:**
-The Google MySQL service is no longer in beta and can now be used in production.
-Service instances provisioned by the beta version of the Google MySQL service are no longer supported and must be removed.
-For more information, see [Retiring beta instances](upgrading.html#retiring-beta-instances).
-
-- **Insecure connections are no longer permitted by default:**
-  The new property `allow_insecure_connections` controls whether unencrypted connections are allowed.
-  It is `false` by default.
-  For more information, see [TLS Connections](reference/gcp-mysql.html.md.erb#tls-connections).
-
-- **`tier` property exposed:**
-  The `tier` property is now configurable at plan creation or instance operations for Google MySQL.
-  The `tier` property determines the computation and memory capacity of a Google MySQL database instance.
-
-- **Storage auto-scaling controls exposed:**
-  New properties are exposed to control the storage auto-scaling functionality.
-  You can change the behavior through these properties:
-
-    - `disk_autoresize`: Enables auto-resizing of the storage size. It is `true` by default.
-      When deactivating the storage auto-resizing, the value of the `disk_autoresize_limit` must also
-      be set to 0.
-    - `disk_autoresize_limit`: The maximum size in GB to which storage capacity can be automatically
-      increased. The default value is 0, which specifies that there is no limit.
-
-- **MySQL version is exposed:**
-  Previously the parameter `mysql_version` was restricted to a property plan.
-  You can now choose the version you want when creating a plan or creating and updating the instance.
-  This property is required if it is not defined in the plan.
-
-- **`deletion_protection` can be configured and updated:**
-  Added a property that enables you to configure the deletion protection for the MySQL database in the
-  plan configuration or during provision or update operations. By default, the protection is deactivated.
-
-- **Maximum storage capacity limit removed:**
-  The maximum storage capacity limit no longer exists. From now on, you can select the storage
-  capacity that you want.
-  To understand the limits, see the
-  [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/quotas#storage_limits).
-  The capacity cannot be reduced later.
-
-- **Backups are now configurable:**
-  Regular backups are enabled by default, and you can configure them by using the following properties:
-
-    - `backups_retain_number`: How many backups to retain. Setting this property to `0` deactivates
-      regular backups.
-    - `backups_location`: (Optional) Name of a specific GCP region in which to store backups.
-      When left unspecified, multi-regional storage is used.
-    - `backups_start_time`: Preferred time, in the format `HH:MM`, to start daily regular backups.
-      It is `07:00` by default.
-    - `backups_transaction_log_retention_days`: Controls the number of days to keep the transaction logs.
-      It is `0` by default. Up to 7 days of transaction logs can be stored.
-
-- **Longer password for the admin user:**
-  The length of the auto-generated password for the admin user is extended to 64 characters.
-
-- **Configure MySQL plans from <%= vars.ops_manager %>:**
-  You can now use <%= vars.ops_manager %> to add custom plans from the new MySQL configuration section in
-  the broker's general configuration.
-
-- **MySQL database server can be assigned a public IP address:**
-  A public IP address isn't assigned by default, but can be enabled by using the `public_ip` property.
-  When the public IP address is assigned, access is only allowed from the networks specified by the
-  `authorized_networks_cidrs` property. For more information about using a public IP address for MySQL,
-  see the [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/configure-ip).
-
-- **MySQL connection encryption:**
-  All MySQL connections are now encrypted. The binding credentials include certificates that can be
-  used for verifying the connection.
-
-- **Simplified network configuration:**
-  The property `authorized_network` was removed.
-  From now on, you can configure the network by using only the `authorized_network_id` property.
-  In other words, you use the ID of the Google Compute Engine network to which the instance is
-  connected.
-  If left unspecified, the default network of the region is used.
-  For more information about upgrading, see the
-  [authorized network section](upgrading.html#gcp-mysql-auth-ntwrk-id).
-
-- **High availability configuration:**
-  You can now turn on high availability for an instance by using the `highly_available` property.
-  When enabled, this deploys two instances, primary and standby, in different zones of
-  instance's region. If needed, you can specify concrete zones by using the `location_preference_zone`
-  and `location_preference_secondary_zone` parameters. You can turn high availability on or
-  off, or re-assign the zone at any time. For more information on MySQL high availability,
-  see the [Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/high-availability).
+- **Feature summary:** DESCRIPTION
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-<%= partial '/csb/logo-resolved' %>
-
-#### All services
-
-- **Added `provider_display_name` property:**
-  The property `provider_display_name` was added to display the provider name for the service in
-  graphical clients to better display the creator of the definition file.
-
-- **Changed documentation URL in Service Definition YAML files:**
-  The documentation URL now points to the landing page of the official
-  Cloud Service Broker for VMware Tanzu documentation.
-
-#### Google Cloud Storage
-
-- **Removal of the redundant `acl` parameter:**
-  The `acl` parameter associated with private and public-read plans was not in use and therefore
-  did not influence the type of bucket created, which caused confusion.
-  The parameter was removed from this version.
-
-- **You can no longer update the bucket name:**
-  From now on, this modification is no longer available and results in an early failure to improve the user experience.
-  Changing the bucket name has been disallowed because it forces the bucket to be recreated.
-  The system does not allow the recreation of the service, so the operation resulted in an error.
+- **Resolved issue summary:** DESCRIPTION
 
 ### Known issues
 
-- **Object access issues in Google PostgreSQL:**
-  If an app creates an object, such as a table, with permissions that do not allow other users to see
-  that object, subsequent bindings might fail, and other apps might fail to read the objects.
-  For more information, see
-  [Binding Process Known Issue](reference/gcp-postgresql.html.md.erb#binding-known-issue).
+This release has the following issues:
 
-## <a id="1-2-0"></a> v1.2.0
+- **Known issue summary:** DESCRIPTION
 
-This version was not released.
 
 ## <a id="view"></a> View Release Notes for Another Version
 
