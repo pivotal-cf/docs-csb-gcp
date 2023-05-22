@@ -5,8 +5,8 @@ owner: Cloud Service Broker for GCP
 
 <strong><%= modified_date %></strong>
 
-This topic describes migrating from a Google Storage Bucket instance of the GCP Service Broker for
-VMware Tanzu tile to the <%= vars.product_full %> tile.
+This topic tells you how to migrate from a Google Storage Bucket instance of the GCP Service Broker
+for VMware Tanzu tile to the <%= vars.product_full %> tile.
 
 ## <a id='overview'></a> About Migrating a Google Storage Bucket Instance
 
@@ -39,8 +39,8 @@ with <%= vars.product_short %>.
 
 There are several options for performing a Google Storage Bucket migration, including:
 
-- [The gcloud storage cp --recursive command](https://cloud.google.com/storage/docs/moving-buckets#move-buckets)
-- [The GCP Storage Transfer Service](https://cloud.google.com/storage-transfer/docs/overview)
+- [The gcloud storage cp --recursive command](https://cloud.google.com/storage/docs/moving-buckets#move-buckets)<!--฿ Change the link name to |GCP documentation| or |Google Cloud documentation|, whichever applies. ฿-->
+- [The GCP Storage Transfer Service](https://cloud.google.com/storage-transfer/docs/overview)<!--฿ Change the link name to |GCP documentation| or |Google Cloud documentation|, whichever applies. ฿-->
 - Manual data migration
 - Options available from other vendors
 
@@ -82,7 +82,7 @@ To migrate data from an existing legacy Google Storage Bucket instance to <%= va
    ```console
    cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE-NAME
    ```
-
+<!--฿ Just |SERVICE-INSTANCE-NAME| is preferred. ฿-->
    Where:
 
    - `APP-NAME` is the app using the Google Storage Bucket instance
@@ -100,7 +100,7 @@ To migrate data from an existing legacy Google Storage Bucket instance to <%= va
    ```console
    cf bind-service APP-NAME NEW-SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
    ```
-
+<!--฿ Just |SERVICE-INSTANCE-NAME| is preferred. ฿-->
    Where `NEW-SERVICE-INSTANCE-NAME` is the name of the <%= vars.product_short %> service instance
    that you created earlier.
 
