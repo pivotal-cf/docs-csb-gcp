@@ -5,8 +5,9 @@ owner: Cloud Service Broker for GCP
 
 <strong><%= modified_date %></strong>
 
-This topic describes migrating a GCP Relational Database Service (Google Cloud SQL) for
-PostgreSQL instance from the GCP Service Broker for VMware Tanzu tile to the <%= vars.product_full %> tile.
+This topic tells you how to migrate a GCP Relational Database Service (Google Cloud SQL) for
+PostgreSQL instance from the GCP Service Broker for VMware Tanzu tile to the <%= vars.product_full %>
+tile.
 
 ## <a id='about'></a> About Migrating Data to Google Cloud SQL for PostgreSQL Instance
 
@@ -51,7 +52,7 @@ In general, the data migration steps are:
 2. Create a Google Cloud SQL for PostgreSQL instance using the <%= vars.product_short %>.
 3. Restore a backup of the data from a legacy broker PostgreSQL instance into the newly created instance.
 4. Unbind apps from the legacy broker PostgreSQL instance and bind them to the newly created instance.
-5. Once the migration has been proved to be successful, the legacy instance may be deleted 
+5. Once the migration has been proved to be successful, the legacy instance may be deleted
 
 For more detailed steps showing the Cloud Foundry and `gcloud` commands necessary to use GCP SQL Import and Export,
 see [Migrate Data from a GCP Service Broker for VMware Tanzu PostgreSQL Instance](#steps).
