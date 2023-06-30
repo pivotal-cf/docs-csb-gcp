@@ -230,13 +230,13 @@ To rotate the password on the state database:
 
 1. Click **Service Broker Config**.
 
-2. Clear the **Primary** checkbox.
+1. Clear the **Primary** checkbox.
 
-3. Click **Add**.
+1. Click **Add**.
 
-4. Enter a new **Label** and **Password** for the new password, and select  **Primary**.
+1. Enter a new **Label** and **Password** for the new password, and select  **Primary**.
 
-    You cannot change the label or password after you save.
+   You cannot change the label or password after you save.
 
 1. Click **Save**.
 
@@ -246,10 +246,11 @@ To rotate the password on the state database:
 
 1. Click **Apply changes** to install the <%= vars.product_short %> tile.
 
-1. (Recommended) After the apply changes process completes, delete the non-primary label and password pair and apply changes again.
+1. (Recommended) After the apply changes process completes, delete the non-primary label and password
+   pair and apply changes again.
 
-   <%= image_tag("images/rotate-password.png", :alt => "Screenshot of Rotate the Encryption Password on the State Database. The Enable encryption of the Cloud Service Broker database checkbox is checked. There are two sections that represent the old password and the new one respectively. In each section there are two text boxes and a checkbox. The first text box represents the password name and the second represents the password value. The checkbox represents that the password is marked as primary. The password marked as primary is the new password.", :width => "400") %>
-
+   <%= image_tag("images/rotate-password.png", :alt => "Screenshot of the section where you can rotate
+   the encryption password on the state database.", :width => "400") %>
 
 ## <a id="remove-encryption"></a> Remove Encryption from the State Database
 
@@ -259,9 +260,9 @@ To remove encryption from the state database:
 
 1. Click **Service Broker Config**.
 
-2. Clear the **Enable encryption of the Cloud Service Broker database** checkbox.
+1. Clear the **Enable encryption of the Cloud Service Broker database** checkbox.
 
-4. Clear the **Primary** checkbox, but do not change the Label or Password fields.
+1. Clear the **Primary** checkbox, but do not change the Label or Password fields.
 
 1. Click **Save**.
 
@@ -271,10 +272,11 @@ To remove encryption from the state database:
 
 1. Click **Apply changes** to install the <%= vars.product_short %> tile.
 
-1. (Recommended) After the apply changes process completes, delete all label and password pairs and apply changes again.
+1. (Recommended) After the apply changes process completes, delete all label and password pairs and
+   apply changes again.
 
-   <%= image_tag("images/remove-encryption.png", :alt => "Screenshot of Remove Encryption from the State Database. The Enable encryption of the Cloud Service Broker database checkbox is not checked. There is one section that represents the old password. There are two text boxes and a checkbox. The first text box represents the password name and the second represents the password value. The checkbox is not checked.", :width => "400") %>
-
+   <%= image_tag("images/remove-encryption.png", :alt => "Screenshot of the section where you can
+   remove encryption from the state database.", :width => "400") %>
 
 ## <a id="upgrade-all-config"></a> Upgrade All Services Instances Config
 
