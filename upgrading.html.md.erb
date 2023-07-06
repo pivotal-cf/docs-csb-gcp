@@ -5,7 +5,7 @@ owner: Cloud Service Broker
 
 This topic tells you how to upgrade <%= vars.product_full %>. The following sections have
 information about the [Upgrade procedure](#procedure), [Upgrading service instances](#upgrade-instances),
-and specific details about [Upgrading to v1.2](#upgrading-specifics).
+and specific details about [Upgrading to v1.2.1](#upgrading-specifics).
 
 ## <a id="procedure"></a> Upgrade procedure
 
@@ -30,7 +30,7 @@ To upgrade <%= vars.product_short %>:
 3. Stage and configure the tile by following the instructions in
     [Installing with GCP](installing-with-gcp.html.md.erb).
 
-4. Make all the changes described in [Upgrading to v1.2](#upgrading-specifics).
+4. Make all the changes described in [Upgrading to v1.2.1](#upgrading-specifics).
 
 5. Verify that your configuration complies with the
    [important notes about upgrading service instances](#upgrade-notes), especially regarding upgrade all instances config, plans
@@ -82,7 +82,7 @@ Before you start upgrading service instances, see the following notes:
   If you delete custom plans before upgrading all instances, instances from these plans are not
   upgraded. These instances become unmanageable by the broker. Delete plans after upgrading all
   instances, or see [Release Notes for Cloud Service Broker for GCP](release-notes.html.md.erb) and
-  [Upgrading to v1.2](#upgrading-specifics) to prevent conflicting upgrades.
+  [Upgrading to v1.2.1](#upgrading-specifics) to prevent conflicting upgrades.
 
 - **Only upgrade the tile after all service instances are up to date:**
 
@@ -128,7 +128,7 @@ To run the cf CLI plug-in:
 Run the CLI plug-in with the `-dry-run` flag before applying the service instance upgrade to find
 out which instances are pending upgrade.
 
-## <a id="upgrading-specifics"></a> Upgrading to 1.2
+## <a id="upgrading-specifics"></a> Upgrading to v1.2.1
 
 ### <a id="gcp-mysql"></a> Google MySQL
 
@@ -372,18 +372,3 @@ To remove instances from Cloud Foundry, but retain them in the IaaS, run:
 ```console
 cf purge-service-instance
 ```
-
-## <a id="procedure"></a> Upgrade procedure
-
-To upgrade the <%= vars.product_short %> to a later version:
-
-1. Download the new version of <%= vars.product_short %> from
-   [<%= vars.product_network %>](https://network.tanzu.vmware.com/products/cloud-service-broker-gcp/).
-
-2. Follow the procedure in [Installing with GCP](installing-with-gcp.html.md.erb).
-
-3. Make all the changes described in this topic that are required for the new version.
-
-4. If you are upgrading to a version later than v1.0, you might need to upgrade service instances.
-   Before installing the new version, see
-   [Upgrade All Service Instances Config](installing-with-gcp.html.md.erb#upgrade-all-config).
