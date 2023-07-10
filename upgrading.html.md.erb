@@ -3,100 +3,108 @@ title: Upgrading Cloud Service Broker for GCP
 owner: Cloud Service Broker
 ---
 
-This topic tells you how to upgrade <%= vars.product_full %>. The following sections have
-information about the [Upgrade procedure](#procedure), [Upgrading service instances](#upgrade-instances),
-and specific details about [Upgrading to v1.2.1](#upgrading-specifics).
+Would you like to upgrade <%= vars.product_full %>? This topic tells you about
+the [Upgrade procedure](#procedure), [Upgrading service
+instances](#upgrade-instances), and specific details about [Upgrading to
+v1.2.1](#upgrading-specifics).
 
 ## <a id="procedure"></a> Upgrade procedure
 
-<p class="note important">
-   <strong>Important:</strong> When upgrading <%= vars.product_short %>, service instances might need
-   to be upgraded.
-   Failure to upgrade one or more instance does not cause the tile installation to fail.<br><br>
-   Ensure that you review the <code>deploy-all</code> errand logs in the change log to verify that
-   no errors occurred when upgrading instances.
-</p>
+>**Important**
+>When upgrading <%= vars.product_short %>, service instances might need to be
+   upgraded. Failure to upgrade one or more instance does not cause the tile
+   installation to fail.
+
+>Review the `deploy-all` errand logs in the change log to verify
+   that no errors occurred when upgrading instances.
 
 ## <a id="procedure"></a> Upgrade procedure
 
 To upgrade <%= vars.product_short %>:
 
-1. Before you stage the new tile version,
-   [ensure that all service instances are up to date](#upgrade-instances).
+1. Before you stage the new tile version, [verify that all service instances are
+   up to date](#upgrade-instances).
 
-2. Download the new version of <%= vars.product_short %> from
-   [<%= vars.product_network %>](https://network.tanzu.vmware.com/products/cloud-service-broker-gcp/).
+2. Download the new version of <%= vars.product_short %> from [<%=
+   vars.product_network
+   %>](https://network.tanzu.vmware.com/products/cloud-service-broker-gcp/).
 
-3. Stage and configure the tile by following the instructions in
-    [Installing with GCP](installing-with-gcp.html.md.erb).
+3. Stage and configure the tile by following the instructions in [Installing
+    with GCP](installing-with-gcp.html.md.erb).
 
 4. Make all the changes described in [Upgrading to v1.2.1](#upgrading-specifics).
 
-5. Verify that your configuration complies with the
-   [important notes about upgrading service instances](#upgrade-notes), especially regarding upgrade all instances config, plans
-   and beta offerings.
+5. Verify that your configuration complies with the [important notes about
+   upgrading service instances](#upgrade-notes), especially regarding upgrading
+   all instances of config, plans, and beta offerings.
 
 6. Go to the <%= vars.ops_manager %> Installation Dashboard.
 
 7. Click **Review Pending Changes** and then click **Apply Changes**.
 
-8. Review the `deploy-all` errand logs for any errors created because of the upgrade instances task.
+8. Review the `deploy-all` errand logs for any errors created because of the
+   upgrade instances task.
 
-## <a id="upgrade-instances"></a> Ensure that service instances are up to date before upgrading the tile
+## <a id="upgrade-instances"></a> Verify that service instances are up to date before upgrading the tile
 
-Service instances that haven't been upgraded with one version of the tile might not be upgradable by
-a newer version.
-For this reason, ensure there are no service instances pending upgrade before staging the new version of the tile.
+Service instances that haven't been upgraded with one version of the tile might
+not be upgradable by a later version. So verify that there are no
+service instances pending upgrade before staging the new version of the tile.
 
-You can see if there are instances with a pending upgrade by reviewing the `deploy-all` errand
-log for <%= vars.product_short %>. Alternatively, you can
-[ensure all instances are up to date with the CLI plug-in](#checking-cli-plugin)
+You can see whether there are instances with a pending upgrade by reviewing the
+`deploy-all` errand log for <%= vars.product_short %>. Alternatively, you can
+[verify all instances are up to date with the CLI plug-in](#checking-cli-plugin)
 and the `-dry-run` flag, which outputs the list of instances pending upgrade.
 
-If you find instances that are pending upgrade, follow the upgrading instructions for your current version.
+If you find instances that are pending upgrade, follow the upgrading
+instructions for your current version.
 
 ### <a id="upgrade-notes"></a> Important notes about upgrading service instances
 
 Before you start upgrading service instances, see the following notes:
 
-- **Enabling the Upgrade all services check box:**
+- **Select the Upgrade all services check box:**
 
-  If the **Upgrade all services** check box is not selected, service instances are not upgraded
-  during installation. These instances become unmanageable by the broker.
-  Any operations on that instance, such as update, bind, unbind, or delete, are blocked
-  until you run the upgrade task.
-  You can run the upgrade task at any time before upgrading the product to a later version.
-  See [Upgrade All Service Instances configuration](installing-with-gcp.html.md.erb#upgrade-all-config) for information
-  on how to configure this task.
-  Alternatively you can run the upgrade at a later stage using the [CLI plug-in](#upgrading-cli-plugin)
+  If the **Upgrade all services** check box is not selected, service instances
+  are not upgraded during installation. These instances become unmanageable by
+  the broker. Any operations on that instance, such as update, bind, unbind, or
+  delete, are blocked until you run the upgrade task. You can run the upgrade
+  task at any time before upgrading the product to a later version. For
+  information about how to configure this task, see [Upgrade All Service
+  Instances configuration](installing-with-gcp.html.md.erb#upgrade-all-config).
+  Alternatively, run the upgrade at a later stage using the [CLI
+  plug-in](#upgrading-cli-plugin).
 
-- **Enabling the Enable Beta offerings check box:**
+- **Select the Enable Beta offerings check box:**
 
-  If the **Enable Beta offerings** check box is not selected when applying changes, instances from
-  those service offerings are not upgraded. These instances become unmanageable by the broker.
-  Ensure that the **Enable Beta offerings** check box is selected if you have instances from those
-  offerings you intend to keep updated.
+  If the **Enable Beta offerings** check box is not selected when applying
+  changes, instances from those service offerings are not upgraded. These
+  instances become unmanageable by the broker. Verify that the **Enable Beta
+  offerings** check box is selected if you have instances from those offerings
+  that you intend to keep updated.
 
 - **Deleting custom plans:**
 
-  If you delete custom plans before upgrading all instances, instances from these plans are not
-  upgraded. These instances become unmanageable by the broker. Delete plans after upgrading all
-  instances, or see [Release Notes for Cloud Service Broker for GCP](release-notes.html.md.erb) and
-  [Upgrading to v1.2.1](#upgrading-specifics) to prevent conflicting upgrades.
+  If you delete custom plans before upgrading all instances, instances from
+  these plans are not upgraded. These instances become unmanageable by the
+  broker. Delete plans after upgrading all instances, or see [Release Notes for
+  Cloud Service Broker for GCP](release-notes.html.md.erb) and [Upgrading to
+  v1.2.1](#upgrading-specifics) to prevent conflicting upgrades.
 
 - **Only upgrade the tile after all service instances are up to date:**
 
-  You can run the upgrade all instances task as many times as needed.
-  If preferred, you can run the upgrade all instances task by using the cf CLI instead of,
-  or in addition to, running it through the tile.
-  Failure to upgrade one or more instances does not cause the tile installation to fail.
-  Review the `deploy all` errand logs to ensure that all instances have upgraded.
+  You can run the upgrade all instances task as many times as needed. If
+  you prefer, run the upgrade all instances task by using the cf CLI
+  instead of, or in addition to, running it through the tile. Failure to upgrade
+  one or more instances does not cause the tile installation to fail. Review the
+  `deploy all` errand logs to verify that all instances have upgraded.
 
-### <a id="checking-cli-plugin"></a> Ensure that all instances are up to date with the CLI plug-in
+### <a id="checking-cli-plugin"></a> Verify that all instances are up to date with the CLI plug-in
 
 To verify that no instances are pending upgrade:
 
-1. Install the [cf CLI UpgradeAllServices plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices).
+1. Install the [cf CLI UpgradeAllServices
+   plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices) on Cloud Foundry.
 1. Follow the instructions in the **Usage** section of the `README` in the
    [upgrade-all-services-cli-plugin](https://github.com/cloudfoundry/upgrade-all-services-cli-plugin#usage)
    GitHub repository to perform a dry run.
@@ -107,15 +115,18 @@ To verify that no instances are pending upgrade:
    cf upgrade-all-services BROKER-NAME -dry-run
    ```
 
-This command provides a list of instances from enabled plans pending upgrade. If the list is not
-empty, upgrade the instances listed before attempting a tile upgrade.
+This command provides a list of instances from enabled plans pending upgrade. If
+the list is not empty, upgrade the instances listed before attempting a tile
+upgrade.
 
 ### <a id="upgrading-cli-plugin"></a> Upgrade instances through the CLI plug-in
 
 To run the cf CLI plug-in:
 
-1. Install the [cf CLI UpgradeAllServices plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices).
-1. To run the upgrade, follow the instructions in the **Usage** section of the `README` in the
+1. Install the [cf CLI UpgradeAllServices
+   plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices) on Cloud Foundry.
+1. To run the upgrade, follow the instructions in the **Usage** section of the
+   `README` in the
    [upgrade-all-services-cli-plugin](https://github.com/cloudfoundry/upgrade-all-services-cli-plugin#usage)
    GitHub repository.
 
@@ -125,8 +136,8 @@ To run the cf CLI plug-in:
    cf upgrade-all-services BROKER-NAME
    ```
 
-Run the CLI plug-in with the `-dry-run` flag before applying the service instance upgrade to find
-out which instances are pending upgrade.
+Run the CLI plug-in with the `-dry-run` flag before applying the service
+instance upgrade to find out which instances are pending upgrade.
 
 ## <a id="upgrading-specifics"></a> Upgrading to v1.2.1
 
@@ -136,29 +147,32 @@ The following sections describe changes for the Google MySQL service.
 
 #### <a id="retiring-beta-instances"></a> Retiring beta instances
 
-The Google MySQL service is now generally available.
-The service instances provisioned by the beta version of the Google MySQL service are no longer
-supported. You must remove the service instances from the supervision of <%= vars.product_short %>.
+The Google MySQL service is now generally available. The service instances
+provisioned by the beta version of the Google MySQL service are no longer
+supported. You must remove the service instances from the supervision of <%=
+vars.product_short %>.
 
-If all MySQL instances are not removed, the installation fails with the following error message:
+If all MySQL instances are not removed, the installation fails with the
+following error message:
 
 ```console
 Server error, status code: 502, error code: 270012, message: Service broker catalog is invalid:
 Service names must be unique within a broker. Services with names ["csb-google-mysql"] already exist
 ```
 
-There are two options for removing a service instances from the supervision of <%= vars.product_short %>:
+There are two options for removing a service instances from the supervision of
+<%= vars.product_short %>:
 
-- Purge the service instance, in which case it is removed from Cloud Foundry but the database instance
-  remains in GCP
+- Purge the service instance, in which case it is removed from Cloud Foundry but
+  the database instance remains in GCP
 - Delete the service instance, which also deletes data
 
 To purge a service instance:
 
-1. Obtain credentials for the service instance. You can do this by creating a user through the
-   Google Cloud Console, or by recovering the existing credentials from CredHub.
-   For instructions, see the
-   [VMware Tanzu Support documentation](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub).
+1. Obtain credentials for the service instance. You can do this by creating a
+   user through the Google Cloud Console, or by recovering the existing
+   credentials from CredHub. For instructions, see the [VMware Tanzu Support
+   documentation](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub).
 
 2. Purge the service instances by running:
 
@@ -166,16 +180,18 @@ To purge a service instance:
    cf purge-service-instance SERVICE-INSTANCE
    ```
 
-   For more information about the command, see the
-   [Cloud Foundry CLI documentation](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html).
+   For more information about the command, see the [Cloud Foundry CLI
+   documentation](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html).
 
 3. Upgrade to <%= vars.product_short %> v1.2.1
 
 4. Use the credentials to manage the data by using one of these methods:
 
-   - **Option 1:** Migrate the data to a newly created MySQL instance.
-     For more information, see [Migrating to a Google Cloud SQL for MySQL Instance](gcp-mysql-migration.html.md.erb).
-   - **Option 2:** Create a user-provided service instance for further consumption by applications.
+   - **Option 1:** Migrate the data to a newly created MySQL instance. For more
+     information, see [Migrating to a Google Cloud SQL for MySQL
+     Instance](gcp-mysql-migration.html.md.erb).
+   - **Option 2:** Create a user-provided service instance for further
+     consumption by applications.
 
 #### <a id="gcp-mysql-chng-cust-plns"></a> Changing custom plans
 
@@ -183,10 +199,11 @@ Make the following changes to existing custom plans before upgrading.
 
 ##### <a id="gcp-mysql-plans-set-tier"></a> Set `tier` for the MySQL service
 
-The old property `cores` has been removed. To define compute and memory capacity, you must use `tier` instead.
+The old property `cores` is removed. To define compute and memory
+capacity, you must use `tier` instead.
 
-If you have custom plans already configured for MySQL, you must change the configuration to use `tier`.
-For example:
+If you have custom plans already configured for MySQL, you must change the
+configuration to use `tier`. For example:
 
 ```json
   {
@@ -199,17 +216,18 @@ For example:
   }
 ```
 
-For more information about the machine types, see the
-[Google Cloud documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
+For more information about the machine types, see the [Google Cloud
+documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
 
 ##### <a id="gcp-mysql-auth-ntwrk-id"></a> Set `authorized_network_id` for the MySQL service
 
-The old property `authorized_network` has been removed.
-To define the ID of the Google Compute Engine network to which the instance is connected, you must use
+The old property `authorized_network` is removed. To define the ID of the
+Google Compute Engine network to which the instance is connected, you must use
 `authorized_network_id` instead.
 
-If you have custom plans already configured for MySQL, and you included the `authorized_network`
-property, you must change the configuration to use `authorized_network_id`. For example:
+If you have custom plans already configured for MySQL, and you included the
+`authorized_network` property, you must change the configuration to use
+`authorized_network_id`. For example:
 
 ```json
   {
@@ -228,29 +246,32 @@ The following sections describe changes for the Google Storage Bucket service.
 
 #### <a id="gcp-beta-instances"></a> About beta instances
 
-The Google Storage Bucket service is now generally available.
-Keeping beta instances is discouraged because beta instances are not suitable for production.
+The Google Storage Bucket service is now generally available. Keeping beta
+instances is discouraged because beta instances are not suitable for production.
 
-You can choose to update the instances, but there are breaking changes that can affect the configuration
-of the plans you must define.
-For more information see [Restoring brokerpak-provided plans](#gcp-strg-bckt-old-plans) below.
+You can choose to update the instances, but there are breaking changes that can
+affect the configuration of the plans you must define. For more information, see
+the following section, [Restoring brokerpak-provided
+plans](#gcp-strg-bckt-old-plans).
 
 #### <a id="gcp-strg-bckt-old-plans"></a> Restoring brokerpak-provided plans
 
-From this version onwards, Google Storage Bucket plans are no longer provided with the brokerpak.
-If you have instances that you want to maintain, you must add previously provided plans through the
-tile. For more information, see
-[Add previously provided pre-configured plans](reference/gcp-storage.html.md.erb#old-plans).
+From this version onwards, Google Storage Bucket plans are no longer provided
+with the brokerpak. If you have instances that you want to maintain, you must
+add previously provided plans through the tile. For more information, see [Add
+previously provided pre-configured
+plans](reference/gcp-storage.html.md.erb#old-plans).
 
-This version adds breaking changes that force the recreation of the bucket if the old plans are not
-correctly configured.
+This version adds breaking changes that force the recreation of the bucket if
+the old plans are not correctly configured.
 
-A change in the region forces the recreation of the bucket.
-Therefore, if the default region set by the operator in the tile configuration changes, you must add
-the region property to the old plan, setting the value equal to the old instance region.
+A change in the region forces the recreation of the bucket. Therefore, if the
+default region set by the operator in the tile configuration changes, you must
+add the region property to the old plan, setting the value equal to the old
+instance region.
 
-For example, if you created the old instance by using the private plan, and using as default region the `us-central-1`,
-the plan must look like this:
+For example, if you created the old instance by using the private plan, and
+using as default region the `us-central-1`, the plan must look like this:
 
 ```json
 {
@@ -264,8 +285,8 @@ the plan must look like this:
 }
 ```
 
-If you created the old instance by using the public plan, and using as default region the `us-central-1`, the plan
-must look like this:
+If you created the old instance by using the public plan, and using as default
+region the `us-central-1`, the plan must look like this:
 
 ```json
 {
@@ -279,19 +300,23 @@ must look like this:
 }
 ```
 
-The default storage class now is `MULTI_REGIONAL`, which enables high availability across a large area.
-Previously, the default value was `STANDARD`. This storage class needs a large region like `US`.
+The default storage class now is `MULTI_REGIONAL`, which enables high
+availability across a large area. Previously, the default value was `STANDARD`.
+This storage class needs a large region like `US`.
 
-If the old instance was created by using a storage class different from `MULTI_REGIONAL`,
-add the old instance storage class to match the parameters. If you don't, the upgrade process tries
-to set the storage class to `MULTI_REGIONAL` by using the configured region. If the configured region is not a
-valid region for the `MULTI_REGIONAL` storage class configuration, the process is blocked.
-For more information about valid regions, see the
-[Google Cloud documentation](https://cloud.google.com/about/locations#multi-region).
-See [Configuration Parameters](reference/gcp-storage.html#parameters) for more information.
+If the old instance was created by using a storage class different from
+`MULTI_REGIONAL`, add the old instance storage class to match the parameters. If
+you don't, the upgrade process tries to set the storage class to
+`MULTI_REGIONAL` by using the configured region. If the configured region is not
+a valid region for the `MULTI_REGIONAL` storage class configuration, the process
+is blocked. For more information about valid regions, see the [Google Cloud
+documentation](https://cloud.google.com/about/locations#multi-region). See
+[Configuration Parameters](reference/gcp-storage.html#parameters) for more
+information.
 
-For example, if you created the old instance by using the private plan, using as default region the `us-central-1`,
-and "STANDARD" as `storage_class` configuration, the plan must look like this:
+For example, if you created the old instance by using the private plan, using as
+default region the `us-central-1`, and "STANDARD" as `storage_class`
+configuration, the plan must look like this:
 
 ```json
 {
@@ -306,8 +331,9 @@ and "STANDARD" as `storage_class` configuration, the plan must look like this:
 }
 ```
 
-For example, if you created the old instance by using the public plan, using as default region the `us-central-1`,
-and "STANDARD" as `storage_class` configuration, the plan must look like this:
+For example, if you created the old instance by using the public plan, using as
+default region the `us-central-1`, and "STANDARD" as `storage_class`
+configuration, the plan must look like this:
 
 ```json
 {
@@ -322,13 +348,12 @@ and "STANDARD" as `storage_class` configuration, the plan must look like this:
 }
 ```
 
-<p class="note caution">
-  <strong>Caution:</strong> You cannot edit plan properties during a provision or update operation.
+>**Caution**
+>You cannot edit plan properties during a provision or update operation.
   The same considerations must be taken into account for the customized plans you created.
-</p>
 
-If you instead want to delete all previously created service instances, delete them before upgrading
-<%= vars.product_short %> to this version.
+If you instead want to delete all previously created service instances, delete
+them before upgrading <%= vars.product_short %> to this version.
 
 To remove the instances from the broker and the IaaS, run:
 
@@ -348,18 +373,17 @@ The following sections describe changes for the Google Redis service.
 
 #### <a id="gcp-rest-redis-old-plans"></a> Restoring brokerpak-provided plans
 
-From this version onwards, Google Redis plans are no longer provided with the brokerpak.
-If you have instances that you want to maintain, you must add previously provided plans through the
-tile. For more information, see
-[Add previously provided pre-configured plans](reference/gcp-redis.html.md.erb#old-plans).
+From this version onwards, Google Redis plans are no longer provided with the
+brokerpak. If you have instances that you want to maintain, you must add
+previously provided plans through the tile. For more information, see [Add
+previously provided pre-configured
+plans](reference/gcp-redis.html.md.erb#old-plans).
 
-<p class="note caution">
-  <strong>Caution:</strong>
-  Keep in mind that Google Redis is a beta version, and therefore not suitable for production.
-</p>
+>**Caution**
+>Google Redis is a beta version, and therefore not suitable for production.
 
-If you instead want to delete all previously created service instances, delete them before upgrading
-<%= vars.product_short %> to this version.
+If you instead want to delete all previously created service instances, delete
+them before upgrading <%= vars.product_short %> to this version.
 
 To remove the instances from the broker and the IaaS, run:
 
