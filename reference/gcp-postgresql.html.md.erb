@@ -276,42 +276,6 @@ following reasons:
 
 Currently, the Google PostgreSQL service does not provide a mechanism for TLS certificate rotation.
 
-## <a id="binding-known-issue"></a> Binding Process Known Issue
-
-When an app creates objects with one binding, depending on the permissions granted, other bindings
-might not have permissions to see these objects.
-This can cause errors in apps, and it can cause errors creating additional bindings. For example:
-
-```console
-Binding service instance csb-google-postgres-small to app my-app in org \
-my-org / space my-space as my-user...
-Job (dccc89be-b91f-11ed-a525-3b487b0bd45d) failed: bind could not be completed: \
-Service broker error: error performing bind: error waiting for result: bind failed: Error: pq: \
-permission denied for table flyway_schema_history with csbpg_binding_user.new_user, on main.tf line 15,\
-in resource "csbpg_binding_user" "new_user": 15: resource "csbpg_binding_user" "new_user" { exit status 1
-FAILED
-```
-
-If this occurs, it is possible to grant access to the object so that it can be accessed through other
-bindings.
-
-1. Look up the GUID of the service instance by running:
-
-   ```console
-   cf service SERVICE-NAME
-   ```
-
-   Where `SERVICE-NAME` is the name of the service
-
-2. In the Google Cloud Console, locate the Google SQL instance by using the GUID you learned earlier.
-3. Set a password for the `postgres` user.
-4. Log in to the database by running the `psql` command as the `postgres` user with the password you set.
-5. Grant access to the `binding_user_group` role: `grant binding_user_group to postgres;`
-6. Grant public access to the object in question: `grant all on table public.flyway_schema_history to public;`
-7. Repeat the previous step for all objects that subsequent bindings need access to.
-
-After this, subsequent binding operations succeed and apps using these bindings can detect the objects.
-
 ### <a id="binding-creds"></a> Binding Credentials
 
 The format for binding credentials for Google PostgreSQL is as follows:

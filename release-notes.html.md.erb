@@ -7,6 +7,24 @@ owner: Cloud Service Broker
 
 This topic describes the changes in this minor release of <%= vars.product_full %>.
 
+## <a id="1-2-2"></a> v1.2.2
+
+### Resolved Issues
+
+This release has the following fixes:
+
+<%= partial '/csb/logo-resolved' %>
+
+#### Google Cloud PostgreSQL
+
+- **Fix permission issues on binding creation**
+When an app created tables with one binding, depending on the permissions granted,
+it could cause errors when trying to create additional bindings.
+
+### Known issues
+
+There are no known issues in this release.
+
 ## <a id="1-2-1"></a> v1.2.1
 
 **Release Date:** March 23, 2023
