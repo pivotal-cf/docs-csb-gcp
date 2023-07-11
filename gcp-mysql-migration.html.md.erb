@@ -40,10 +40,9 @@ console. For how to configure plans, see
 You might want to migrate data from instances created with the legacy broker to instances created with
 <%= vars.product_short %>.
 
-<p class="note important">
-  <strong>Important:</strong> Migration of data might incur app downtime.
+>**Important**
+>Migration of data might incur app downtime.
   The amount of downtime depends on the method chosen.
-</p>
 
 There are many options for performing data migration, which
 include [GCP SQL Import and Export](https://cloud.google.com/sql/docs/postgres/backup-recovery/restoring),
@@ -61,10 +60,9 @@ In general, the data migration steps are:
 
 ## <a id='steps'></a> Migrate Data from a GCP Service Broker for VMware Tanzu MySQL Instance
 
-<p class="note important">
-    <strong>Important:</strong> Because the GCP SQL Import and Export tool does not support a streaming
+>**Important**
+>Because the GCP SQL Import and Export tool does not support a streaming
     or continuous replication, consider putting your application in read-only mode while migrating.
-</p>
 
 To migrate data from an existing legacy MySQL instance to <%= vars.product_short %>:
 

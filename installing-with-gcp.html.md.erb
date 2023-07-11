@@ -86,12 +86,11 @@ To configure GCP credentials:
 
 1. Click **Save**.
 
-<p class="note">
-  <strong>Note:</strong> <%= vars.product_short %> services are validated using the same GCP project and region
+>**Note**
+><%= vars.product_short %> services are validated using the same GCP project and region
   for <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) and <%= vars.product_short %>. In other
   configurations, make sure that <%= vars.app_runtime_abbr %> apps have network connectivity to the services
   managed by <%= vars.product_short %>.
-</p>
 
 ### <a id="state-db"></a>Configure a State Database
 
@@ -104,16 +103,11 @@ In production environments, VMware recommends that you enable encryption.
 This encrypts certain sensitive information in the state database, such as IaaS credentials.
 The encryption password that you enter on the Service Broker Config pane is used to generate an encryption key.
 
-<p class="note">
-<strong>Note:</strong>
-VMware recommends that backup and restore capabilities are enabled in the MySQL database before attempting encryption.
-</p>
+>**Important**
+>VMware recommends that backup and restore capabilities are enabled in the MySQL database before attempting encryption.
 
-<p class="note">
-<strong>Note:</strong>
-Applying changes takes longer than normal when you first enable encryption and when you change the
-encryption password.
-</p>
+Applying changes takes longer than normal when you first enable encryption and
+when you change the encryption password.
 
 #### Prerequisite
 
@@ -180,10 +174,9 @@ the **Settings** tab.
    For more information about properties for each service configuration, see
    [Service Plan Reference](reference/index.html.md.erb).
 
-    <p class="note">
-        <strong>Note:</strong> When developers create or update a service instance, they cannot override
+    >**Note**
+    >When developers create or update a service instance, they cannot override
         any plan-level properties that were set in this field.
-    </p>
 
 1. (Optional) To use different credentials to the ones specified in the **GCP Config** tab,
 supply the credentials as properties to a plan instance in the additional plans box:
