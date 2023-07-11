@@ -32,10 +32,9 @@ For how to configure plans, see
 You might want to migrate data from instances created with the legacy broker to instances created
 with <%= vars.product_short %>.
 
-<p class="note important">
-  <strong>Important:</strong> Migration of data might incur app downtime.
+>**Important**
+>Migration of data might incur app downtime.
   The amount of downtime depends on the method chosen.
-</p>
 
 There are several options for performing a Google Storage Bucket migration, including:
 
@@ -60,7 +59,8 @@ In general, to migrate data:
 ## <a id='steps'></a> Migrate Data from a Legacy Google Storage Bucket Instance
 
 <p class="note important">
-  <strong>Important:</strong> The binding credentials format was changed.
+  <span class="note__title">Important</span>
+  The binding credentials format was changed.
   You must update the consuming app to handle the credential property.
   For more information, see
   <a href="reference/gcp-storage.html.md.erb#binding-creds">Binding Credentials</a>.
@@ -120,10 +120,9 @@ To migrate data from an existing legacy Google Storage Bucket instance to <%= va
    handle the credential property. For the new binding format, see
    [Binding Credentials](reference/gcp-storage.html.md.erb#binding-creds).
 
-    <p class="note">
-      <strong>Note:</strong> VMware recommends reviewing all references where the legacy Google Storage
-      bucket was used to ensure that the new bucket is now being referenced.
-    </p>
+    >**Note**
+    >VMware recommends reviewing all references where the legacy Google Storage
+      bucket was used to verify that the new bucket is now being referenced.
 
 7. Push and start the app by running:
 
