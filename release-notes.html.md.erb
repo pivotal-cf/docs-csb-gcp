@@ -17,9 +17,11 @@ This release has the following fixes:
 
 #### Google Cloud PostgreSQL
 
-- **Fix permission issues on binding creation**
-When an app created tables with one binding, depending on the permissions granted,
-it could cause errors when trying to create additional bindings.
+- **Object access issues in Google PostgreSQL:**
+  If an app creates an object, such as a table, with permissions that do not allow other users to see
+  that object, subsequent bindings might fail, and other apps might fail to read the objects.
+  For more information, see
+  [Binding Process Known Issue](reference/gcp-postgresql.html.md.erb#binding-known-issue).
 
 ### Known issues
 
