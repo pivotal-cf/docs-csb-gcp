@@ -282,16 +282,6 @@ Currently, the Google PostgreSQL service does not provide a mechanism for TLS ce
 <strong>Note:</strong> This issue has been fixed in version <a href="release-notes.html#1-2-2">1.2.2</a>.
 </p>
 
-## <a id="parameters"></a> Configuration Parameters
-
-You can provision a service by running:
-
-```console
-cf create-service csb-google-postgres PLAN-NAME SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
-```
-
-You can update the configuration parameters for a service instance by running:
-
 When an app creates objects with one binding, depending on the permissions granted, other bindings
 might not have permissions to see these objects.
 This can cause errors in apps, and it can cause errors creating additional bindings. For example:
