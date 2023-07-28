@@ -9,6 +9,8 @@ This topic describes the changes in this minor release of <%= vars.product_full 
 
 ## <a id="1-2-2"></a> v1.2.2
 
+**Release Date:** July 11, 2023
+
 ### Resolved issues
 
 This release fixes the following issues:
@@ -31,8 +33,7 @@ This release has the following issues:
 
 - **Failure to select the right stack during install:**
 
-  When there are multiple build packs installed and non of them is a cflinuxfs4, it can happen that 
-  it matches a Windows buildpack if both Windows and Linux have installed the binary_buildpack.
+  Incorrect buildpack stack association when the stack cflinuxfs4 is not available in your deployment.
 
 ## <a id="1-2-1"></a> v1.2.1
 
