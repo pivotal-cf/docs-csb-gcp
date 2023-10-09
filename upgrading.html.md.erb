@@ -25,6 +25,12 @@ To upgrade <%= vars.product_short %>:
 1. Before you stage the new tile version, [verify that all service instances are
    up to date](#upgrade-instances).
 
+   > **Important** The installation process will stop if there are any outdated instances.
+   > You will have to manually upgrade any outdated instances by following the instructions in
+   > [Upgrade instances through the CLI plug-in](#upgrading-cli-plugin") before retrying the installation.
+   > We recommend manually checking if there are any instances to update before starting the
+   > installation process.
+
 2. Download the new version of <%= vars.product_short %> from [<%=
    vars.product_network
    %>](https://network.tanzu.vmware.com/products/cloud-service-broker-gcp/).
@@ -48,14 +54,16 @@ To upgrade <%= vars.product_short %>:
 ## <a id="upgrade-instances"></a> Verify that service instances are up to date before upgrading the tile
 
 Service instances that haven't been upgraded with one version of the tile might
-not be upgradable by a later version. So verify that there are no
-service instances pending upgrade before staging the new version of the tile.
+not be upgradable by a later version. 
 
-You can see whether there are instances with a pending upgrade by reviewing the
-`deploy-all` errand log for <%= vars.product_short %>. Alternatively, you can
-[verify all instances are up to date with the CLI plug-in](#checking-cli-plugin)
-and the `-dry-run` flag, which outputs the list of instances pending upgrade.
+A step in the installation phase will stop the process if there are any outdated instances.
 
+For these reasons, verify that there are no service instances pending upgrade before staging
+the new version of the tile.
+
+You can see whether there are instances with a pending upgrade by using the CLI plug-in. 
+See more information about [ensuring all instances are up to date with the CLI plug-in](#checking-cli-plugin)
+and the `-dry-run` or `check-up-to-date` flags that output the list of instances pending upgrade.
 If you find instances that are pending upgrade, follow the upgrading
 instructions for your current version.
 
@@ -105,9 +113,9 @@ To verify that no instances are pending upgrade:
 
 1. Install the [cf CLI UpgradeAllServices
    plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices) on Cloud Foundry.
-1. Follow the instructions in the **Usage** section of the `README` in the
+2. Follow the instructions in the **Usage** section of the `README` in the
    [upgrade-all-services-cli-plugin](https://github.com/cloudfoundry/upgrade-all-services-cli-plugin#usage)
-   GitHub repository to perform a dry run.
+   GitHub repository to perform a dry run or a check up to date command.
 
    For example:
 
@@ -115,7 +123,13 @@ To verify that no instances are pending upgrade:
    cf upgrade-all-services BROKER-NAME -dry-run
    ```
 
-This command provides a list of instances from enabled plans pending upgrade. If
+   Or:
+
+   ```
+   cf upgrade-all-services BROKER-NAME -check-up-to-date
+   ```
+
+These commands provide a list of instances from enabled plans pending upgrade. If
 the list is not empty, upgrade the instances listed before attempting a tile
 upgrade.
 
@@ -136,263 +150,9 @@ To run the cf CLI plug-in:
    cf upgrade-all-services BROKER-NAME
    ```
 
-Run the CLI plug-in with the `-dry-run` flag before applying the service
+Run the CLI plug-in with the `-dry-run` or `check-up-to-date` flags before applying the service
 instance upgrade to find out which instances are pending upgrade.
 
 ## <a id="upgrading-specifics"></a> Upgrading to 1.3
 
-### <a id="gcp-mysql"></a> Google MySQL
-
-The following sections describe changes for the Google MySQL service.
-
-#### <a id="retiring-beta-instances"></a> Retiring beta instances
-
-The Google MySQL service is now generally available. The service instances
-provisioned by the beta version of the Google MySQL service are no longer
-supported. You must remove the service instances from the supervision of <%=
-vars.product_short %>.
-
-If all MySQL instances are not removed, the installation fails with the
-following error message:
-
-```console
-Server error, status code: 502, error code: 270012, message: Service broker catalog is invalid:
-Service names must be unique within a broker. Services with names ["csb-google-mysql"] already exist
-```
-
-There are two options for removing a service instances from the supervision of
-<%= vars.product_short %>:
-
-- Purge the service instance, in which case it is removed from Cloud Foundry but
-  the database instance remains in GCP
-- Delete the service instance, which also deletes data
-
-To purge a service instance:
-
-1. Obtain credentials for the service instance. You can do this by creating a
-   user through the Google Cloud Console, or by recovering the existing
-   credentials from CredHub. For instructions, see the [VMware Tanzu Support
-   documentation](https://community.pivotal.io/s/article/How-to-fetch-service-binding-credentials-which-are-integrated-with-Credhub).
-
-2. Purge the service instances by running:
-
-   ```console
-   cf purge-service-instance SERVICE-INSTANCE
-   ```
-
-   For more information about the command, see the [Cloud Foundry CLI
-   documentation](https://cli.cloudfoundry.org/en-US/v8/purge-service-instance.html).
-
-3. Upgrade to <%= vars.product_short %> v1.2.1
-
-4. Use the credentials to manage the data by using one of these methods:
-
-   - **Option 1:** Migrate the data to a newly created MySQL instance. For more
-     information, see [Migrating to a Google Cloud SQL for MySQL
-     Instance](gcp-mysql-migration.html.md.erb).
-   - **Option 2:** Create a user-provided service instance for further
-     consumption by applications.
-
-#### <a id="gcp-mysql-chng-cust-plns"></a> Changing custom plans
-
-Make the following changes to existing custom plans before upgrading.
-
-##### <a id="gcp-mysql-plans-set-tier"></a> Set `tier` for the MySQL service
-
-The old property `cores` is removed. To define compute and memory
-capacity, you must use `tier` instead.
-
-If you have custom plans already configured for MySQL, you must change the
-configuration to use `tier`. For example:
-
-```json
-  {
-    "name": "my-custom-plan",
-    "id": "dd448d6e-1d71-11ed-9974-77a0c9ef0141",
-    "description": "Custom plan",
-    "tier": "db-n1-standard-2",
-    "storage_gb": 10,
-    "mysql_version": "MYSQL_8_0"
-  }
-```
-
-For more information about the machine types, see the [Google Cloud
-documentation](https://cloud.google.com/sql/docs/mysql/instance-settings).
-
-##### <a id="gcp-mysql-auth-ntwrk-id"></a> Set `authorized_network_id` for the MySQL service
-
-The old property `authorized_network` is removed. To define the ID of the
-Google Compute Engine network to which the instance is connected, you must use
-`authorized_network_id` instead.
-
-If you have custom plans already configured for MySQL, and you included the
-`authorized_network` property, you must change the configuration to use
-`authorized_network_id`. For example:
-
-```json
-  {
-    "name": "my-custom-plan",
-    "id": "dd448d6e-1d71-11ed-9974-77a0c9ef0141",
-    "description": "Custom plan",
-    "authorized_network_id": "projects/GCP_PROJECT/global/networks/VPC_NAME",
-    "storage_gb": 10,
-    "mysql_version": "MYSQL_5_7"
-  }
-```
-
-### <a id="gcp-storage-bucket"></a> Google Storage Bucket
-
-The following sections describe changes for the Google Storage Bucket service.
-
-#### <a id="gcp-beta-instances"></a> About beta instances
-
-The Google Storage Bucket service is now generally available. Keeping beta
-instances is discouraged because beta instances are not suitable for production.
-
-You can choose to update the instances, but there are breaking changes that can
-affect the configuration of the plans you must define. For more information, see
-the following section, [Restoring brokerpak-provided
-plans](#gcp-strg-bckt-old-plans).
-
-#### <a id="gcp-strg-bckt-old-plans"></a> Restoring brokerpak-provided plans
-
-From this version onwards, Google Storage Bucket plans are no longer provided
-with the brokerpak. If you have instances that you want to maintain, you must
-add previously provided plans through the tile. For more information, see [Add
-previously provided pre-configured
-plans](reference/gcp-storage.html.md.erb#old-plans).
-
-This version adds breaking changes that force the recreation of the bucket if
-the old plans are not correctly configured.
-
-A change in the region forces the recreation of the bucket. Therefore, if the
-default region set by the operator in the tile configuration changes, you must
-add the region property to the old plan, setting the value equal to the old
-instance region.
-
-For example, if you created the old instance by using the private plan, and
-using as default region the `us-central-1`, the plan must look like this:
-
-```json
-{
-    "name": "private",
-    "id": "bbc4853e-8a63-11ea-a54e-670ca63cee0b",
-    "description": "Private Storage bucket",
-    "region": "us-central1",
-    "metadata": {
-      "displayName": "Private"
-    }
-}
-```
-
-If you created the old instance by using the public plan, and using as default
-region the `us-central-1`, the plan must look like this:
-
-```json
-{
-    "name": "public-read",
-    "id": "c07f21a6-8a63-11ea-bc1b-d38b123189cb",
-    "description": "Public-read Storage bucket",
-    "region": "us-central1",
-    "metadata": {
-      "displayName": "Public Read"
-    }
-}
-```
-
-The default storage class now is `MULTI_REGIONAL`, which enables high
-availability across a large area. Previously, the default value was `STANDARD`.
-This storage class needs a large region like `US`.
-
-If the old instance was created by using a storage class different from
-`MULTI_REGIONAL`, add the old instance storage class to match the parameters. If
-you don't, the upgrade process tries to set the storage class to
-`MULTI_REGIONAL` by using the configured region. If the configured region is not
-a valid region for the `MULTI_REGIONAL` storage class configuration, the process
-is blocked. For more information about valid regions, see the [Google Cloud
-documentation](https://cloud.google.com/about/locations#multi-region). See
-[Configuration Parameters](reference/gcp-storage.html#parameters) for more
-information.
-
-For example, if you created the old instance by using the private plan, using as
-default region the `us-central-1`, and "STANDARD" as `storage_class`
-configuration, the plan must look like this:
-
-```json
-{
-    "name": "private",
-    "id": "bbc4853e-8a63-11ea-a54e-670ca63cee0b",
-    "description": "Private Storage bucket",
-    "region": "us-central1",
-    "storage_class": "STANDARD",
-    "metadata": {
-      "displayName": "Private"
-    }
-}
-```
-
-For example, if you created the old instance by using the public plan, using as
-default region the `us-central-1`, and "STANDARD" as `storage_class`
-configuration, the plan must look like this:
-
-```json
-{
-    "name": "public-read",
-    "id": "c07f21a6-8a63-11ea-bc1b-d38b123189cb",
-    "description": "Public-read Storage bucket",
-    "region": "us-central1",
-    "storage_class": "STANDARD",
-    "metadata": {
-      "displayName": "Public Read"
-    }
-}
-```
-
->**Caution**
->You cannot edit plan properties during a provision or update operation.
-  The same considerations must be taken into account for the customized plans you created.
-
-If you instead want to delete all previously created service instances, delete
-them before upgrading <%= vars.product_short %> to this version.
-
-To remove the instances from the broker and the IaaS, run:
-
-```console
-cf delete-service SERVICE-NAME
-```
-
-To remove instances from Cloud Foundry, but retain them in the IaaS, run:
-
-```console
-cf purge-service-instance
-```
-
-### <a id="gcp-redis"></a> Google Redis
-
-The following sections describe changes for the Google Redis service.
-
-#### <a id="gcp-rest-redis-old-plans"></a> Restoring brokerpak-provided plans
-
-From this version onwards, Google Redis plans are no longer provided with the
-brokerpak. If you have instances that you want to maintain, you must add
-previously provided plans through the tile. For more information, see [Add
-previously provided pre-configured
-plans](reference/gcp-redis.html.md.erb#old-plans).
-
->**Caution**
->Google Redis is a beta version and therefore not suitable for production.
-
-If you instead want to delete all previously created service instances, delete
-them before upgrading <%= vars.product_short %> to this version.
-
-To remove the instances from the broker and the IaaS, run:
-
-```console
-cf delete-service SERVICE-NAME
-```
-
-To remove instances from Cloud Foundry, but retain them in the IaaS, run:
-
-```console
-cf purge-service-instance
-```
+There are currently no notes for upgrading to v1.3.
