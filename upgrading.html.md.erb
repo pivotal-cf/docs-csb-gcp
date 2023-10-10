@@ -3,70 +3,50 @@ title: Upgrading Cloud Service Broker for GCP
 owner: Cloud Service Broker
 ---
 
-Would you like to upgrade <%= vars.product_full %>? This topic tells you about
-the [Upgrade procedure](#procedure), [Upgrading service
-instances](#upgrade-instances), and specific details about [Upgrading to
-v1.3](#upgrading-specifics).
-
-## <a id="procedure"></a> Upgrade procedure
-
->**Important**
->When upgrading <%= vars.product_short %>, service instances might need to be
-   upgraded. Failure to upgrade one or more instance does not cause the tile
-   installation to fail.
-
->Review the `deploy-all` errand logs in the change log to verify
-   that no errors occurred when upgrading instances.
+Would you like to upgrade <%= vars.product_full %>? This topic tells you about the
+[upgrade procedure](#procedure), [upgrading service instances](#upgrade-instances), and specific
+details about [upgrading to v1.3](#upgrading-specifics).
 
 ## <a id="procedure"></a> Upgrade procedure
 
 To upgrade <%= vars.product_short %>:
 
-1. Before you stage the new tile version, [verify that all service instances are
-   up to date](#upgrade-instances).
+1. Before you stage the new tile version,
+   [ensure that all service instances are up to date](#upgrade-instances).
+   Installation stops if there are any outdated instances, and you cannot use Tanzu Operations Manager
+   to add or edit any plans. If your installation stops,
+   [manually upgrade any outdated instances](#upgrading-cli-plugin) before trying to install the
+   software again.
 
-   > **Important** The installation process will stop if there are any outdated instances.
-   > When this happens you won't be able to add or modify any plans using OpsManager.
-   > You will have to manually upgrade any outdated instances by following the instructions in
-   > [Upgrade instances through the CLI plug-in](#upgrading-cli-plugin") before retrying the installation.
-   > We recommend manually checking if there are any instances to update before starting the
-   > installation process.
+2. Download the new version of <%= vars.product_short %> from
+   [<%= vars.product_network %>](https://network.tanzu.vmware.com/products/cloud-service-broker-gcp/).
 
-2. Download the new version of <%= vars.product_short %> from [<%=
-   vars.product_network
-   %>](https://network.tanzu.vmware.com/products/cloud-service-broker-gcp/).
+3. Stage and configure the tile by following the instructions in
+   [Installing with GCP](installing-with-gcp.html.md.erb).
 
-3. Stage and configure the tile by following the instructions in [Installing
-    with GCP](installing-with-gcp.html.md.erb).
+4. Make all the changes described in [Upgrade to v1.3](#upgrading-specifics).
 
-4. Make all the changes described in [Upgrading to v1.3](#upgrading-specifics).
-
-5. Verify that your configuration complies with the [important notes about
-   upgrading service instances](#upgrade-notes), especially regarding upgrading
-   all instances of config, plans, and beta offerings.
+5. Verify that your configuration complies with the
+   [important notes about upgrading service instances](#upgrade-notes), especially regarding upgrading
+   all instances, plans, and beta offerings.
 
 6. Go to the <%= vars.ops_manager %> Installation Dashboard.
 
 7. Click **Review Pending Changes** and then click **Apply Changes**.
 
-8. Review the `deploy-all` errand logs for any errors created because of the
-   upgrade instances task.
+8. Review the `deploy-all` errand logs for any errors created because of the upgrade instances task.
 
 ## <a id="upgrade-instances"></a> Verify that service instances are up to date before upgrading the tile
 
-Service instances that haven't been upgraded with one version of the tile might
-not be upgradable by a later version. 
+You might be unable to upgrade service instances that you did not upgrade with an earlier version of
+the tile. A step in the installation phase stops the process if there are any outdated instances.
 
-A step in the installation phase will stop the process if there are any outdated instances.
+For these reasons, verify that there are no service instances pending upgrade before staging the new
+version of the tile.
 
-For these reasons, verify that there are no service instances pending upgrade before staging
-the new version of the tile.
-
-You can see whether there are instances with a pending upgrade by using the CLI plug-in. 
-See more information about [ensuring all instances are up to date with the CLI plug-in](#checking-cli-plugin)
-and the `-dry-run` or `-check-up-to-date` flags that output the list of instances pending upgrade.
-If you find instances that are pending upgrade, follow the upgrading
-instructions for your current version.
+You can see whether there are instances with a pending upgrade by using the CLI plug-in.
+For more information, see
+[ensuring all instances are up to date with the CLI plug-in](#checking-cli-plugin).
 
 ### <a id="upgrade-notes"></a> Important notes about upgrading service instances
 
@@ -112,48 +92,45 @@ Before you start upgrading service instances, see the following notes:
 
 To verify that no instances are pending upgrade:
 
-1. Install the [cf CLI UpgradeAllServices
-   plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices) on Cloud Foundry.
+1. Install the [cf CLI UpgradeAllServices plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices)
+   on Cloud Foundry.
+
 2. Follow the instructions in the **Usage** section of the `README` in the
    [upgrade-all-services-cli-plugin](https://github.com/cloudfoundry/upgrade-all-services-cli-plugin#usage)
-   GitHub repository to perform a dry run or a check up to date command.
+   GitHub repository to perform a `dry-run` or `check-up-to-date` command.
 
-   For example:
+   `dry-run` example:
 
-   ```
-   cf upgrade-all-services BROKER-NAME -dry-run
-   ```
-
-   Or:
-
-   ```
-   cf upgrade-all-services BROKER-NAME -check-up-to-date
+   ```console
+   $ cf upgrade-all-services BROKER-NAME -dry-run
    ```
 
-These commands provide a list of instances from enabled plans pending upgrade. If
-the list is not empty, upgrade the instances listed before attempting a tile
-upgrade.
+   `check-up-to-date` example:
+
+   ```console
+   $ cf upgrade-all-services BROKER-NAME -check-up-to-date
+   ```
+
+   These commands provide a list, from enabled plans, of instances that are pending upgrades.
+   Upgrade all the instances listed before attempting a tile upgrade.
 
 ### <a id="upgrading-cli-plugin"></a> Upgrade instances through the CLI plug-in
 
-To run the cf CLI plug-in:
+To use the cf CLI plug-in to upgrade instances:
 
-1. Install the [cf CLI UpgradeAllServices
-   plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices) on Cloud Foundry.
-1. To run the upgrade, follow the instructions in the **Usage** section of the
-   `README` in the
+1. Install the [cf CLI UpgradeAllServices plugin](https://plugins.cloudfoundry.org/#UpgradeAllServices)
+   on Cloud Foundry.
+
+2. Run the upgrade by following the instructions in the **Usage** section of the `README` in the
    [upgrade-all-services-cli-plugin](https://github.com/cloudfoundry/upgrade-all-services-cli-plugin#usage)
    GitHub repository.
 
    For example:
 
-   ```
-   cf upgrade-all-services BROKER-NAME
+   ```console
+   $ cf upgrade-all-services BROKER-NAME
    ```
 
-Run the CLI plug-in with the `-dry-run` or `-check-up-to-date` flags before applying the service
-instance upgrade to find out which instances are pending upgrade.
-
-## <a id="upgrading-specifics"></a> Upgrading to 1.3
+## <a id="upgrading-specifics"></a> Upgrade to v1.3
 
 There are currently no notes for upgrading to v1.3.
