@@ -26,6 +26,7 @@ To upgrade <%= vars.product_short %>:
    up to date](#upgrade-instances).
 
    > **Important** The installation process will stop if there are any outdated instances.
+   > When this happens you won't be able to add or modify any plans using OpsManager.
    > You will have to manually upgrade any outdated instances by following the instructions in
    > [Upgrade instances through the CLI plug-in](#upgrading-cli-plugin") before retrying the installation.
    > We recommend manually checking if there are any instances to update before starting the
@@ -63,7 +64,7 @@ the new version of the tile.
 
 You can see whether there are instances with a pending upgrade by using the CLI plug-in. 
 See more information about [ensuring all instances are up to date with the CLI plug-in](#checking-cli-plugin)
-and the `-dry-run` or `check-up-to-date` flags that output the list of instances pending upgrade.
+and the `-dry-run` or `-check-up-to-date` flags that output the list of instances pending upgrade.
 If you find instances that are pending upgrade, follow the upgrading
 instructions for your current version.
 
@@ -150,7 +151,7 @@ To run the cf CLI plug-in:
    cf upgrade-all-services BROKER-NAME
    ```
 
-Run the CLI plug-in with the `-dry-run` or `check-up-to-date` flags before applying the service
+Run the CLI plug-in with the `-dry-run` or `-check-up-to-date` flags before applying the service
 instance upgrade to find out which instances are pending upgrade.
 
 ## <a id="upgrading-specifics"></a> Upgrading to 1.3
