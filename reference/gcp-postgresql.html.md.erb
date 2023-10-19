@@ -223,6 +223,47 @@ whether a parameter is supported for both provision and update, or for provision
     <td>provision and update</td>
   </tr>
   <tr>
+    <td><code>highly_available</code></td>
+    <td>boolean</td>
+    <td>
+      Enable regional high availability for the service instance. This will result in a hot standby instance deployed
+      to a different zone in the same region, and will affect the billing accordingly.
+      Requires <code>backups_point_in_time_log_retain_days</code> and <code>backups_retain_number</code>
+      properties different than zero.<br><br>
+      For more information, see the
+      <a href="https://cloud.google.com/sql/docs/postgres/high-availability">Google Cloud Documentation</a>.
+    </td>
+    <td><code>false</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>location_preference_zone</code></td>
+    <td>string</td>
+    <td>
+      Preferred zone in the instance region for the primary instance in a highly available setup.
+      For example, <code>a</code> or <code>c</code>.<br><br>
+      When not specified, one of the available zones is chosen automatically.
+      For a list of available zones, see the
+      <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a>.
+    </td>
+    <td><code>""</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
+    <td><code>location_preference_secondary_zone</code></td>
+    <td>string</td>
+    <td>
+      Preferred zone in the instance region for the standby instance in a highly available setup.
+      For example, <code>b</code> or <code>f</code>.<br><br>
+      In a highly available configuration, when the secondary zone is not specified,
+      a zone different from the one specified for the primary instance is chosen automatically.<br><br>
+      For a list of available zones, see the
+      <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a>.
+    </td>
+    <td><code>""</code></td>
+    <td>provision and update</td>
+  </tr>
+  <tr>
     <td><code>credentials</code></td>
     <td>string</td>
     <td>
