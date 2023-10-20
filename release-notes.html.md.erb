@@ -15,25 +15,25 @@ This topic describes the changes in this minor release of <%= vars.product_full 
 
 This release has the following breaking changes:
 
-- **The <%= vars.product_full%> tile stops the installation if there are any outdated instances:**
+- **The <%= vars.product_full %> tile stops the installation if there are any outdated instances:**
 
   From now on, ensure that service instances are up to date before upgrading the tile. Out-of-date
   service instances cause the installation to stop. Your instances use the latest released features
   that include the latest security patches.
 
-- **The **<% vars.product_full%> tile now requires Jammy Stemcell**:
-  The tile depends now on Jammy Stemcells instead of Xenial. You will need to have a Jammy Stemcell available in Ops Manager.
-  This change also implies Ops Manager needs to be at version v2.10.33 or later.
+- **The **<%= vars.product_full %> tile now requires Jammy Stemcell**:
+  The tile depends now on Jammy Stemcells instead of Xenial. You must have a Jammy Stemcell available in <%= vars.ops_manager %>, and you must
+  be using <%= vars.ops_manager %> v2.10.33 or later.
 
 ### Features
 
 New features and changes in this release.
 
 - **Postgres 15 is now supported:** You can now create and bind to instances with version 15 of PostgreSQL.
-- **Postgres version:** This field is no longer a hardcoded closed set. You can now specify any version exposed by GCP.  
-  **Beware:**  
-  Some time might pass before we can validate whether a new version of Postgres is fully compatible with CSB.  
-  Due diligence is recommended when adopting a version of Postgres not yet officially supported by CSB.  
+- **Postgres version:** This field is no longer a hardcoded closed set. You can now specify any version exposed by GCP.
+  **Beware:**
+  Some time might pass before we can validate whether a new version of Postgres is fully compatible with CSB.
+  Due diligence is recommended when adopting a version of Postgres not yet officially supported by CSB.
   To learn whether a specific version of Postgres is officially supported or not, please refer to current and previous release-notes.
 
 ### Resolved Issues
