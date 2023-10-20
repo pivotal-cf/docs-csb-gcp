@@ -30,11 +30,16 @@ This release has the following breaking changes:
 New features and changes in this release.
 
 - **Postgres 15 is now supported:** You can now create and bind to instances with version 15 of PostgreSQL.
-- **Postgres version:** This field is no longer a hardcoded closed set. You can now specify any version exposed by GCP.
-  **Beware:**
-  Some time might pass before we can validate whether a new version of Postgres is fully compatible with CSB.
-  Due diligence is recommended when adopting a version of Postgres not yet officially supported by CSB.
-  To learn whether a specific version of Postgres is officially supported or not, please refer to current and previous release-notes.
+- **postgres_version:** This field is no longer a hardcoded closed set. You can now specify any version exposed by GCP.
+
+    <p class="note caution">
+      <span class="note__title">Caution</span>
+      You must use caution when adopting a version of PostgreSQL that is not yet officially supported by
+      <%= vars.product_short %>.
+      VMware might take time to validate whether a new version of PostgreSQL is fully compatible with
+      <%= vars.product_short %>.
+      To learn whether a specific version of Postgres is officially supported or not, refer to the release notes.
+    </p>
 
 ### Resolved Issues
 
