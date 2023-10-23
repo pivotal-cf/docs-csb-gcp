@@ -41,6 +41,14 @@ New features and changes in this release.
       To learn whether a specific version of Postgres is officially supported or not, refer to the release notes.
     </p>
 
+- **High availability configuration:**
+  You can now turn on high availability for an instance by using the `highly_available` property.
+  When enabled, this deploys two instances, primary and standby, in different zones of
+  instance's region. If needed, you can specify concrete zones by using the `location_preference_zone`
+  and `location_preference_secondary_zone` parameters. You can turn high availability on or
+  off, or re-assign the zone at any time. For more information on PostgreSQL high availability,
+  see the [Google Cloud documentation](https://cloud.google.com/sql/docs/postgres/high-availability).
+
 ### Resolved Issues
 
 This release has the following fixes:
