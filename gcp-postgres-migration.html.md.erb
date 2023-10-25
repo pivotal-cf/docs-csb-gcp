@@ -125,13 +125,13 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
 
 1. Prepare the database for the import. GCP Import and Export can cause problems with permissions on database objects created by activating extensions.
 
-    ```shell
-    cat <<EOF> prepare.sql
+    Create a file called `prepare.sql` with the next content:
+    ```postgresql
     create role "binding_user_group" with login;
     grant all privileges on all tables in schema public to "binding_user_group";
     grant "cloudsqlsuperuser" to "binding_user_group";
     do language plpgsql
-    \$\$
+    $$
         declare
             rec record;
         begin
@@ -146,15 +146,23 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
                 execute format('grant all privileges on database %I to "binding_user_group"', rec.datname);
             end loop;
         end
-    \$\$
-    EOF
-
+    $$
+    ```
+   
+    Copy the `prepare.sql` file to the bucket:
+    ```shell
     gsutil cp ./prepare.sql "gs://BACKUP-BUCKET-NAME/prepare.sql"
-
-    cat <<EOF> cleanup.sql
+    ```
+    
+    Create a file called `cleanup.sql` with a SQL sentence to change the characteristics of the 
+    role used to reassign objects. 
+    ```postgresql
     alter role "binding_user_group" with nologin
-    EOF
+    ```
+    
+    Copy the `cleanup.sql` file to the bucket:
 
+    ```shell
     gsutil cp ./cleanup.sql "gs://BACKUP-BUCKET-NAME/cleanup.sql"
     ```
 
