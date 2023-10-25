@@ -71,7 +71,7 @@ To migrate data from an existing legacy PostgreSQL instance to the <%= vars.prod
 
     Where `BACKUP-BUCKET-NAME` is a name you choose that must be lowercase.
 
-1. Get the `VCAP_SERVICES` JSON for the legacy PostgreSQL instance by running:
+2. Get the `VCAP_SERVICES` JSON for the legacy PostgreSQL instance by running:
 
     ```console
     cf env APP-NAME
@@ -79,9 +79,9 @@ To migrate data from an existing legacy PostgreSQL instance to the <%= vars.prod
 
     Where `APP-NAME` is the name of an app that is bound to a service instance from the legacy broker.
 
-1. From the `VCAP_SERVICES` JSON, record value of `database_name`, which is your `OLD-INSTANCE-DB-NAME`, and `instance_name`, which is your `OLD-INSTANCE-ID`.
+3. From the `VCAP_SERVICES` JSON, record value of `database_name`, which is your `OLD-INSTANCE-DB-NAME`, and `instance_name`, which is your `OLD-INSTANCE-ID`.
 
-1. Create a new PostgreSQL service instance using <%= vars.product_short %> by running:
+4. Create a new PostgreSQL service instance using <%= vars.product_short %> by running:
 
     ```console
     cf create-service csb-google-postgres PLAN-NAME NEW-SERVICE-INSTANCE-NAME -b cloud-service-broker-gcp -c '{"db_name":"OLD-INSTANCE-DB-NAME", "database_version": "OLD-INSTANCE-PG-VERSION" }'
@@ -95,7 +95,7 @@ To migrate data from an existing legacy PostgreSQL instance to the <%= vars.prod
     - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in the previous step.
     - `OLD-INSTANCE-PG-VERSION` is the same PostgreSQL version as your old service instance.
 
-1. Retrieve the GCP database instance ID for the new service instance.
+5. Retrieve the GCP database instance ID for the new service instance.
 The GCP database instance ID is the Cloud Foundry service instance GUID with the prefix `csb-postgres-` added to it.
 This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
 
@@ -105,7 +105,7 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
     cf service NEW-SERVICE-INSTANCE-NAME --guid
     ```
 
-1. Create a backup of the old service instance with GCP Import and Export by running:
+6. Create a backup of the old service instance with GCP Import and Export by running:
 
     ```console
     // Give the old database instance service account access to the newly created bucket.
@@ -123,15 +123,15 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
     - `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
     - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in an earlier step.
 
-1. Prepare the database for the import. GCP Import and Export can cause problems with permissions on database objects created by activating extensions.
-
-    ```shell
-    cat <<EOF> prepare.sql
+7. Prepare the database for the import. GCP Import and Export can cause problems with permissions on database objects created by activating extensions.
+    
+    Create a file called `prepare.sql` with the next content:
+    ```postgresql
     create role "binding_user_group" with login;
     grant all privileges on all tables in schema public to "binding_user_group";
     grant "cloudsqlsuperuser" to "binding_user_group";
     do language plpgsql
-    \$\$
+    $$
         declare
             rec record;
         begin
@@ -146,21 +146,29 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
                 execute format('grant all privileges on database %I to "binding_user_group"', rec.datname);
             end loop;
         end
-    \$\$
-    EOF
-
+    $$
+    ```
+   
+    Copy the `prepare.sql` file to the bucket:
+    ```shell
     gsutil cp ./prepare.sql "gs://BACKUP-BUCKET-NAME/prepare.sql"
-
-    cat <<EOF> cleanup.sql
+    ```
+    
+    Create a file called `cleanup.sql` with a SQL sentence to change the characteristics of the 
+    role used to reassign objects. 
+    ```postgresql
     alter role "binding_user_group" with nologin
-    EOF
+    ```
+    
+    Copy the `cleanup.sql` file to the bucket:
 
+    ```shell
     gsutil cp ./cleanup.sql "gs://BACKUP-BUCKET-NAME/cleanup.sql"
     ```
 
     Where `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
 
-1. (Optional) Verify the contents of the export by inspecting the contents of the created SQL dump file.
+9. (Optional) Verify the contents of the export by inspecting the contents of the created SQL dump file.
 To do so, download it using gsutil by running:
 
     ```console
@@ -171,76 +179,76 @@ To do so, download it using gsutil by running:
 
     You can inspect the dump file with your text editor or tooling of choice.
 
-1. Restore the backup of the old service instance into the new service instance. For example:
+10. Restore the backup of the old service instance into the new service instance. For example:
 
-    ```console
-    // Give the new database instance service account access to the newly created bucket.
+     ```console
+     // Give the new database instance service account access to the newly created bucket.
 
-    INSTANCE_SERVICE_ACCOUNT_NAME=$(gcloud sql instances describe NEW-INSTANCE-ID --format json | jq -r .serviceAccountEmailAddress)
-    gsutil acl ch -u "${INSTANCE_SERVICE_ACCOUNT_NAME}:R" 'gs://BACKUP-BUCKET-NAME/*'
+     INSTANCE_SERVICE_ACCOUNT_NAME=$(gcloud sql instances describe NEW-INSTANCE-ID --format json | jq -r .serviceAccountEmailAddress)
+     gsutil acl ch -u "${INSTANCE_SERVICE_ACCOUNT_NAME}:R" 'gs://BACKUP-BUCKET-NAME/*'
 
-    // Run the prepare
+     // Run the prepare
 
-    gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/prepare.sql" -d OLD-INSTANCE-DB-NAME
+     gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/prepare.sql" -d OLD-INSTANCE-DB-NAME
 
-    // Run the import
+     // Run the import
 
-    gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/backup.sql" -d OLD-INSTANCE-DB-NAME --user binding_user_group
+     gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/backup.sql" -d OLD-INSTANCE-DB-NAME --user binding_user_group
 
-    // Run the cleanup
+     // Run the cleanup
 
-    gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/cleanup.sql" -d OLD-INSTANCE-DB-NAME
+     gcloud sql import sql NEW-INSTANCE-ID "gs://BACKUP-BUCKET-NAME/cleanup.sql" -d OLD-INSTANCE-DB-NAME
 
-    ```
+     ```
 
-    Where:
+     Where:
 
-    - `NEW-INSTANCE-ID` is the GCP database instance ID for the new service instance you retrieved in an earlier step.
-    - `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
-    - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in an earlier step.
+     - `NEW-INSTANCE-ID` is the GCP database instance ID for the new service instance you retrieved in an earlier step.
+     - `BACKUP-BUCKET-NAME` is the name of the bucket to hold the backup files you created in an earlier step.
+     - `OLD-INSTANCE-DB-NAME` is the `database_name` you recorded in an earlier step.
 
-1. Disconnect the app from the legacy service binding by running:
+11. Disconnect the app from the legacy service binding by running:
 
-    ```console
-    cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE-NAME
-    ```
+     ```console
+     cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE-NAME
+     ```
 
-    Where:
+     Where:
 
-    - `APP-NAME` is an app using the legacy PostgreSQL instance.
-    - `LEGACY-SERVICE-INSTANCE-NAME` is the name of the GCP Service Broker for VMware Tanzu-brokered PostgreSQL instance.
+     - `APP-NAME` is an app using the legacy PostgreSQL instance.
+     - `LEGACY-SERVICE-INSTANCE-NAME` is the name of the GCP Service Broker for VMware Tanzu-brokered PostgreSQL instance.
 
-    For example:
+     For example:
 
-    <pre class="terminal">
-    $ cf unbind-service my-app my-old-instance
-    </pre>
+     <pre class="terminal">
+     $ cf unbind-service my-app my-old-instance
+     </pre>
 
-1. Bind the app to the new service instance by running:
+12. Bind the app to the new service instance by running:
 
-    ```console
-    cf bind-service APP-NAME NEW-SERVICE-INSTANCE
-    ```
+     ```console
+     cf bind-service APP-NAME NEW-SERVICE-INSTANCE
+     ```
 
-    Where:
+     Where:
 
-    - `APP-NAME` is an app that you unbound in the previous step.
-    - `NEW-SERVICE-INSTANCE` is the name of the <%= vars.product_short %> service instance
-    that you created in an earlier step.
+     - `APP-NAME` is an app that you unbound in the previous step.
+     - `NEW-SERVICE-INSTANCE` is the name of the <%= vars.product_short %> service instance
+     that you created in an earlier step.
 
-    For example:
+     For example:
 
-    <pre class="terminal">
-    $ cf bind-service my-app my-csb-gcp-instance
-    </pre>
+     <pre class="terminal">
+     $ cf bind-service my-app my-csb-gcp-instance
+     </pre>
 
-    Because <%= vars.product_short %> creates new credentials at bind time,
-    this creates new binding credentials for the app.
+     Because <%= vars.product_short %> creates new credentials at bind time,
+     this creates new binding credentials for the app.
 
-1. Restage the app:
+13. Restage the app:
 
-    ```console
-    cf restage APP-NAME
-    ```
+     ```console
+     cf restage APP-NAME
+     ```
 
-1. After the migration is successful, you can remove the legacy service instance.
+14. After the migration is successful, you can remove the legacy service instance.
