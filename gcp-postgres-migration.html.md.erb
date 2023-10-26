@@ -126,36 +126,44 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
 
 1. Prepare the database for the import. GCP Import and Export can cause problems with permissions on database objects created by activating extensions.
 
-    ```console
-   cat <<EOF> prepare.sql
-      create role "binding_user_group" with login;
-      grant all privileges on all tables in schema public to "binding_user_group";
-      grant "cloudsqlsuperuser" to "binding_user_group";
-      do language plpgsql
-      $$
-          declare
-              rec record;
-          begin
-              for rec in
-                  select usename into rec from pg_catalog.pg_user where usename not like 'cloud%' and usename != 'postgres'
-                  loop
-                      execute format('grant "binding_user_group" to %I', rec.usename);
-                  end loop;
-              for rec in
-                  select datname from pg_catalog.pg_database where datname not in ('cloudsqladmin', 'postgres')
-                  loop
-                      execute format('grant all privileges on database %I to "binding_user_group"', rec.datname);
-                  end loop;
-          end
-      $$
-    EOF
-
+    Create a file called `prepare.sql` with the next content:
+    ```postgresql
+    create role "binding_user_group" with login;
+    grant all privileges on all tables in schema public to "binding_user_group";
+    grant "cloudsqlsuperuser" to "binding_user_group";
+    do language plpgsql
+    $$
+        declare
+            rec record;
+        begin
+        for rec in
+            select usename from pg_catalog.pg_user where usename not like 'cloud%' and usename not in ( 'postgres', 'binding_user_group')
+            loop
+                execute format('grant "binding_user_group" to %I', rec.usename);
+            end loop;
+        for rec in
+            select datname from pg_catalog.pg_database where datname not in ('cloudsqladmin', 'postgres')
+            loop
+                execute format('grant all privileges on database %I to "binding_user_group"', rec.datname);
+            end loop;
+        end
+    $$
+    ```
+   
+    Copy the `prepare.sql` file to the bucket:
+    ```shell
     gsutil cp ./prepare.sql "gs://BACKUP-BUCKET-NAME/prepare.sql"
-
-    cat <<EOF> cleanup.sql
+    ```
+    
+    Create a file called `cleanup.sql` with a SQL sentence to change the characteristics of the 
+    role used to reassign objects. 
+    ```postgresql
     alter role "binding_user_group" with nologin
-    EOF
+    ```
+    
+    Copy the `cleanup.sql` file to the bucket:
 
+    ```shell
     gsutil cp ./cleanup.sql "gs://BACKUP-BUCKET-NAME/cleanup.sql"
     ```
 
