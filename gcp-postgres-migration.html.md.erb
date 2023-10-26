@@ -126,7 +126,8 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
 
 1. Prepare the database for the import. GCP Import and Export can cause problems with permissions on database objects created by activating extensions.
 
-    Create a file called `prepare.sql` with the next content:
+    Create a file called `prepare.sql` with the following content:
+
     ```postgresql
     create role "binding_user_group" with login;
     grant all privileges on all tables in schema public to "binding_user_group";
@@ -151,12 +152,14 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
     ```
    
     Copy the `prepare.sql` file to the bucket:
+
     ```shell
     gsutil cp ./prepare.sql "gs://BACKUP-BUCKET-NAME/prepare.sql"
     ```
     
     Create a file called `cleanup.sql` with a SQL sentence to change the characteristics of the 
-    role used to reassign objects. 
+    role used to reassign objects.
+    
     ```postgresql
     alter role "binding_user_group" with nologin
     ```
