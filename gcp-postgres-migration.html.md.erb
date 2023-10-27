@@ -32,16 +32,16 @@ It might be useful to create a test service instance and compare the properties 
 For instructions on how to configure plans, see
 [Configure Services with Cloud Service Broker for GCP](installing-with-gcp.html#services).
 
-### <a id='migration'></a> Migrating Data
+### <a id='migration'></a> Migrating data
 
 You might want to migrate data from instances created with the legacy broker to instances
 created with the <%= vars.product_short %>.
 
->**Important**
->Migration of data might incur app downtime.
-    The amount of downtime depends on the method chosen.
+>**Important** 
+>Migration of data might incur app downtime. The amount of
+>downtime depends on the method chosen.
 
-There are many options for performing data migration which include [GCP SQL Import and Export](https://cloud.google.com/sql/docs/postgres/backup-recovery/restoring),
+There are many options for performing data migration, including [GCP SQL Import and Export](https://cloud.google.com/sql/docs/postgres/backup-recovery/restoring),
 manual data migration, and options available from other vendors.
 For more information about the data migration process, refer to the documentation for the option that you choose.
 
@@ -51,15 +51,17 @@ In general, the data migration steps are:
 2. Create a Google Cloud SQL for PostgreSQL instance using the <%= vars.product_short %>.
 3. Restore a backup of the data from a legacy broker PostgreSQL instance into the newly created instance.
 4. Unbind apps from the legacy broker PostgreSQL instance and bind them to the newly created instance.
-5. Once the migration has been proved to be successful, the legacy instance may be deleted
+5. Once the migration has been proved to be successful, the legacy instance may be deleted.
 
 For more detailed steps showing the Cloud Foundry and `gcloud` commands necessary to use GCP SQL Import and Export,
 see [Migrate Data from a GCP Service Broker for VMware Tanzu PostgreSQL Instance](#steps).
 
 ## <a id='steps'></a> Migrate Data from a GCP Service Broker for VMware Tanzu PostgreSQL Instance
 
->**Important**
->Because the GCP SQL Import and Export tool does not support a streaming or continuous replication, consider putting your application in read-only mode while the migration is ongoing.
+>**Important** 
+>Because the GCP SQL Import and Export tool does not support a
+>streaming or continuous replication, consider putting your application in
+>read-only mode while the migration is ongoing.
 
 To migrate data from an existing legacy PostgreSQL instance to the <%= vars.product_short %>:
 
@@ -69,7 +71,7 @@ To migrate data from an existing legacy PostgreSQL instance to the <%= vars.prod
     gsutil mb gs://BACKUP-BUCKET-NAME
     ```
 
-    Where `BACKUP-BUCKET-NAME` is a name you choose that must be lowercase.
+    Where `BACKUP-BUCKET-NAME` is a name you choose, which must be lowercase.
 
 1. Get the `VCAP_SERVICES` JSON for the legacy PostgreSQL instance by running:
 
@@ -125,7 +127,8 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
 
 1. Prepare the database for the import. GCP Import and Export can cause problems with permissions on database objects created by activating extensions.
 
-    Create a file called `prepare.sql` with the next content:
+    Create a file called `prepare.sql` with the following content:
+
     ```postgresql
     create role "binding_user_group" with login;
     grant all privileges on all tables in schema public to "binding_user_group";
@@ -150,12 +153,14 @@ This is a string similar to `csb-postgres-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`.
     ```
    
     Copy the `prepare.sql` file to the bucket:
+
     ```shell
     gsutil cp ./prepare.sql "gs://BACKUP-BUCKET-NAME/prepare.sql"
     ```
     
     Create a file called `cleanup.sql` with a SQL sentence to change the characteristics of the 
-    role used to reassign objects. 
+    role used to reassign objects.
+    
     ```postgresql
     alter role "binding_user_group" with nologin
     ```
