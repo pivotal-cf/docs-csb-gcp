@@ -7,58 +7,27 @@ owner: Cloud Service Broker
 
 This topic describes the changes in this minor release of <%= vars.product_full %>.
 
-## <a id="1-3-0"></a> v1.3.0
+## <a id="1-4-0"></a> v1.4.0
 
-**Release Date:** November 1, 2023
+**Release Date:** xxxx xx, xxxx
 
 ### Breaking Changes
 
 This release has the following breaking changes:
 
-- **The <%= vars.product_full %> tile stops the installation if there are any outdated instances:**
 
-  From now on, ensure that service instances are up to date before upgrading the tile. Out-of-date
-  service instances cause the installation to stop. Your instances use the latest released features
-  that include the latest security patches.
-
-- **The <%= vars.product_full %> tile now requires Jammy Stemcell**:
-  The tile depends now on Jammy Stemcells instead of Xenial. You must have a Jammy Stemcell available in <%= vars.ops_manager %>, and you must
-  be using <%= vars.ops_manager %> v2.10.33 or later.
 
 ### Features
 
 New features and changes in this release.
 
-- **Postgres 15 is now supported:** You can now create and bind to instances with version 15 of PostgreSQL.
-- **postgres_version:** This field is no longer a hardcoded closed set. You can now specify any version exposed by GCP.
 
-    <p class="note caution">
-      <span class="note__title">Caution</span>
-      You must use caution when adopting a version of PostgreSQL that is not yet officially supported by
-      <%= vars.product_short %>.
-      VMware might take time to validate whether a new version of PostgreSQL is fully compatible with
-      <%= vars.product_short %>.
-      To learn whether a specific version of Postgres is officially supported or not, refer to the release notes.
-    </p>
-
-- **High availability configuration:**
-  You can now turn on high availability for an instance by using the `highly_available` property.
-  When enabled, this deploys two instances, primary and standby, in different zones of
-  instance's region. If needed, you can specify concrete zones by using the `location_preference_zone`
-  and `location_preference_secondary_zone` parameters. You can turn high availability on or
-  off, or re-assign the zone at any time. For more information on PostgreSQL high availability,
-  see the [Google Cloud documentation](https://cloud.google.com/sql/docs/postgres/high-availability).
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-<%= partial vars.path_to_partials + '/csb/timeout-resolved' %>
 
-- **Improved stack selection to try with "cflinuxfs3" before using the default value:**
-
-  Previously, in some scenarios, the default value was a Windows stack, which
-  caused the tile installation to fail.
 
 ### Known issues
 
