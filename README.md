@@ -4,13 +4,17 @@ This repo contains the Cloud Service Broker for GCP documentation.
 
 In this README:
 
-- [Branches in this Content Repo](#branches-in-this-content-repo)
-- [Releasing a New Minor Version](#releasing-a-new-minor-version)
-- [Partials](#partials)
-- [Contributing to Documentation](#contributing-to-documentation)
-- [Publishing Docs](#publishing-docs)
-- [Troubleshooting Markdown](#troubleshooting-markdown)
-- [Style Guide](#style-guide)
+- [docs-csb-gcp](#docs-csb-gcp)
+  - [Branches in this Content Repo](#branches-in-this-content-repo)
+  - [Releasing a New Minor Version](#releasing-a-new-minor-version)
+  - [Partials](#partials)
+  - [Contributing to Documentation](#contributing-to-documentation)
+  - [Publishing Docs](#publishing-docs)
+    - [Prepare Markdown Files](#prepare-markdown-files)
+    - [In Docsdash](#in-docsdash)
+    - [Promoting to Pre-Prod and Prod](#promoting-to-pre-prod-and-prod)
+  - [Troubleshooting Markdown](#troubleshooting-markdown)
+  - [Style Guide](#style-guide)
 
 ## Branches in this Content Repo
 
@@ -24,7 +28,8 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 | Branch Name | Use for…                                                                                                                                                         |
 |-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| main      | Use for staging doc for the next release. (staged here: https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.3/csb-gcp/GUID-index.html) |
+| main      | Use for staging doc for the next release. (staged here: https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.4/csb-gcp/GUID-index.html) |
+| 1.3         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.3/csb-gcp/GUID-index.html |
 | 1.2         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html                                                           |
 | 1.1         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.1/csb-gcp/GUID-index.html                                                           |
 | 1.0         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.0/csb-gcp/GUID-index.html                                                           |
