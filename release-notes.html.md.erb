@@ -7,6 +7,21 @@ owner: Cloud Service Broker
 
 This topic describes the changes in this minor release of <%= vars.product_full %>.
 
+## <a id="1-3-0"></a> v1.3.1
+
+**Release Date:** mm dd, yyyy
+
+## Fixes
+
+- **Prevent performance degradation of database consistency checks at start up**
+
+  Previously the <%= vars.product_short %> would keep information in the database about instances and
+  bindings that had already been destroyed. In the long term, this would cause the broker's database space 
+  usage to grow with no real benefit. In some rare scenarios, making broker start up slower and causing the 
+  platform to time out. 
+  The <%= vars.product_short %> will now physically delete information from destroyed assets preventing this 
+  situation from happening in the future.
+
 ## <a id="1-3-0"></a> v1.3.0
 
 **Release Date:** November 1, 2023
