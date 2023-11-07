@@ -27,7 +27,14 @@ New features and changes in this release.
 
 This release has the following fixes:
 
+- **Prevent performance degradation of database consistency checks at start up**
 
+  Previously the <%= vars.product_short %> would keep information in the database about instances and
+  bindings that had already been destroyed. In the long term, this would cause the broker's database space 
+  usage to grow with no real benefit. In some rare scenarios, making broker start up slower and causing the 
+  platform to time out. 
+  The <%= vars.product_short %> will now physically delete information from destroyed assets preventing this 
+  situation from happening in the future.
 
 ### Known issues
 
