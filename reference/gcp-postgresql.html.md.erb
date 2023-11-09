@@ -226,10 +226,10 @@ whether a parameter is supported for both provision and update, or for provision
     <td><code>highly_available</code></td>
     <td>boolean</td>
     <td>
-      Enable regional high availability for the service instance. This will result in a hot standby instance deployed
-      to a different zone in the same region, and will affect the billing accordingly.
+      Enable regional high availability for the service instance. This results in a hot standby instance deployed
+      to a different zone in the same region, and affects billing accordingly.
       Requires <code>backups_point_in_time_log_retain_days</code> and <code>backups_retain_number</code>
-      properties different than zero.<br><br>
+      properties other than zero.<br><br>
       For more information, see the
       <a href="https://cloud.google.com/sql/docs/postgres/high-availability">Google Cloud Documentation</a>.
     </td>
@@ -256,7 +256,7 @@ whether a parameter is supported for both provision and update, or for provision
       Preferred zone in the instance region for the standby instance in a highly available setup.
       For example, <code>b</code> or <code>f</code>.<br><br>
       In a highly available configuration, when the secondary zone is not specified,
-      a zone different from the one specified for the primary instance is chosen automatically.<br><br>
+      a zone other than the one specified for the primary instance is chosen automatically.<br><br>
       For a list of available zones, see the
       <a href="https://cloud.google.com/compute/docs/regions-zones#available">Google Cloud Documentation</a>.
     </td>
