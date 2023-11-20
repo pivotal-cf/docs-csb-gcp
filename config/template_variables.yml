@@ -7,12 +7,12 @@ template_variables:
   hero_text: "Detailed documentation to help you install, understand, and succeed with VMware's enterprise-grade software."
 
   tile_name: Tanzu Cloud Service Broker for GCP
-  product_url: https://network.pivotal.io/products/pivotal-cf
-  product_link: <div class="header-item"><a href="https://network.pivotal.io/products/VMware Tanzu-cf">Back to Product Page</a></div>
+  product_url: https://network.tanzu.vmware.com/products/cloud-service-broker-azure
+  product_link: <div class="header-item"><a href="https://network.tanzu.vmware.com/products/cloud-service-broker-azure">Back to Product Page</a></div>
 
-  support_link: <a href="http://support.pivotal.io" target="_blank">Support</a>
-  support_call_to_action: <a href="http://support.io" target="_blank">Need Support?</a>
-  support_url: http://support.pivotal.io
+  support_link: <a href="http://tanzu.vmware.com/support" target="_blank">Support</a>
+  support_call_to_action: <a href="https://tanzu.vmware.com/support/contact" target="_blank">Need Support?</a>
+  support_url: http://tanzu.vmware.com/support
 
   product_network: VMware Tanzu Network
 
@@ -22,7 +22,7 @@ template_variables:
   gtm_account_id: GTM-MM86KCJ
 
   use_global_header: true
-  global_header_product_href: https://network.pivotal.io/
+  global_header_product_href: https://network.tanzu.vmware.com/products/cloud-service-broker-azure
   global_header_product_link_text: Downloads
 
   # Tanzu variables
