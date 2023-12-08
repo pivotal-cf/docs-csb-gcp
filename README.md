@@ -4,15 +4,19 @@ This repo contains the Cloud Service Broker for GCP documentation.
 
 In this README:
 
-- [Branches in this Content Repo](#branches-in-this-content-repo)
-- [Releasing a New Minor Version](#releasing-a-new-minor-version)
-- [Partials](#partials)
-- [Contributing to Documentation](#contributing-to-documentation)
-- [Publishing Docs](#publishing-docs)
-- [Troubleshooting Markdown](#troubleshooting-markdown)
-- [Style Guide](#style-guide)
+- [docs-csb-gcp](#docs-csb-gcp)
+  - [Branches](#branches)
+  - [Releasing a new minor version](#releasing-a-new-minor-version)
+  - [Partials](#partials)
+  - [Contributing to documentation](#contributing-to-documentation)
+  - [Publishing docs](#publishing-docs)
+    - [Prepare Markdown files](#prepare-markdown-files)
+    - [In Docsdash](#in-docsdash)
+    - [Promoting to pre-prod and prod](#promoting-to-pre-prod-and-prod)
+  - [Troubleshooting Markdown](#troubleshooting-markdown)
+  - [Style guide](#style-guide)
 
-## Branches in this Content Repo
+## Branches
 
 The main branch is the tree-trunk, so **always** make changes you want carried forward in this branch. This includes:
 
@@ -22,14 +26,16 @@ The main branch is the tree-trunk, so **always** make changes you want carried f
 
 Then, if necessary, immediately cherry-pick/copy any changes that you want to push immediately to production into the appropriate branches listed below:
 
-| Branch Name | Use for…                                                                                                                                                         |
-|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| main      | Use for staging doc for the next release. (staged here: https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html) |
-| 1.1         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.1/csb-gcp/GUID-index.html                                                           |
-| 1.0         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.0/csb-gcp/GUID-index.html                                                           |
-| 0.2         | Published at https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/0.2/csb-gcp/GUID-index.html                                                           |
+| Branch Name | Staging       |  Production    |
+|-------------|---------------|----------------|
+| main      | [v1.4 staging](https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.4/csb-gcp/GUID-index.html) |   N/A     |
+| 1.3  |  [v1.3 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.3/csb-gcp/GUID-index.html)      | [v1.3 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.3/csb-gcp/GUID-index.html) |
+| 1.2   |  [v1.2 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)    | [v1.2 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)                                                           |
+| 1.1  | [v1.1 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.1/csb-gcp/GUID-index.html)      | [v1.1 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.1/csb-gcp/GUID-index.html)                                                           |
+| 1.0   |  [v1.0 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.0/csb-gcp/GUID-index.html)    | [v1.0 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.0/csb-gcp/GUID-index.html)                                                           |
+| 0.2   |   [v0.2 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/0.2/csb-gcp/GUID-index.html)   | [v0.2 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/0.2/csb-gcp/GUID-index.html)                                                           |
 
-## Releasing a New Minor Version
+## Releasing a new minor version
 
 Because **main** is the latest and greatest documentation, the process would be to cut a **x.x** branch
 for the version that **main** was targeting during that time.
@@ -42,7 +48,7 @@ After this point, **main** will then be the target for the next version of the C
 Cross-product partials (if any) for Cloud Service Broker are single sourced from the [Docs Partials](https://github.com/pivotal-cf/docs-partials) repository.
 
 
-## Contributing to Documentation
+## Contributing to documentation
 
 If there is some documentation to add for an unreleased patch version of Cloud Service Broker then create a branch off of the **live** branch
 you intend to modify and create a pull request against that branch.
@@ -60,14 +66,14 @@ pull request using a fork, see
 in the documentation team wiki.
 
 
-## Publishing Docs
+## Publishing docs
 
 - [docworks](https://docworks.vmware.com/) is the main tool for managing docs used by writers.
 - [docsdash](https://docsdash.vmware.com/) is a deployment UI which manages the promotion from
 staging to pre-prod to production. The process below describes how to upload our docs to staging,
 replacing the publication with the same version.
 
-### Prepare Markdown Files
+### Prepare Markdown files
 - Markdown files live in this repo.
 - Images should live in an `images` directory at the same level and linked with a relative link.
 - Each page requires an entry in [config/toc.md](config/toc.md) for the table of contents.
@@ -80,7 +86,7 @@ replacing the publication with the same version.
 
    There should be an entry with a blue link which says `Documentation` and points to staging.
 
-### Promoting to Pre-Prod and Prod
+### Promoting to pre-prod and prod
 
 **Prerequisite** Needs additional privileges - reach out to a manager on the docs team [#tanzu-docs](https://vmware.slack.com/archives/C055V2M0H) or ask a writer to do this step for you.
 
@@ -116,11 +122,6 @@ replacing the publication with the same version.
 | Symptom:  | Each numbered item in a list is a `1.` instead of `1.`, `2.`, `3.`, etc |
 | Solution: | Try removing any blank newlines within each step.                       |
 
-| Problem   | Code boxes not showing                                                                |
-|-----------|---------------------------------------------------------------------------------------|
-| Symptom:  | VMware publishing system doesn't accept code tags after the three back ticks.         |
-| Solution: | Make sure you're not using `shell` or `bash` or `console` or `yaml` after back ticks. |
-
-## Style Guide
+## Style guide
 
 This is a word list for terminology and word usage specific to the Cloud Service Broker for docs.
