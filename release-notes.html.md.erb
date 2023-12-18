@@ -7,6 +7,21 @@ owner: Cloud Service Broker
 
 This topic describes the changes in this minor release of <%= vars.product_full %>.
 
+
+## <a id="1-3-1"></a> v1.3.1
+
+**Release date:** 20 December 2023
+
+### Resolved Issues
+
+This release has the following fix:
+
+- **The preinstall check does not run on reconfiguration:**
+
+  Previously, the preinstall check correctly ran before attempting an upgrade,
+  but incorrectly ran when reconfiguring the tile. This blocks
+  configuration changes needed to resolve potential upgrade issues.
+
 ## <a id="1-3-0"></a> v1.3.0
 
 **Release Date:** November 1, 2023
