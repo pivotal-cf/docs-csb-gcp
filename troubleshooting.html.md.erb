@@ -1,0 +1,55 @@
+---
+title: Troubleshooting Cloud Service Broker for GCP
+owner: Cloud Service Broker
+---
+
+<strong><%= modified_date %></strong>
+
+This topic gives you troubleshooting information for <%= vars.product_full %>.
+
+## <a id="troubleshoot-errors"></a> Troubleshoot errors
+
+Start here if you have a specific error or error messages.
+
+### <a id="common-services-errors"></a> Common services errors
+
+The following errors can occur in multiple services:
+
+<div id="repeat-update-service-instance" class="wrap-table-overflow">
+    <table class="table">
+        <tbody>
+             <tr>
+                <td>Error</td>
+                <td>Updates to service instances are not reflected in service keys or bindings</td>
+             </tr>
+             <tr>
+                <td>Operation</td>
+                <td>update</td>
+             </tr>
+             <tr>
+                <td>Symptom</td>
+                <td>When a service instance is updated, it would be expected that service keys and binding created after the update
+                would reflect the updated value. But sometimes they reflect the value prior to the update.</td>
+            </tr>
+            <tr>
+                <td>Cause</td>
+                <td>Not all properties are updated in GCP instantly.</td>
+            </tr>
+             <tr>
+                <td>Examples</td>
+                <td>A <code>csb-gcp-postgres</code> service instance is created with <code>{"public_ip":true}</code> and subsequently
+                is updated to <code>{"public_ip":false}</code>. Newly created bindings and service keys will still show a public IP address.
+                To resolve this, issue the <code>cf update-service</code> command again, by which time the change will have happened in GCP.
+                Service keys and bindings created after the second update will show a non-public IP address.
+                </td>
+            </tr>
+            <tr>
+                <td>Solution</td>
+                <td>
+                  Issue the update command again.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
