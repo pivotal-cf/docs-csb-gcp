@@ -7,9 +7,9 @@ owner: Cloud Service Broker
 
 This topic describes the changes in this minor release of <%= vars.product_full %>.
 
-## <a id="1-4-0"></a> v1.4.0
+## <a id="1-5-0"></a> v1.5.0
 
-**Release date:** February 8, 2024
+**Release date:** mmmm dd, 2024
 
 ### Breaking changes
 
@@ -21,36 +21,14 @@ No new features in this release.
 
 #### General
 
-- **Terraform upgraded to v1.5.7:**
 
- The Terraform version used to apply changes is upgraded to v1.5.7. You must upgrade all service instances. When 
- you upgrade, ensure that you follow the [Upgrade procedure](upgrading.html.md.erb#procedure).
 
-- **Apply changes now fails if there were problems upgrading one or more instances:**
-
-  Issues when upgrading instances are now surfaced to Tanzu Operations Manager by failing the deploy-all errand. In this case, the deployment log needs to be
-  inspected for detailed information on upgrade failures. 
-  For more information on the upgrade process, see [Upgrading Cloud Service Broker for GCP](upgrading.html).
-
-- **Tile installation now does not install if it finds any outdated [non-orphaned instances](managing_orphaned_service_instances.html.md.erb):**
-
-  This measure improves the overall stability and maintainability of the broker and any running instances.
-  It protects operators from accidentally skipping mandatory intermediate versions, which could introduce unexpected issues.
-  Despite this measure, VMware expects operators to [harness Upgrade Planner to view the supported upgrade path](https://upgrade-planner.pivotal.io).
 
 ### Resolved issues
 
 This release has the following fixes:
 
-- **Prevent performance degradation of database consistency checks at startup**
 
-  Previously the <%= vars.product_short %> kept information in the database
-  about instances and bindings that had already been destroyed. In the long
-  term, this caused the Cloud Service Broker's database space usage to
-  grow with no benefit. In some rare scenarios, this made Cloud Service Broker
-  start up slower and caused the platform to timeout. The <%=
-  vars.product_short %> now physically deletes information from destroyed
-  assets, preventing this situation from happening.
 
 ### Known issues
 
