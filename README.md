@@ -28,7 +28,8 @@ Then, if necessary, immediately cherry-pick/copy any changes that you want to pu
 
 | Branch Name | Staging       |  Production    |
 |-------------|---------------|----------------|
-| main      | [v1.4 staging](https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.4/csb-gcp/GUID-index.html) |   N/A     |
+| main      | [v1.5 staging](https://docs-staging.vmware.com/en/draft/Tanzu-Cloud-Service-Broker-for-GCP/1.5/csb-gcp/GUID-index.html) |   N/A     |
+| 1.4  |  [v1.4 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.4/csb-gcp/GUID-index.html)      | [v1.4 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.4/csb-gcp/GUID-index.html) |
 | 1.3  |  [v1.3 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.3/csb-gcp/GUID-index.html)      | [v1.3 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.3/csb-gcp/GUID-index.html) |
 | 1.2   |  [v1.2 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)    | [v1.2 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.2/csb-gcp/GUID-index.html)                                                           |
 | 1.1  | [v1.1 staging](https://docs-staging.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.1/csb-gcp/GUID-index.html)      | [v1.1 prod](https://docs.vmware.com/en/Tanzu-Cloud-Service-Broker-for-GCP/1.1/csb-gcp/GUID-index.html)                                                           |
