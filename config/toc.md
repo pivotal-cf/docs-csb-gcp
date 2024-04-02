@@ -1,3 +1,5 @@
+# Table of Contents
+
 * [Tanzu Cloud Service Broker for GCP](/docs-csb-gcp/index.html)
 * [Release Notes](/docs-csb-gcp/release-notes.html)
 * [Installing and Configuring](/docs-csb-gcp/installing-with-gcp.html)
