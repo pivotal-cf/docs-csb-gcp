@@ -16,4 +16,4 @@
 * [Troubleshooting](/docs-csb-gcp/troubleshooting.html)
 * [Managing Orphaned Service Instances](../managing_orphaned_service_instances.html)
 * [Uninstalling](/docs-csb-gcp/uninstall.html)
-* [Back to Cloud Service Broker landing page](https://docs.vmware.com/en/Cloud-Service-Broker-for-VMware-Tanzu/index.html)
+* [Back to Cloud Service Broker Landing Page](https://docs.vmware.com/en/Cloud-Service-Broker-for-VMware-Tanzu/index.html)
