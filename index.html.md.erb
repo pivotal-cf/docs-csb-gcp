@@ -14,18 +14,18 @@ This documentation tells you about <%= vars.product_full %>.
 
 ## <a id='overview'></a> Overview
 
-The <%= vars.product_full %> enables platform operators to expose services to their developers
-from Google Cloud Platform (GCP) with a Terraform provider.
+The <%= vars.product_full %> enables platform operators to easily expose services
+to their developers from AWS with an Infrastructure as Code (IaC) approach.
 <%= vars.product_short %> is thoroughly extensible, and can expose new services or public clouds
-by using custom brokerpaks.
+through the use of custom brokerpaks that rely on OpenTofu providers.
 
 ## <a id='features'></a> Key Features
 
 <%= vars.product_short %> includes the following key features:
 
 - **Easily extensible and maintainable:** <%= vars.product_short %> uses brokerpaks to expose
-services. Using the GCP Terraform provider, you can provision services
-by using a common interface using standard Cloud Foundry CLI (cf CLI) commands.
+services. If your target public cloud has a OpenTofu provider, you can provision services
+through a common interface using standard Cloud Foundry CLI (cf CLI) commands.
 For more information about brokerpaks, see
 [Brokerpak Introduction](https://github.com/cloudfoundry/cloud-service-broker/blob/main/docs/brokerpak-intro.md)
 in GitHub.
