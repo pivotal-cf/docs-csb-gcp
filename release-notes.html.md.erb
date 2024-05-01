@@ -21,6 +21,12 @@ This release has the following fixes:
   Terraform providers. These providers are no longer inconsistently referenced as
   OpenTofu providers. No action is needed. VMware recommends skipping version 1.5.0.
 
+- **Database startup error: incorrectly marking in-progress operations as failed**:
+  An error was discovered where database startup, including database migrations and failed operation recovery,
+  was triggered for every command that accessed the database, including "tf dump." This caused any in-progress
+  operations to be marked as failed, even if they were still genuinely in progress. This issue has existed since
+  the introduction of in-progress operation recovery in v1.5.0. VMware recommends skipping version 1.5.0
+
 ## <a id="1-5-0"></a> v1.5.0
 
 **Release Date:** April 15, 2024
