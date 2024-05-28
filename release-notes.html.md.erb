@@ -320,6 +320,16 @@ This release has the following fixes:
   For more information, see
   [Binding Process Known Issue](reference/gcp-postgresql.html.md.erb#binding-known-issue).
 
+### Known Issue
+
+- **Inconsistency in Credential Naming Conventions**:
+  There is a known issue affecting Spring applications that use autoconfiguration
+  with `spring-cloud-gcp-starter-storage` and `spring-cloud-gcp-cloudfoundry` dependencies. These applications will
+  encounter difficulties when attempting to connect to Google Storage because the Cloud Service Broker (CSB) for GCP
+  exposes GCP credentials under `project_id` and `private_key_data`, whereas the expected fields in the VCAP services
+  JSON are `ProjectId` and `PrivateKeyData`. Additionally, the required service tag `google-storage` is absent, which
+  may further disrupt proper service detection and configuration.
+
 ## <a id="1-2-0"></a> v1.2.0
 
 This version was not released.
