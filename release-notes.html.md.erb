@@ -75,11 +75,15 @@ This release has the following fixes:
   Previously, in some scenarios, the default value was a Windows stack, which
   caused the tile installation to fail.
 
-### Known issues
+### Known Issues
 
-There are no known issues in this release.
-
-## <a id="view"></a> View release notes for another version
+- **Inconsistency in Credential Naming Conventions**:
+  There is a known issue affecting Spring applications that use autoconfiguration
+  with `spring-cloud-gcp-starter-storage` and `spring-cloud-gcp-cloudfoundry` dependencies. These applications
+  encounter difficulties when attempting to connect to Google Storage because the Cloud Service Broker (CSB) for GCP
+  exposes GCP credentials under `project_id` and `private_key_data`, whereas the expected fields in the VCAP services
+  JSON are `ProjectId` and `PrivateKeyData`. Additionally, the required service tag `google-storage` is absent, which
+  may further disrupt proper service detection and configuration.
 
 To view the release notes for another product version, select the version from drop-down menu at the
 top of this page.
