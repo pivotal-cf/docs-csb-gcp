@@ -312,15 +312,13 @@ This release has the following fixes:
   Changing the bucket name has been disallowed because it forces the bucket to be recreated.
   The system does not allow the recreation of the service, so the operation resulted in an error.
 
-### Known issues
+### Known Issues
 
 - **Object access issues in Google PostgreSQL:**
   If an app creates an object, such as a table, with permissions that do not allow other users to see
   that object, subsequent bindings might fail, and other apps might fail to read the objects.
   For more information, see
   [Binding Process Known Issue](reference/gcp-postgresql.html.md.erb#binding-known-issue).
-
-### Known Issue
 
 - **Inconsistency in Credential Naming Conventions**:
   There is a known issue affecting Spring applications that use autoconfiguration
