@@ -331,8 +331,10 @@ The format for binding credentials for a Cloud Storage bucket is as follows:
     "credentials" : "SERVICE-ACCOUNT-CREDENTIALS",
     "email" : "SERVICE-ACCOUNT-EMAIL",
     "name" : "SERVICE-ACCOUNT-NAME",
-    "private_key_data" : "SERVICE-ACCOUNT-PRIVATE-KEY",
-    "project_id" : "GCP-PROJECT-ID",
+    "private_key_data" : "DEPRECATED - SERVICE-ACCOUNT-PRIVATE-KEY",
+    "project_id" : "DEPRECATED - GCP-PROJECT-ID",
+    "PrivateKeyData" : "SERVICE-ACCOUNT-PRIVATE-KEY",
+    "ProjectId" : "GCP-PROJECT-ID",
     "unique_id" : "SERVICE-ACCOUNT-UNIQUE-ID"
 }
 ```
@@ -342,6 +344,13 @@ Where:
 - `SERVICE-ACCOUNT-CREDENTIALS` is what you normally get as a file when creating service account keys
   through the CLI or web console (JSON format).
 - `SERVICE-ACCOUNT-PRIVATE-KEY` is the base64-encoded private key in JSON format.
+
+<p class="note important">
+  <span class="note__title">Important</span>
+  The binding duplicates the credential properties **private key data** and **project id** 
+  to match old and new naming conventions to ensure seamless integration and backward compatibility.
+  The `private_key_data` and `project_id` are deprecated and will be deleted in next versions.
+</p>
 
 ## <a id="old-plans"></a> Previously Provided Pre-configured Plans
 
