@@ -7,6 +7,28 @@ owner: Cloud Service Broker
 
 This topic describes the changes in this minor release of <%= vars.product_full %>.
 
+##<a id="1-5-2"></a> v1.5.2
+
+**Release Date:** May 30, 2024
+
+### Resolved Issues
+
+This release has the following fixes:
+
+### Resolved Issues
+
+This release includes the following fixes:
+
+- **Align Spring Application Configuration with GCP Service Broker Specifications**:
+  Resolved a configuration mismatch in Spring applications using autoconfiguration
+  with `spring-cloud-gcp-starter-storage` and `spring-cloud-gcp-cloudfoundry` dependencies. These
+  dependencies expect the GCP credentials in the VCAP services JSON to be under `ProjectId` and `PrivateKeyData`.
+  However, the Cloud Service Broker (CSB) for GCP exposes these as `project_id` and `private_key_data`. Additionally,
+  the service tag required for Google Storage was missing, leading to connection issues. The update adds the
+  new `google-storage` tag, duplicates the credential properties to match both naming conventions, and deprecates the
+  old properties, ensuring seamless integration and backward compatibility. No action is needed from developers as the
+  transition is handled within the platform.
+
 
 ##<a id="1-5-1"></a> v1.5.1
 
