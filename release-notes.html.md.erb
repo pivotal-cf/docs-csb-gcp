@@ -7,45 +7,9 @@ owner: Cloud Service Broker
 
 This topic describes the changes in this minor release of <%= vars.product_full %>.
 
-##<a id="1-5-2"></a> v1.5.2
+##<a id="1-6-0"></a> v1.6.0
 
-**Release Date:** May 30, 2024
-
-### Resolved Issues
-
-This release has the following fixes:
-
-### Resolved Issues
-
-This release includes the following fixes:
-
-- **Align Spring Application Configuration with GCP Service Broker Specifications**:
-  Resolved a configuration mismatch in Spring applications using autoconfiguration
-  with `spring-cloud-gcp-starter-storage` and `spring-cloud-gcp-cloudfoundry` dependencies. These
-  dependencies expect the GCP credentials in the VCAP services JSON to be under `ProjectId` and `PrivateKeyData`.
-  However, the Cloud Service Broker (CSB) for GCP exposes these as `project_id` and `private_key_data`. Additionally,
-  the service tag required for Google Storage was missing, leading to connection issues. The update adds the
-  new `google-storage` tag, duplicates the credential properties to match both naming conventions, and deprecates the
-  old properties, ensuring seamless integration and backward compatibility. No action is needed from developers as the
-  transition is handled within the platform.
-
-
-##<a id="1-5-1"></a> v1.5.1
-
-**Release Date:** April 30, 2024
-
-### Resolved Issues
-
-This release has the following fixes:
-
-- **Mitigate potential inconsistency of deployment state when migrating to OpenTofu backend**:
-  As we migrate the broker internals to communicate with OpenTofu, we continue to use
-  Terraform providers. These providers are no longer inconsistently referenced as
-  OpenTofu providers. No action is needed. VMware recommends skipping version 1.5.0.
-
-## <a id="1-5-0"></a> v1.5.0
-
-**Release Date:** April 15, 2024
+**Release Date:** mm dd, 2024
 
 ### Breaking Changes
 
@@ -55,34 +19,16 @@ This release has no breaking changes.
 
 New features and changes in this release.
 
-#### General
-
-##### OpenTofu for CSB Infrastructure Management
-
-- **Transition from Terraform to OpenTofu:**
-  Transition from Terraform MPL v2 version 1.5.7 to OpenTofu 1.6.2 for CSB infrastructure management.
-  OpenTofu's compatibility with Terraform's latest MPL v2 licensed version promises seamless infrastructure provisioning
-  and management enhancements. The infrastructure as code (IaC) tooling version used to apply changes is changed from
-  Terraform v1.4.4 to OpenTofu v1.6.2. You must upgrade all service instances. When you upgrade, ensure that you follow
-  the [Upgrade procedure](upgrading.html.md) to avoid any issues.
-
+- **Added support for Google Pub/Sub service:**
+    The Google Pub/Sub offering is now available and can be used to create new Pub/Sub service instances.
+    This offering does not come with brokerpak plans and VMware recomends you create your own custom plan in the tile configuration. [Learn more about the plan configuration parameters](reference/gcp-pubsub.html.md.erb#plans-config)
+    A new set of properties enable the configuration of the service instance. [Learn more about the service instance configuration parameters](reference/gcp-pubsub.html.md.erb#parameters).
 
 ### Resolved Issues
 
 This release has the following fixes:
 
-- **Broker app memory and disk limitations can now be managed in the tile:** 
-  You can now control memory and disk quota for the broker app by setting the preferred value in the broker configuration. By default, the quota is set to 2G for both.
-  If you previously made changes to these values outside of the tile, you should propagate those changes in the broker config. The values will then persist through subsequent tile updates.
-
-- **Recover In-Progress Operations on Broker Restart**
-  Prior to this update, any operation (such as provisioning, updating, or deprovisioning services) that was in progress
-  at the time of broker termination would remain indefinitely marked as "in progress".
-  This state persisted even after the broker was restarted, making it challenging to resolve without manual
-  intervention. Now the broker automatically detects these operations and marks them as "failed."
-  This significant improvement allows for the cleanup of service instances affected by previously interrupted
-  operations. This can be achieved by executing the `cf delete-service` command, or it may require the intervention of a
-  CloudFoundry administrator to execute `cf purge-service-instance`.
+-
 
 ### Known Issues
 
