@@ -1,0 +1,106 @@
+---
+title: Migrating to a Google Pub/Sub Instance
+owner: Cloud Service Broker for GCP
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to migrate from a Google Pub/Sub instance of the GCP Service Broker
+for VMware Tanzu tile to the <%= vars.product_full %> tile.
+
+## <a id='overview'></a> About Migrating a Google Pub/Sub Instance
+
+Because the GCP Service Broker for VMware Tanzu (hereafter referred to as the legacy broker) tile is
+out of support, you must move from Google Pub/Sub instances that were created by the legacy
+broker over to <%= vars.product_short %>.
+
+The <%= vars.product_short %> plans are configurable. When migrating, examine the configuration of
+the plans in use with the legacy broker and create matching plans in <%= vars.product_short %>.
+
+You can use any compatible migration tool for migrating between Google Pub/Subs. Depending on the 
+architecture and criticallity of the apps using Pub/Sub you can also choose to not migrate the 
+messages but just switch to using a new Pub/Sub offering.
+
+### <a id='configuration'></a> Matching Configuration
+
+Both the legacy broker and <%= vars.product_short %> allow you to customize service plans.
+Create plans in <%= vars.product_short %> that match the plans used in the legacy broker.
+It might be useful to create a test service instance and compare the properties in the GCP console.
+For how to configure plans, see
+[Configure Services with Cloud Service Broker for GCP](installing-with-gcp.html.md.erb#services).
+
+### <a id='migration'></a> Migrating Data
+
+Depending on your application use-case, you might want to migrate data from instances created with the legacy broker to instances created
+with <%= vars.product_short %>.
+
+There are several options for performing a Google Pub/Sub migration. 
+Here we will be decribing how to migrate using a Google DataFlow job. 
+
+In general, to migrate data:
+
+1. Create a Google Pub/Sub instance using <%= vars.product_short %>.
+2. Start a DataFlow job that stream the messages from the legacy topic into the new CSB topic.  
+3. Unbind apps from the legacy broker Google Pub/Sub instance and bind them to the newly
+   created instance.
+4. (Optional) After migration is complete, delete the legacy broker Google Pub/Sub instance.
+
+## <a id='steps'></a> Migrate Data from a Legacy Google Pub/Sub Instance
+
+The following steps have the Cloud Foundry and `gcloud` necessary commands. 
+Depending on your application the order of the following steps might need to change.
+
+To stream messages from an existing legacy Google Pub/Sub instance to <%= vars.product_short %>:
+
+1. Create a new Google Pub/Sub service instance using <%= vars.product_short %>.
+
+2. Configure and run data migration by, for example, using the
+   [gcloud dataflow jobs run command](https://cloud.google.com/dataflow/docs/guides/templates/provided/pubsub-to-pubsub) 
+   with the Pub/Sub to Pub/Sub template.
+
+3. Disconnect the app from the legacy service binding by running:
+
+   ```console
+   cf unbind-service APP-NAME LEGACY-SERVICE-INSTANCE-NAME
+   ```
+
+   Where:
+
+   - `APP-NAME` is the app using the Google Pub/Sub instance
+   - `LEGACY-SERVICE-INSTANCE-NAME` is the name of the GCP Service Broker for VMware Tanzu that
+     brokered the Google Pub/Sub instance
+
+   For example:
+
+   ```console
+   $ cf unbind-service my-app my-old-instance
+   ```
+
+4. Bind the app to the new service instance by running:
+
+   ```console
+   cf bind-service APP-NAME NEW-SERVICE-INSTANCE-NAME -c '{"PARAMETER-NAME": "PARAMETER-VALUE"}'
+   ```
+
+   Where `NEW-SERVICE-INSTANCE-NAME` is the name of the <%= vars.product_short %> service instance
+   that you created earlier.
+
+   To learn the required parameters, see
+   [Binding Credentials](reference/gcp-storage.html.md.erb#binding-params).
+
+   For example:
+
+   ```console
+   $ cf bind-service my-app my-csb-gcp-bucket-instance '{"role":"storage.objectAdmin"}
+   ```
+
+   Because <%= vars.product_short %> creates new credentials at bind time, this creates new binding
+   credentials for the app.
+
+5. Push and start the app by running:
+
+   ```console
+   cf push APP-NAME
+   ```
+
+6. (Optional) After the migration has finished, remove the legacy service instance.
