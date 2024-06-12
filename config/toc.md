@@ -17,6 +17,7 @@
     *   [Google Spanner (Beta)](/docs-csb-gcp/reference/gcp-spanner.html)
     *   [Google Dataproc (Beta)](/docs-csb-gcp/reference/gcp-dataproc.html)
     *   [Google Stackdriver Trace (Beta)](/docs-csb-gcp/reference/gcp-stack-driver-trace.html)
+    *   [Google Pub/Sub Reference (Beta)](/docs-csb-gcp/reference/gcp-pubsub.html)
 * [Troubleshooting](/docs-csb-gcp/troubleshooting.html)
 * [Managing Orphaned Service Instances](../managing_orphaned_service_instances.html)
 * [Uninstalling](/docs-csb-gcp/uninstall.html)
