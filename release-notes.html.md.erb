@@ -20,6 +20,16 @@ This release includes the following fixes:
 Resolved an issue where the CSB was always checking for the default authorized network to exist even when it was not the network to use.
 This issue impacted the following service offerings: `csb-google-mysql`, `csb-google-postgres` and `csb-google-redis`.
 
+
+### Beta Features
+
+New beta features and changes in this release.
+
+- **Added beta support for Google Pub/Sub service:**
+    The Google Pub/Sub offering is now available as a beta and can be used to experiment with creating new Pub/Sub service instances.
+    This offering does not come with brokerpak plans and VMware recommends you create your own custom plan in the tile configuration. [Learn more about the plan configuration parameters](reference/gcp-pubsub.html.md.erb#plans-config).
+    A new set of properties enable the configuration of the service instance. [Learn more about the service instance configuration parameters](reference/gcp-pubsub.html.md.erb#parameters).
+
 ##<a id="1-5-2"></a> v1.5.2
 
 **Release Date:** May 30, 2024
