@@ -12,7 +12,7 @@
     *   [Google PostgreSQL](/docs-csb-gcp/reference/gcp-postgresql.html)
     *   [Google MySQL](/docs-csb-gcp/reference/gcp-mysql.html)
     *   [Google Storage Bucket](/docs-csb-gcp/reference/gcp-storage.html)
-    *   [Google Pub/Sub (Beta)](/docs-csb-gcp/reference/gcp-pubsub.html)
+    *   [Google Pub/Sub](/docs-csb-gcp/reference/gcp-pubsub.html)
     *   [Google Redis (Beta)](/docs-csb-gcp/reference/gcp-redis.html)
     *   [Google Spanner (Beta)](/docs-csb-gcp/reference/gcp-spanner.html)
     *   [Google Dataproc (Beta)](/docs-csb-gcp/reference/gcp-dataproc.html)
