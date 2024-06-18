@@ -85,7 +85,7 @@ provisioning a csb-google-pubsub service:
     <td><code>ack_deadline</code></td>
     <td>integer</td>
     <td>
-      Subscription config - This value is the maximum time after a subscriber receives a message before the subscriber should acknowledge the message (10-600 seconds).
+      Subscription config - This value is the maximum time after a subscriber receives a message before the subscriber must acknowledge the message (10-600 seconds).
     </td>
     <td><code>10</code></td>
     <td>provision and update</td>
@@ -103,7 +103,7 @@ provisioning a csb-google-pubsub service:
     <td><code>topic_message_retention_duration</code></td>
     <td>string</td>
     <td>
-      Duration to retain messages in the topic if no subscription is attached. (e.g., "604800s" for 7 days)
+      Duration to retain messages in the topic if no subscription is attached. For example, "604800s" for 7 days.
     </td>
     <td><code>""</code></td>
     <td>provision and update</td>
@@ -133,7 +133,7 @@ provisioning a csb-google-pubsub service:
     <td><code>subscription_retain_acked_messages</code></td>
     <td>boolean</td>
     <td>
-      Retain acknowledged messages. If true, then messages are not expunged from the subscription's
+      Retain acknowledged messages. If true, messages are not expunged from the subscription's
       backlog, even if they are acknowledged, until they fall out of the <code>messageRetentionDuration</code> window.
     </td>
     <td><code>false</code></td>
@@ -143,8 +143,8 @@ provisioning a csb-google-pubsub service:
     <td><code>subscription_expiration_policy</code></td>
     <td>string</td>
     <td>
-      Duration after which the subscription expires if no messages are received (e.g., "604800s" for 7 days).
-      If <code>expirationPolicy</code> is not set, a default policy with ttl of 31 days will be used. If it is
+      Duration after which the subscription expires if no messages are received. For example, "604800s" for 7 days.
+      If <code>expirationPolicy</code> is not set, a default policy with ttl of 31 days is used. If it is
       set with <code>""</code>, the resource never expires. The minimum allowed value is 1 day.
       Once a subscription's policy is set, it cannot be unset.
     </td>
@@ -155,11 +155,11 @@ provisioning a csb-google-pubsub service:
     <td><code>subscription_retry_policy_minimum_backoff</code></td>
     <td>string</td>
     <td>
-      The minimum delay between consecutive deliveries of a given message (e.g., "10.5s"). When setting
+      The minimum delay between consecutive deliveries of a given message. For example, "10.5s". When setting
       <code>subscription_retry_policy_minimum_backoff</code> and <code>subscription_retry_policy_maximum_backoff</code>,
-      a policy will establish how Pub/Sub retries message delivery for the subscription.
+      a policy establishes how Pub/Sub retries message delivery for the subscription.
       If the group of properties is not set, the default retry policy is applied. This generally implies
-      that messages will be retried as soon as possible for healthy subscribers.
+      that messages are retried as soon as possible for healthy subscribers.
     </td>
     <td><code>""</code></td>
     <td>provision and update</td>
@@ -168,11 +168,11 @@ provisioning a csb-google-pubsub service:
     <td><code>subscription_retry_policy_maximum_backoff</code></td>
     <td>string</td>
     <td>
-      The maximum delay between consecutive deliveries of a given message (e.g., "15.5s"). When setting
+      The maximum delay between consecutive deliveries of a given message. For example, "15.5s". When setting
       <code>subscription_retry_policy_minimum_backoff</code> and <code>subscription_retry_policy_maximum_backoff</code>,
-      a policy will establish how Pub/Sub retries message delivery for the subscription.
+      a policy establishes how Pub/Sub retries message delivery for the subscription.
       If the group of properties is not set, the default retry policy is applied. This generally implies
-      that messages will be retried as soon as possible for healthy subscribers.
+      that messages are retried as soon as possible for healthy subscribers.
     </td>
     <td><code>""</code></td>
     <td>provision and update</td>
@@ -218,7 +218,7 @@ provisioning a csb-google-pubsub service:
 ### <a id="topic_kms_key_name-details"></a>  Setting the `topic_kms_key_name` Property
 
   Pub/Sub uses a Google Cloud service account to access Cloud KMS. The service account
-  is maintained internally by Pub/Sub for each project, and will not be visible on your
+  is maintained internally by Pub/Sub for each project, and is not visible on your
   list of service accounts. The service account has the form
   <code>service-${PROJECT_NUMBER}@gcp-sa-pubsub.iam.gserviceaccount.com</code>.
   For the CMEK feature to work, you must grant this account the Cloud KMS CryptoKey `Encrypter/Decrypter`
