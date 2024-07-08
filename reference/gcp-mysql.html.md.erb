@@ -287,6 +287,10 @@ provisioning a csb-google-mysql service:
       Specifies whether insecure connections are allowed for this service instance.
       Note that enforcing secure connections is not supported by MySQL v5.6.
       If you are using MySQL v5.6, you must set this property to <code>true</code>.
+      Despite `allow_insecure_connections` being `false`, there might be a misconception based
+      on the settings visible in the Google Cloud Console.
+      These settings reflect `server-level` configurations, whereas the CSB enforces security at the user level,
+      ensuring that all bindings (user credentials) created by CSB mandate SSL connections.
     </td>
     <td><code>false</code></td>
     <td>provision</td>
