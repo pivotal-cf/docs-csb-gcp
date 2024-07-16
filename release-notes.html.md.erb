@@ -13,25 +13,12 @@ This topic describes the changes in this minor release of <%= vars.product_full 
 
 ### Breaking Changes
 
-This release has no breaking changes.
+- **Google Beta Pub/Sub Service Is No Longer Available**:
+  The Google Beta Pub/Sub service offering is no longer available.
+  You must delete all instances of this service before upgrading to this version.
+  
 
 ### Features
-
-#### Google Pub/Sub Service General Availability (GA)
-
-- **Google Pub/Sub Service Is Now Generally Available (GA)**:
-  The Google Pub/Sub offering has transitioned from Beta to General Availability (GA), providing a fully supported and
-  stable solution for creating Pub/Sub service instances.
-
-  **Documentation and Resources**:
-    - This offering does not come with brokerpak plans, and VMware recommends you create your own custom plan in the tile
-    configuration. [Learn more about the plan configuration parameters](reference/gcp-pubsub.html.md.erb#plans-config).
-    - [Learn more about the service instance configuration parameters](reference/gcp-pubsub.html.md.erb#parameters).
-    - If you need to migrate from the GCP Service Broker for VMware Tanzu tile to the <%= vars.product_full %>, please read
-      our [migration guide](gcp-pubsub-migration.html.md.erb).
-
-  The service is now fully supported and recommended for production use, offering enhanced stability and a broader feature set.
-
 
 - **Tofu upgraded to v1.7.2:**
 
